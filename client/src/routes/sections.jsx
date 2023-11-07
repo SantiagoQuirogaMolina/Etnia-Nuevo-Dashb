@@ -1,0 +1,265 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable unused-imports/no-unused-imports */
+/* eslint-disable perfectionist/sort-imports */
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+import React, { lazy, Suspense } from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
+
+import DashboardLayout from 'src/layouts/dashboard';
+
+import Home from '../pages/home/Home';
+import ProductDetail from '../pages/productDetail/ProductDetail';
+import UserDetail from '../components/userDetail/UserDetail';
+import PayForm from '../pages/payForm/PayForm';
+import ShoppingCart from '../pages/shoppingCart/ShoppingCart';
+import LogIn from '../pages/logIn/LogIn';
+import NotFound404 from '../pages/404/notFound';
+import Favorites from '../components/favorites/Favorites';
+import Form from '../pages/Forms/Form/Form';
+import FormEmpresa from '../pages/Forms/FormEmpresa/CreateEmpresa';
+import FormMedioPago from '../pages/Forms/FormMedioPago/CreateMedioPago';
+import FormTransportadora from '../pages/Forms/FormTransport/CreateTransport';
+import FormCtaBanco from '../pages/Forms/FormCuentaBanco/CreateCtaBanco';
+import ConfirmTokenForm from '../pages/logIn/ConfirmTokenForm';
+import RegisterForm from '../pages/logIn/registerForm';
+
+const IndexPage = lazy(() => import('../pages/app'));
+const UserPage = lazy(() => import('../pages/user'));
+const LoginPage = lazy(() => import('../pages/login'));
+const ProductsPage = lazy(() => import('../pages/products'));
+const ProductstPage = lazy(() => import('../pages/productst'));
+
+
+function Router() {
+  return (
+    <Routes>
+      <Route path="/admin" element={<AdminRoutes />} />
+      <Route path="/users-admin/" element={<AdminUser />} />
+      <Route path="/products-admin/" element={<AdminProducts />} />
+      <Route path="/productsT/" element={<AdminProductst />} />
+      <Route exact path="login-admin" element={<AdminLogin />} />
+
+
+      <Route path="/" element={<PublicHome />} />
+      <Route path="/product/:id" element={<PublicProduct />} />
+      <Route exact path="/user" element={<PublicLogIn />} />
+      <Route exact path="/user/:id" element={<PublicUserDetail />} />
+      <Route exact path="/payform" element={<PublicPayForm />} />
+      <Route exact path="/carrito" element={<PublicShoppingCart />} />
+      <Route exact path="favorites" element={<PublicFavorites />} />
+      <Route exact path="/Form" element={<PublicForm />} />
+      <Route exact path="/crearempresa" element={<PublicFormEmpresa />} />
+      <Route exact path="/mediopago" element={<PublicFormMedioPago />} />
+      <Route exact path="/transporte" element={<PublicFormTransportadora />} />
+      <Route exact path="/cuentabanco" element={<PublicFormCtaBanco />} />
+      <Route exact path="/RegisterForm" element={<PublicRegisterForm />} />
+      <Route exact path="/ConfirmTokenForm" element={<PublicConfirmTokenForm />} />
+      <Route exact path="*" element={<PublicRoutes />} />
+
+    </Routes>
+  );
+}
+function AdminRoutes() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<IndexPage />} />
+          <Route exact path="*" element={<Navigate to="/404" replace />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+function AdminLogin() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<LoginPage />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+
+function AdminProducts() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<ProductsPage />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+function AdminProductst() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<ProductstPage />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+function AdminUser() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<UserPage />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+
+function PublicRoutes() {
+  return (
+    <Routes>
+      <Route exact path="*" element={<NotFound404 />} />
+    </Routes>
+  );
+}
+function PublicConfirmTokenForm() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<ConfirmTokenForm />} />
+        </Routes>
+      </Suspense>
+  );
+}
+function PublicRegisterForm() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<RegisterForm />} />
+        </Routes>
+      </Suspense>
+  );
+}
+function PublicFormCtaBanco() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<FormCtaBanco />} />
+        </Routes>
+      </Suspense>
+  );
+}
+function PublicFormTransportadora() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<FormTransportadora />} />
+        </Routes>
+      </Suspense>
+  );
+}
+
+function PublicFormMedioPago() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<FormMedioPago />} />
+        </Routes>
+      </Suspense>
+  );
+}
+
+
+function PublicFormEmpresa() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<FormEmpresa />} />
+        </Routes>
+      </Suspense>
+  );
+}
+
+function PublicForm() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<Form />} />
+        </Routes>
+      </Suspense>
+  );
+}
+
+function PublicFavorites() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<Favorites />} />
+        </Routes>
+      </Suspense>
+  );
+}
+
+
+function PublicShoppingCart() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<ShoppingCart />} />
+        </Routes>
+      </Suspense>
+  );
+}
+
+function PublicHome() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+        </Routes>
+      </Suspense>
+  );
+}
+
+function PublicProduct() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/"  element={<ProductDetail />} />
+        </Routes>
+      </Suspense>
+  );
+}
+
+function PublicLogIn() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/"  element={<LogIn />} />
+        </Routes>
+      </Suspense>
+  );
+}
+function PublicUserDetail() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/"  element={<UserDetail />} />
+        </Routes>
+      </Suspense>
+  );
+}
+
+function PublicPayForm() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/"  element={<PayForm />} />
+        </Routes>
+      </Suspense>
+  );
+}
+export default Router;
