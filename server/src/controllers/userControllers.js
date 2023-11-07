@@ -12,7 +12,7 @@ const URL = "http://localhost:3031";
 const uuid = require("uuid");
 const sgMail = require("@sendgrid/mail");
 
-//DEBRIA ENTRAR DESDE .ENV
+// DEBRIA ENTRAR DESDE .ENV
 // ...
 
 const confirmEmailControll = async (req, res) => {
