@@ -18,6 +18,7 @@ module.exports = (sequelize) => {
       defaultValue: 'pending',
     },
   },
-  {timestamps: false }
+  {timestamps: false },
+  {paranoid: true}
 );
 }

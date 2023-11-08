@@ -1,5 +1,6 @@
 const { Products } = require("../db");
 const { Op } = require("sequelize");
+const cloudinary = require('cloudinary').v2;
 
 const paginateAllProducts = async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
@@ -124,11 +125,14 @@ const createProducts = async (productData) => {
       color,
       sale,
       category,
-      img,
+      image, 
       description,
       price,
       quantity,
     } = productData;
+
+    const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
+    const img = cloudinaryUpload.secure_url;
 
     const model = await Products.findAll();
     const nextID = (model[model.length-1].id) + 1;
