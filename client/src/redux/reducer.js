@@ -36,7 +36,7 @@ import {
 const initialState = {
   allProducts: [],
   productDetail: [],
-  productComments: [],
+
   allFavorites: [],
   productShow: [],
   indexProductShow: [],
@@ -52,6 +52,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
     case REGISTER_USER:
       return {
         ...state,
