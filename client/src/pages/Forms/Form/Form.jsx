@@ -36,7 +36,7 @@ const Form = () => {
     color: "",
     price: 0,
     gender: "",
-    img: "",
+    image: "",
     quantity: 0,
     
   });
@@ -131,7 +131,7 @@ const Form = () => {
           color: "",
           price: 0,
           gender: "default",
-          img: "",
+          image: "",
           quantity: 0,
           
         })
@@ -313,8 +313,8 @@ const Form = () => {
           <label>URL de Imagen</label>
           <input className="input3"
             type="url"
-            name="img"
-            value={input.img}
+            name="image"
+            value={input.image}
             onChange={handleChange}
           />
           <p className="errores" style={{ visibility: errors.image ? 'visible' : 'hidden' }}>{errors.image}</p>
@@ -322,7 +322,7 @@ const Form = () => {
         </div>
         <div className="previewImage">
           <h5>Imagen Previa:</h5>
-          <img className="img" src={input.img} width="100px" height="150px" alt="" wi/>
+          <img className="img" src={input.image} width="100px" height="150px" alt="" wi/>
         </div>
 
         </div>

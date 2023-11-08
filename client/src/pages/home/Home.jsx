@@ -135,7 +135,7 @@ function Home(props) {
     <div className={styles.home}>
       <NavBar />
       <Header initialFilters={initialFilters} setInitialFilters={setInitialFilters} initialPageSet={initialPageSet} setInitialPageSet={setInitialPageSet}/>
-<p></p>
+
       <div className={styles.filterscontainer}>
         <Filters
           className={styles.filters}

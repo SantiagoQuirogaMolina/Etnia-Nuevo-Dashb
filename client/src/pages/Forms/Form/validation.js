@@ -26,8 +26,8 @@ if (!input.category.trim()) {  errors.category = 'Este campo es obligatorio'};
 if (input.gender != "female" && input.gender != "male") {  errors.gender = 'Seleccione un género'};
 
 // Imagen
-if(!input.img) {errors.image="Seleccione una imagen para su producto"}
-if (!patronUrl.test(input.img)){errors.image = 'La imagen debe corresponder a una URL'}
+if(!input.image) {errors.image="Seleccione una imagen para su producto"}
+if (!patronUrl.test(input.image)){errors.image = 'La imagen debe corresponder a una URL'}
 
 
 

@@ -161,7 +161,6 @@ export function createMediopago(newMediopago){
   }
 }
 
-
 export function createProduct(newproduct) {
   return async function (dispatch) {
     const info = await axios.post(`${URL}/products`, newproduct);
@@ -442,17 +441,6 @@ export function getAllSelects() {
   };
 }
 
-export function getAllProducts() {
-  return async function (dispatch) {
-    const productsInfo = await axios.get(`${URL}/products`);
-    console.log(productsInfo);
-    dispatch({
-      type: GET_ALL_PRODUCTS,
-      payload: productsInfo.data.results,
-    });
-  };
-}
-
 export function getAddFavorites(product) {
   return async (dispatch) => {
     try {
@@ -471,16 +459,6 @@ export function removeFav(id) {
   return {
     type: REMOVE_FAVORITES,
     payload: id,
-  };
-}
-
-export function createProduct(newproduct) {
-  return async function (dispatch) {
-    const info = await axios.post(`${URL}/products`, newproduct);
-    dispatch({
-      type: CREATE_PRODUCT,
-      payload: info.data,
-    });
   };
 }
 
