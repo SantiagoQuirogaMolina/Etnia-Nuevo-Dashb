@@ -231,7 +231,7 @@ function Home(props) {
       <br />
       <br />
       <Pagination textPaginado={textPaginado}/>
-      <p className={styles.textPaginado}>{textPaginado}</p>
+      {maxPages?.length > 0 && <p className={styles.textPaginado}>{textPaginado}</p>}
     </div>
   );
 }

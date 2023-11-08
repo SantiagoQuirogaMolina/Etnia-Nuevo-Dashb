@@ -5,6 +5,8 @@ const express = require('express');
 const prendas = require('./src/controllers/savedInDB')
 const app = express();
 
+//cloudinary
+
 app.use(express.json())
 const PORT =  process.env.PORT || 3001;
 

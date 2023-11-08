@@ -124,7 +124,7 @@ const createProducts = async (productData) => {
       color,
       sale,
       category,
-      img,
+      img, //cloudinary
       description,
       price,
       quantity,
