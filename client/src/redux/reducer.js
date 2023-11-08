@@ -22,7 +22,6 @@ import {
   USER_LOGOUT,
   GET_ALL_SELECTS,
   LOCALSTORAGE,
- 
   ADD_TO_CART,
   REMOVE_SHIPPING,
   UPDATE_SHIPPING,
@@ -53,7 +52,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    
+
     case REGISTER_USER:
       return {
         ...state,
