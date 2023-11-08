@@ -20,14 +20,12 @@ export const GET_USERS_BY_NAME = "GET_USERS_BY_NAME";
 export const GET_PRODUCTS_BY_NAME = "GET_PRODUCTS_BY_NAME";
 export const ADD_FAVORITES = "ADD_FAVORITES";
 export const GET_BY_ID = "GET_BY_ID";
-export const GET_ALL_COMMENTS="GET_ALL_COMMENTS";
 export const GET_EMPRESA="GET_EMPRESA";
 export const GET_CUENTAS="GET_CUENTAS";
 export const GET_MEDIOPAGO="GET_MEDIOPAGO";
 export const GET_LOGISTICA="GET_LOGISTICA";
 // routes Delete
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
-export const DELETE_COMMENT="DELETE_COMMENT";
 export const DELETE_EMPRESA="DELETE_EMPRESA";
 export const DELETE_CUENTAS="DELETE_CUENTAS";
 export const DELETE_MEDIOPAGO="DELETE_MEDIOPAGO";
@@ -36,7 +34,6 @@ export const DELETE_LOGISTICA="DELETE_LOGISTICA";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const CREATE_USER = "CREATE_USER";
 export const RESTORE_PRODUCT = "RESTORE_PRODUCT";
-export const CREATE_COMMENT="CREATE_COMMENT";
 export const CREATE_EMPRESA="CREATE_EMPRESA";
 export const CREATE_CUENTAS="CREATE_CUENTAS";
 export const CREATE_MEDIOPAGO="CREATE_MEDIOPAGO";
@@ -44,7 +41,6 @@ export const CREATE_LOGISTICA="CREATE_LOGISTICA";
 // routes Put
 export const UPDATE_USER = "UPDATE_USER";
 export const UPDATE_PRODUCT="UPDATE_PRODUCT";
-export const UPDATE_COMMENT = "UPDATE_COMMENT";
 export const UPDATE_EMPRESA="UPDATE_EMPRESA";
 export const UPDATE_CUENTAS="UPDATE_CUENTAS";
 export const UPDATE_MEDIOPAGO="UPDATE_MEDIOPAGO";
@@ -61,9 +57,9 @@ export const PAGINATION = "SET_PAGINATION";
 // errors
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const ERRORS = "ERRORS";
-// carrito
 // export const ADD_SHIPPING = "ADD_SHIPPING";
 // export const REMOVE_SHIPPING = "REMOVE_SHIPPING";
+// carrito
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const UPDATE_CART_ITEM_QUANTITY = "UPDATE_CART_ITEM_QUANTITY";
@@ -171,6 +167,85 @@ export function createProduct(newproduct) {
   };
 }
 
+export function deleteEmpresa(id){
+  return async function (dispatch){
+    const deletedEmpresa= await axios.delete(`/empresa/${id}`);
+    dispatch({
+      type:DELETE_EMPRESA,
+      payload:deletedEmpresa.data,
+    })
+  }
+}
+
+export function deleteCuentas(id){
+  return async function(dispatch){
+    const deletedCuentas= await axios.delete(`/cuentas/${id}`);
+    dispatch({
+      type:DELETE_CUENTAS,
+      payload:deletedCuentas.data,
+    })
+  }
+}
+
+export function deleteMediopago(id){
+  return async function(dispatch){
+    const deletedMediopago=await axios.delete(`/mediopago/${id}`);
+    dispatch({
+      type:DELETE_MEDIOPAGO,
+      payload:deletedMediopago.data,
+    })
+  }
+}
+export function deleteLogistica(id){
+  return async function(dispatch){
+    const deletedLogistica= await axios.delete(`/logistica/${id}`);
+    dispatch({
+      type:DELETE_LOGISTICA,
+      payload:deletedLogistica.data,
+    })
+  }
+}
+
+export function updateEmpresa(payload){
+  return async function(dispatch){
+    const info= await axios.put(`/${payload.id}`,payload);
+    dispatch({
+      type:UPDATE_EMPRESA,
+      payload:info.data,
+    })
+  }
+}
+
+export function updateCuentas(payload){
+  return async function(dispatch){
+    const info= await axios.put(`/${payload.id}`,payload);
+    dispatch({
+      type:UPDATE_CUENTAS,
+      payload:info.data,
+    })
+  }
+}
+
+export function updateMediopago(payload){
+  return async function(dispatch){
+    const info= await axios.put(`/${payload.id}`,payload);
+    dispatch({
+      type:UPDATE_MEDIOPAGO,
+      payload:info.data,
+    })
+  }
+}
+
+export function updateLogistica(payload){
+  return async function(dispatch){
+    const info=await axios.put(`/${payload.id}`,payload);
+    dispatch({
+      type:UPDATE_LOGISTICA,
+      payload:info.data,
+    })
+  }
+}
+
 export function getAllProducts() {
   return async function (dispatch) {
     const productsInfo = await axios.get(`${URL}/products`);
@@ -182,44 +257,7 @@ export function getAllProducts() {
   };
 }
 
-export function getAllComments(id){
-  return async function(dispatch){
-    const commentsInfo=await axios.get(`/comments/${id}`)
-    dispatch({
-      type:GET_ALL_COMMENTS,
-      payload:commentsInfo.data
-    })
-  }
-}
-export function createComment(payload){
-  return async function(dispatch){
-    const info= await axios.post(`/comments`,payload)
-    dispatch({
-      type:CREATE_COMMENT,
-      payload:info.data
-    })
-  }
-}
 
-export function updateComment(payload){
-  return async function(dispatch){
-    const info =await axios.put(`/comments`,payload)
-    dispatch({
-      type:UPDATE_COMMENT,
-      payload:info.data
-    })
-  }
-}
-
-export function deleteComment(idUser, idProduct){
-  return async function (dispatch){
-    const deletedComment= await axios.delete(`/comments/${idUser}/${idProduct}`)
-    dispatch({
-      type:DELETE_COMMENT,
-      payload:deletedComment.data
-    })
-  }
-}
 
 export function updateCartItemQuantity(productId, newQuantity) {
   return {

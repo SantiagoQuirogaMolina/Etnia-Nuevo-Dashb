@@ -17,3 +17,5 @@ const getAllProducts = async (req, res, next) => {
 module.exports = {
   getAllProducts,
 };
+
+// comentario de subida de archios  
