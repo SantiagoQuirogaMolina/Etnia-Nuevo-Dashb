@@ -1,9 +1,12 @@
-const {createFav} = require("../controllers/favsController");
+const {getFavs, createFav, deletefav} = require("../controllers/favsController");
 
 const getAllFavorites = async (req, res)=>{
+    const id = req.params;
     try {
-        const userId = req.params;
-        res.send("TODOS LOS FAVORITOS");
+        if(!id){return res.status(404).json("Missing data")};
+
+        let favorites = await getFavs(id);
+        res.json(favorites);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -12,7 +15,7 @@ const getAllFavorites = async (req, res)=>{
 const postFavorite = async (req, res)=>{
     const {UserId, ProductId} = req.body
     try {
-        if(!UserId || !ProductId){return res.status(400).json("Missing data")};
+        if(!UserId || !ProductId){return res.status(404).json("Missing data")};
 
         let favorite = await createFav({UserId, ProductId});
         res.json(favorite);
@@ -22,8 +25,13 @@ const postFavorite = async (req, res)=>{
 }
 
 const deleteFavorite = async (req, res)=>{
+    const {UserId, ProductId} = req.body;
     try {
-        res.send("QUITAR FAV");
+        if(!UserId || !ProductId){return res.status(404).json("Missing data")};
+
+        let favorite = await deletefav({UserId, ProductId});
+        if(!favorite){return res.json({message: "This not a favorite"})}
+        res.json(favorite);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

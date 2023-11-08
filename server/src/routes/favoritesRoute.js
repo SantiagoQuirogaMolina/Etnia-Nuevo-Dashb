@@ -2,7 +2,7 @@ favsRouter = require("express").Router();
 
 const {getAllFavorites, deleteFavorite, postFavorite} = require("../handlers/favoritesHandler");
 
-favsRouter.get("", getAllFavorites);
+favsRouter.get("/:id", getAllFavorites);
 
 favsRouter.post("", postFavorite);
 
