@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import PropTypes from 'prop-types';
 
 import Tooltip from '@mui/material/Tooltip';
@@ -57,13 +58,13 @@ export default function UserTableToolbar({ numSelected, filterName, onFilterName
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton onClick={handleDelete}>
+          <IconButton onClick={handleDelete} sx={{ color: 'text.disabled', width: 100, height: 20 }}>
             <Iconify icon="eva:trash-2-fill" />
           </IconButton>
         </Tooltip>
       ) : (
         <Tooltip title="Edit">
-          <IconButton onClick={handleEdit}>
+          <IconButton onClick={handleEdit} sx={{ color: 'text.disabled', width: 100, height: 30 }}>
             <Iconify icon="eva:edit-fill" />
           </IconButton>
         </Tooltip>
