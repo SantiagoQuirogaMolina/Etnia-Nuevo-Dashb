@@ -120,6 +120,7 @@ export default function ProductsPage() {
   const handleRedireccion = () => {
     navigate('/Form');  // Utiliza navigate para redirigir
   };
+
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
@@ -154,24 +155,33 @@ export default function ProductsPage() {
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
                   { id: 'name', label: 'Nombre' },
+                  { id: 'gender', label: 'gender' },
+                  { id: 'category', label: 'categoria' },
                   { id: 'color', label: 'color' },
 
                   { id: 'cantidad', label: 'cantidad', align: 'center' },
                   { id: 'precio', label: 'precio' },
+                  { id: 'sale', label: 'sale' },
+
                   { id: '' },
                 ]}
               />
               <TableBody>
-                {dataFiltered
+                {productoss
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => (
                     <UserTableRow
                       key={row.id}
                       name={row.name}
-                      role={row.role}
+                      gender={row.gender}
+                      category={row.category}
+                      color={row.color}
+
                       status={row.status}
-                      avatarUrl={row.avatarUrl}
-                      cantidad={row.cantidad}
+                      img={row.img}
+                      cantidad={row.quantity}
+                      precio={row.price}
+                      sale={row.sale}
                       selected={selected.indexOf(row.name) !== -1}
                       handleClick={(event) => handleClick(event, row.name)}
                     />

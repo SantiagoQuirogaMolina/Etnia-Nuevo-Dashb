@@ -1,5 +1,7 @@
+/* eslint-disable perfectionist/sort-named-imports */
+/* eslint-disable perfectionist/sort-imports */
 /* eslint-disable import/no-unresolved */
-import { useState } from 'react';
+
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -16,6 +18,8 @@ import { users } from 'src/_mock/user';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import TableNoData from '../table-no-data';
 import UserTableRow from '../user-table-row';
 import UserTableHead from '../user-table-head';
@@ -23,9 +27,25 @@ import TableEmptyRows from '../table-empty-rows';
 import UserTableToolbar from '../user-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
 
+import { getAllUsers } from '../../../redux/actions';
+
+
+
 // ----------------------------------------------------------------------
 
 export default function UserPage() {
+  const usersss = useSelector((state) => state.getAllUsers);
+  console.log(usersss);
+  console.log('holaa');
+
+  const dispatch = useDispatch();
+  // Utiliza useEffect para llamar automáticamente la función cuando el componente se monta
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+  console.log(usersss);
+  console.log('holaa');
+
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -121,7 +141,7 @@ export default function UserPage() {
                 headLabel={[
                   { id: 'name', label: 'Nombre' },
                   { id: 'role', label: 'Rol' },
-               
+
                   { id: 'isVerified', label: 'Verificado', align: 'center' },
                   { id: 'status', label: 'Estado' },
                   { id: '' },

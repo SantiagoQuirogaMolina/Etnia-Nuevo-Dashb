@@ -19,10 +19,13 @@ import Iconify from 'src/components/iconify';
 export default function ProductTableRow({
   selected,
   name,
-  avatarUrl,
-  role,
+  img,
+  gender,
   cantidad,
-  status,
+  precio,
+  sale,
+  category,
+  color,
   handleClick,
 }) {
   const [open, setOpen] = React.useState(null);
@@ -47,26 +50,33 @@ export default function ProductTableRow({
 
   return (
     <>
-      <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
+      <TableRow hover tabIndex={-1} gender="checkbox" selected={selected}>
         <TableCell padding="checkbox">
           <Checkbox disableRipple checked={selected} onChange={handleClick} />
         </TableCell>
 
         <TableCell component="th" scope="row" padding="none">
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={name} src={avatarUrl} />
+            <Avatar alt={name} src={img} />
             <Typography variant="subtitle2" noWrap>
               {name}
             </Typography>
           </Stack>
         </TableCell>
 
-        <TableCell>{role}</TableCell>
+        <TableCell>{gender}</TableCell>
+
+        <TableCell>{category}</TableCell>
+        <TableCell>{color}</TableCell>
 
         <TableCell align="center">{cantidad}</TableCell>
 
         <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
+          <Label color="success">{precio}</Label>
+        </TableCell>
+
+        <TableCell>
+          <Label color="error">{sale}</Label>
         </TableCell>
 
         <TableCell align="right">
@@ -101,11 +111,14 @@ export default function ProductTableRow({
 }
 
 ProductTableRow.propTypes = {
-  avatarUrl: PropTypes.any,
+  img: PropTypes.any,
   handleClick: PropTypes.func,
   cantidad: PropTypes.any,
   name: PropTypes.any,
-  role: PropTypes.any,
+  gender: PropTypes.any,
   selected: PropTypes.any,
-  status: PropTypes.string,
+  precio: PropTypes.number,
+  sale: PropTypes.number,
+  category: PropTypes.string,
+  color: PropTypes.string,
 };
