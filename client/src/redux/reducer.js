@@ -30,6 +30,7 @@ import {
   UPDATE_PRODUCT,
   REMOVE_FROM_CART,
   UPDATE_CART_ITEM_QUANTITY,
+  DELETE_USER
 
 } from "./actions";
 
@@ -124,6 +125,8 @@ const reducer = (state = initialState, action) => {
       return action.payload;
 
     case DELETE_PRODUCT:
+      return action.payload;
+    case DELETE_USER:
       return action.payload;
 
     case ADD_FAVORITES:
