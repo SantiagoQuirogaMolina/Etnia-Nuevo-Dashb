@@ -74,13 +74,28 @@ export const REGISTER_USER = "REGISTER_USER";
 export const ADD_SHIPPING = "ADD_SHIPPING";
 export const UPDATE_SHIPPING = "UPDATE_SHIPPING";
 export const REMOVE_SHIPPING = "REMOVE_SHIPPING";
-export const REGISTER_USER_ERROR= "REGISTER_USER_ERROR"
-export const CONFITRM_TOKEN= "CONFITRM_TOKEN"
+export const REGISTER_USER_ERROR= "REGISTER_USER_ERROR";
+export const CONFITRM_TOKEN= "CONFITRM_TOKEN";
+
+//Compras
+export const FINISH_PURCHASE = "FINISH_PURCHASE";
+
 
 
 
  const URL = "http://localhost:3001";
 // const URL = "https://etniasoftcommerce.up.railway.app";
+
+
+export function finishPurchase(cart) {
+  return async function (dispatch) {
+    const purchase = await axios.post(`${URL}/purchase`, newpurchase);
+    dispatch({
+      type: FINISH_PURCHASE,
+      payload: purchase.data,
+    });
+  }; 
+}
 
 export function getCuentas(){
   return async function(dispatch){

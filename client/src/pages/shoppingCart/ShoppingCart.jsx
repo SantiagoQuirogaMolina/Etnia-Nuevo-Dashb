@@ -15,10 +15,26 @@ function calculateTotalPrice(cart) {
   }, 0);
 }
 
-function ShoppingCart() {
+function ShoppingCart({ onClick }) {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch(); // Obtener el dispatcher
   const totalPrice = calculateTotalPrice(cart);
+
+  const [isVisible, setIsVisible] = React.useState(true);
+  const { preferenceId, isLoading: disabled, orderData, setOrderData } = React.useContext(Context);
+  const shoppingCartClass = classnames('shopping-cart dark', {
+    'shopping-cart--hidden': !isVisible,
+  })
+
+  useEffect(() => {
+    if (preferenceId) setIsVisible(false);
+  }, [preferenceId])
+
+  const updatePrice = (event) => {
+    const quantity = event.target.value;
+    const amount = parseInt(orderData.price) * parseInt(quantity);
+    setOrderData({ ...orderData, quantity, amount });
+  }
 
   const handleRemoveFromCart = (productId) => {
     dispatch(removeFromCart(productId)); // Acción para eliminar un producto del carrito
@@ -76,7 +92,14 @@ function ShoppingCart() {
       <div className={styles.totalPrice}>
         <p>Precio Total: ${totalPrice}</p>
       </div>
-      <button className={styles['checkout-button']}>Finalizar compra</button>
+      <button 
+        className={styles['checkout-button']}
+        onClick={onClick}
+        id="checkout-btn"
+        disabled={disabled}
+        >
+        Finalizar compra
+        </button>
     </div>
   );
 }

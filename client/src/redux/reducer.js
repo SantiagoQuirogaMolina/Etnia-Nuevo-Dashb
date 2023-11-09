@@ -46,6 +46,7 @@ const initialState = {
   indexProductShow: [],
   allUsers: [],
   cart: [],
+  purchases: [],
   errors: {},
   selectFilter: {},
   page: null,
@@ -56,6 +57,13 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case FINISH_PURCHASE:
+      return {
+        ...state,
+        errors: {},
+      };
+
     case GET_ALL_COMMENTS:
       return{
         ...state,
