@@ -1,4 +1,4 @@
-const Router = require(express);
+const Router = require("express");
 const {placeOrder, succesfulPurchase} = require('../controllers/mercadoController');
 
 const mercadoRouter = Router();
