@@ -15,7 +15,7 @@ import stylesContainer from "../cardsContainer/CardsContainer.module.css"
 
 
 export default function Favorites(props){
-    const favorites = useSelector((state)=> state.allFavorites);
+    const favorites = useSelector((state)=> state.FavoritesPersist);
     const dispatch = useDispatch();
 
     const handleFavorite = (id) => {
