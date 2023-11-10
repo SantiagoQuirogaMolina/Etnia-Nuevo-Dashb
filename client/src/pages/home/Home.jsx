@@ -31,6 +31,14 @@ function Home(props) {
 
   const dispatch = useDispatch();
 
+  const autoLogin = () => {
+    const token = localStorage.getItem("token");
+    console.log(token);
+    // if (token) {
+    //   dispatch(autoLoginAction(token));
+    // }
+  };
+
   useEffect(() => {
     if (!initialPageSet) {
       dispatch(getFiltersAndPagination(initialFilters, initialPageSet));
@@ -47,6 +55,7 @@ function Home(props) {
   useEffect(() => {
     loadProducts();
     dispatch(getAllSelects())
+    autoLogin();
   }, [dispatch, initialFilters, initialPageSet]);
 
 
