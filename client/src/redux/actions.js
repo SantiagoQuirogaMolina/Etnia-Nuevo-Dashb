@@ -9,6 +9,7 @@
 /* eslint-disable no-useless-catch */
 import axios from "axios";
 import getFindSelects from "../functions/getFindSelects";
+import ProductDetail from "src/pages/productDetail/ProductDetail";
 
 // Routes Get
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
@@ -26,6 +27,9 @@ export const GET_MEDIOPAGO="GET_MEDIOPAGO";
 export const GET_LOGISTICA="GET_LOGISTICA";
 export const GET_ALL_FAVS="GET_ALL_FAVS";
 export const GET_ALL_CARTS="GET_ALL_FAVS";
+export const GET_PURCHASE_DETAIL = "GET_PURCHASE_DETAIL";
+export const GET_ALL_PURCHASES = "GET_ALL_PURCHASES";
+export const GET_USER_PURCHASES = "GET_USER_PURCHASES";
 // routes Delete
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const DELETE_USER="DELETE_USER";
@@ -45,6 +49,8 @@ export const CREATE_MEDIOPAGO="CREATE_MEDIOPAGO";
 export const CREATE_LOGISTICA="CREATE_LOGISTICA";
 export const NEW_FAVORITE="NEW_FAVORITE";
 export const NEW_CART="NEW_CART";
+export const CREATE_PURCHASE = "CREATE_PURCHASE";
+
 // routes Put
 export const UPDATE_USER = "UPDATE_USER";
 export const UPDATE_PRODUCT="UPDATE_PRODUCT";
@@ -88,6 +94,44 @@ export const CONFITRM_TOKEN= "CONFITRM_TOKEN"
 
  const URL = "http://localhost:3001";
 // const URL = "https://etniasoftcommerce.up.railway.app";
+
+export function getAllPurchases(){
+  return async function(dispatch){
+    const purchasesInfo= await axios.get(`${URL}/purchase`)
+    dispatch({
+      type:GET_ALL_PURCHASES,
+      payload:purchasesInfo.data
+    })
+  }
+}
+
+export function getUserPurchases(id){
+  return async function(dispatch){
+    const purchasesInfo= await axios.get(`${URL}/purchase/${id}`)
+    dispatch({
+      type:GET_USER_PURCHASES,
+      payload:purchasesInfo.data
+    })
+  }
+}
+export function getPurchaseDetail(payload){
+  return async function(dispatch){
+    const productDetail= await axios.get(`${URL}/buyings/acceptpayment${payload}`)
+    dispatch({
+      type:GET_PURCHASE_DETAIL,
+      payload:productDetail
+    })
+  }
+}
+export function createPurchase(payload){
+return async function(dispatch){
+  const info= await axios.post(`${URL}/purchase`,payload)
+  dispatch({
+    type:CREATE_PURCHASE,
+    payload:info.data
+  })
+}
+}
 
 export function getAllFavs(id){
   return async function(dispatch){

@@ -36,11 +36,17 @@ import {
   NEW_CART,
   NEW_FAVORITE,
   REMOVE_CART_BACK,
-  REMOVE_FAV_BACK
+  REMOVE_FAV_BACK,
+  GET_ALL_PURCHASES,
+  CREATE_PURCHASE,
+  GET_PURCHASE_DETAIL,
 } from "./actions";
 
 const initialState = {
   allProducts: [],
+  purchase:{},
+  createdPurchase:{},
+  userPurchases:[],
   productDetail: [],
   FavoritesPersist: [],
   cartPersist: [],
@@ -65,6 +71,24 @@ const reducer = (state = initialState, action) => {
         ...state,
         allFavoritesBack: action.payload
       }
+      case GET_ALL_PURCHASES: {
+        return {
+            ...state,
+            purchasesAdmin: action.payload
+        }
+    }
+
+    
+          case GET_PURCHASE_DETAIL:
+              return {
+                  ...state,
+                  purchase: action.payload,
+              }     
+              case CREATE_PURCHASE:
+                return {
+                    ...state,
+                    createdPurchase: action.payload,
+                }
     
     case NEW_FAVORITE:
       return{
