@@ -24,6 +24,8 @@ export const GET_EMPRESA="GET_EMPRESA";
 export const GET_CUENTAS="GET_CUENTAS";
 export const GET_MEDIOPAGO="GET_MEDIOPAGO";
 export const GET_LOGISTICA="GET_LOGISTICA";
+export const GET_ALL_FAVS="GET_ALL_FAVS";
+export const GET_ALL_CARTS="GET_ALL_FAVS";
 // routes Delete
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const DELETE_USER="DELETE_USER";
@@ -31,6 +33,8 @@ export const DELETE_EMPRESA="DELETE_EMPRESA";
 export const DELETE_CUENTAS="DELETE_CUENTAS";
 export const DELETE_MEDIOPAGO="DELETE_MEDIOPAGO";
 export const DELETE_LOGISTICA="DELETE_LOGISTICA";
+export const REMOVE_FAV_BACK="REMOVE_FAV_BACK";
+export const REMOVE_CART_BACK="REMOVE_CART_BACK";
 // Routes Post
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const CREATE_USER = "CREATE_USER";
@@ -39,6 +43,8 @@ export const CREATE_EMPRESA="CREATE_EMPRESA";
 export const CREATE_CUENTAS="CREATE_CUENTAS";
 export const CREATE_MEDIOPAGO="CREATE_MEDIOPAGO";
 export const CREATE_LOGISTICA="CREATE_LOGISTICA";
+export const NEW_FAVORITE="NEW_FAVORITE";
+export const NEW_CART="NEW_CART";
 // routes Put
 export const UPDATE_USER = "UPDATE_USER";
 export const UPDATE_PRODUCT="UPDATE_PRODUCT";
@@ -83,6 +89,66 @@ export const CONFITRM_TOKEN= "CONFITRM_TOKEN"
  const URL = "http://localhost:3001";
 // const URL = "https://etniasoftcommerce.up.railway.app";
 
+export function getAllFavs(id){
+  return async function(dispatch){
+    const response = await axios.get(`${URL}/favs/${id}`);
+    dispatch({
+      type:GET_ALL_FAVS,
+      payload:response.data,
+    })
+  }
+}
+
+export function AddFavoriteBack(objectId){
+  return async function(dispatch){
+    const response = await axios.post(`${URL}/favs`, objectId);
+    dispatch({
+      type:NEW_FAVORITE,
+      payload:response.data,
+    })
+  }
+}
+
+export function removeFavoriteBack(objectId){
+  return async function(dispatch){
+    const response = await axios.put(`${URL}/favs`, objectId);
+    dispatch({
+      type:REMOVE_FAV_BACK,
+      payload:response.data,
+    })
+  }
+}
+
+export function getAllCarts(id){
+  return async function(dispatch){
+    const response = await axios.get(`${URL}/cart/${id}`);
+    dispatch({
+      type:GET_ALL_CARTS,
+      payload:response.data,
+    })
+  }
+}
+
+export function AddCartBack(objectId){
+  return async function(dispatch){
+    const response = await axios.post(`${URL}/cart`, objectId);
+    dispatch({
+      type:NEW_CART,
+      payload:response.data,
+    })
+  }
+}
+
+export function removeCartBack(objectId){
+  return async function(dispatch){
+    const response = await axios.put(`${URL}/cart`, objectId);
+    dispatch({
+      type:REMOVE_CART_BACK,
+      payload:response.data,
+    })
+  }
+}
+
 export function getCuentas(){
   return async function(dispatch){
     const cuentasInfo= await axios.get(`${URL}/cuentas`);
@@ -92,6 +158,7 @@ export function getCuentas(){
     })
   }
 }
+
 export function getEmpresa(){
   return async function(dispatch){
     const empresaInfo= await axios.get(`${URL}/empresa`);
@@ -101,6 +168,7 @@ export function getEmpresa(){
     })
   }
 }
+
 export function getMedioPago(){
   return async function(dispatch){
     const mediopagoInfo= await axios.get(`${URL}/mediopago`);
@@ -110,6 +178,7 @@ export function getMedioPago(){
     })
   }
 }
+
 export function getLogistica(){
   return async function(dispatch){
     const logisticaInfo= await axios.get(`${URL}/logistica`);

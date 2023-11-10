@@ -20,7 +20,6 @@ import { getByID, addToCart } from "../../redux/actions";
 import NavBar from '../../components/navBar/NavBar'
 import ReactImageMagnify from 'react-image-magnify';
 import Swal from 'sweetalert2';
-import { useLocalStorage } from "../../functions/useLocalStorage";
 import styles from './ProductDetail.module.css';
 
 export default function ProductDetail({handleChange}) {
