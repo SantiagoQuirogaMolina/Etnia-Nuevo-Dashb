@@ -30,14 +30,15 @@ import {
   UPDATE_PRODUCT,
   REMOVE_FROM_CART,
   UPDATE_CART_ITEM_QUANTITY,
-  DELETE_USER
+  DELETE_USER,
+  FINISH_PURCHASE
 
 } from "./actions";
 
 const initialState = {
   allProducts: [],
   productDetail: [],
-
+  purchases: [],
   allFavorites: [],
   productShow: [],
   indexProductShow: [],
@@ -185,6 +186,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: null,
+      };
+    case FINISH_PURCHASE:
+      return {
+        ...state,
+        errors: {},
       };
 
     default:

@@ -1,9 +1,8 @@
 /* eslint-disable prefer-const */
 /* eslint-disable react/button-has-type */
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { removeFromCart, updateCartItemQuantity } from '../../redux/actions'; // Añadir las acciones necesarias
+import { removeFromCart, finishPurchase, updateCartItemQuantity } from '../../redux/actions'; // Añadir las acciones necesarias
 import styles from './ShoppingCart.module.css';
 import NavBar from '../../components/navBar/NavBar';
 
@@ -20,6 +19,7 @@ function ShoppingCart() {
   const dispatch = useDispatch(); // Obtener el dispatcher
   const totalPrice = calculateTotalPrice(cart);
 
+
   const handleRemoveFromCart = (productId) => {
     dispatch(removeFromCart(productId)); // Acción para eliminar un producto del carrito
   };
@@ -28,10 +28,17 @@ function ShoppingCart() {
     dispatch(updateCartItemQuantity(productId, newQuantity)); // Acción para actualizar la cantidad de un producto
   };
 
+  const handleCheckout = () => {
+    dispatch(finishPurchase(cart));
+    // You might want to reset the cart or navigate to a different page after the purchase is finished
+    // You can add those actions here
+  };
+
+  const disabled = cart.length === 0;
   const uniqueCartItems = Array.from(new Set(cart.map((item) => item.id))); // Filtrar elementos únicos
 
   return (
-    <div className={styles['shopping-cart']}>
+    <div>
       <NavBar />
       <div>
         <h1 className={styles.title}>Carrito de compras</h1>
@@ -76,7 +83,14 @@ function ShoppingCart() {
       <div className={styles.totalPrice}>
         <p>Precio Total: ${totalPrice}</p>
       </div>
-      <button className={styles['checkout-button']}>Finalizar compra</button>
+      <button 
+        className={styles['checkout-button']}
+        onClick={handleCheckout} // Use the new handleCheckout function
+        id="checkout-btn"
+        disabled={disabled}
+      >
+        Finalizar compra
+        </button>
     </div>
   );
 }

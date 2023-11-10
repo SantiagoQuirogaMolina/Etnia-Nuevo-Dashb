@@ -78,6 +78,9 @@ export const REMOVE_SHIPPING = "REMOVE_SHIPPING";
 export const REGISTER_USER_ERROR= "REGISTER_USER_ERROR"
 export const CONFITRM_TOKEN= "CONFITRM_TOKEN"
 
+//  Compras
+
+export const FINISH_PURCHASE = "FINISH_PURCHASE";
 
 
  const URL = "http://localhost:3001";
@@ -526,6 +529,16 @@ export function restoreProduct(id) {
       });
     }
   };
+}
+
+export function finishPurchase(cart) {
+  return async function (dispatch) {
+    const purchase = await axios.post(`${URL}/purchase`, purchase);
+    dispatch({
+      type: FINISH_PURCHASE,
+      payload: purchase.data,
+    });
+  }; 
 }
 
 export const getFiltersAndPagination = (filtros, pageNumber) => {
