@@ -114,7 +114,7 @@ select {
   margin-top: 10px;
   display: flex;
   align-items: center;
-  max-width: 60%;
+  max-width: 100%;
 }
 
 .globalTalla label {
@@ -136,4 +136,11 @@ select {
   font-size: 15px;
   cursor: pointer;
   max-width: 30%;
+}
+
+
+.errorsubmit {
+  color: red;
+  font-size: 14px;
+  margin: 0;
 }

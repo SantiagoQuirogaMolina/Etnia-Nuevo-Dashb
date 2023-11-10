@@ -1,216 +1,170 @@
-/* eslint-disable perfectionist/sort-imports */
-/* eslint-disable perfectionist/sort-named-imports */
-/* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-shadow */
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { createUser, clearErrors } from '../../../redux/actions'; 
-import  "./User.css"
-import { validateUserInput } from './validation';
+import Swal from 'sweetalert2';
+import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+
+import './User.css';
+import validate from "./validate";
+import { createUser } from "../../../redux/actions";
+import primeraMayuscula from "../../../functions/primeraMayuscula";
 
 
-const UserForm = () => {
+   
+const CreateUser = () => {
+    
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const userErrors = useSelector((state) => state.errors);
-  
-    const [errors, setErrors] = useState({});
-  
-    const [userData, setUserData] = useState({
-      name: '',
-      last_name: '',
-      phone_number: '',
-      address: '',
-      admin: false,
-      employee: false,
-      email: '',
-      password: '',
-    });
-    useEffect(() => {
-        dispatch(createUser())
-        return () => dispatch(clearErrors());
-      }, [dispatch]);
-
-      const handleChange = (event) => {
-        setUserData({
-          ...userData,
-          [event.target.name]: event.target.value,
-        });
-        validateInput({
-          ...userData,
-          [event.target.name]: event.target.value,
-        });
-      };
-
-      const validateInput = (inputData) => {
-        const errors = validateUserInput(inputData)
-        setErrors(errors)
-      };
-
-      const isSubmitDisabled = Object.keys(errors).length > 0;
-
-      const handleSubmit = (event) => {
-        event.preventDefault();
     
-        dispatch(createUser(userData)).then((postError) => {
-          if (!postError) {
-            setUserData({
-              name: '',
-              last_name: '',
-              phone_number: '',
-              address: '',
-              admin: false,
-              employee: false,
-              email: '',
-              password: '',
-            });
-            // Add any additional actions or redirects
-            // Alert success message and navigate as needed
-            alert('User created successfully');
-            navigate('/home');
-            dispatch(clearErrors());
-          } else {
-            // Handle and display errors if user creation fails
-            // You may want to update the 'errors' state
-            console.error(postError);
-          }
+    const [errorSubmit,setErrorSubmit] = useState("");
+    
+    const [input, setInput] = useState({
+        name: '',
+        last_name: '',
+        email: '',
+        phone_number: '',
+        address: '',
+        password: '',
+        employee: '',
+        admin: '',
+        confirmationToken: ''
+    })
+    
+    const [errors, setErrors] = useState({
+        name: '',
+        last_name: '',
+        email: '',
+        phone_number: '',
+        address:'',
+        password: '',
+        employee: '',
+        admin:'',
+        confirmationToken: ''
+    })
+    
+      useEffect(() => {
+       
+      }, [dispatch])
+    
+      const handleChange = (evento) => {
+        setInput({
+          ...input,
+          [evento.target.name]: evento.target.value
+        })
+        setErrors(
+          validate({
+            ...input,
+            [evento.target.name]: evento.target.value
+          })
+        )
+        setErrorSubmit("");
+      }
+
+      const mostrarAlertaExitosa = () => {
+        Swal.fire({
+          icon: 'success',
+          title: '',
+          text: 'El usuario ha sido creado',
         });
       };
-
-      return (
-        <div >
-            <form className="globalCont" onSubmit={(event) => handleSubmit(event)} >
-              <h3 className="formTitle">Crear Nuevo Usuario</h3>
-              <div>
-                <label>Name</label>
-                <input className="input1"
-                  type="text"
-                  placeholder="Enter a name"
-                  name="name"
-                  onChange={handleChange}
-                  value={userData.name}
-                />
-                <p className={style.errores} style={{ visibility: errors.name ? 'visible' : 'hidden' }}>
-                  {errors.name}
-                </p>
-                </div>
     
-              <div >
-                <label>Last Name</label>
-                <input className="input1"
-                  type="text"
-                  placeholder="Enter the last name"
-                  name="last_name"
-                  onChange={handleChange}
-                  value={userData.last_name}
-                />
-                <p className={style.errores} style={{ visibility: errors.last_name ? 'visible' : 'hidden' }}>
-                  {errors.last_name}
-                </p>
-              </div>
-    
-              <div >
-                <label>Phone Number</label>
-                <input className="input1"
-                  type="tel"
-                  placeholder="Enter phone number"
-                  name="phone_number"
-                  onChange={handleChange}
-                  value={userData.phone_number}
-                />
-                <p className={style.errores} style={{ visibility: errors.phone_number ? 'visible' : 'hidden' }}>
-                  {errors.phone_number}
-                </p>
-              </div>
-    
-              <div >
-                  <label>Address</label>
-                  <input className="input1"
-                    type="text"
-                    placeholder="Enter address"
-                    name="address"
-                    onChange={handleChange}
-                    value={userData.address}
-                  />
-                  <p className={style.errores} style={{ visibility: errors.address ? 'visible' : 'hidden' }}>
-                    {errors.address}
-                  </p>
-              </div>
-    
-              <div >
-                <label>Email</label>
-                <input
-                  type="email"
-                  placeholder="Enter email"
-                  name="email"
-                  onChange={handleChange}
-                  value={userData.email}
-                />
-                <p className={style.errores} style={{ visibility: errors.email ? 'visible' : 'hidden' }}>
-                  {errors.email}
-                </p>
-              </div>
-    
-              <div >
-                <label>Password</label>
-                <input className="input1"
-                  type="password"
-                  placeholder="Enter password"
-                  name="password"
-                  onChange={handleChange}
-                  value={userData.password}
-                />
-                <p className={style.errores} style={{ visibility: errors.password ? 'visible' : 'hidden' }}>
-                  {errors.password}
-                </p>
-              </div>
-    
-              
-                <div >
-                  <label>Admin</label>
-                  <input className="input2"
-                    type="checkbox"
-                    name="admin"
-                    checked={userData.admin}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div >
-                  <label>Employee</label>
-                  <input className="input2"
-                    type="checkbox"
-                    name="employee"
-                    checked={userData.employee}
-                    onChange={handleChange}
-                  />
-                </div>
-              
-    
-              <br />
-              <br />
-              <div className="buttonDiv">
-                <button
-                  className="btn"
-                  disabled={isSubmitDisabled}
-                  style={isSubmitDisabled ? { opacity: '0.6', cursor: 'not-allowed' } : null}
-                  type="submit"
-                >
-                  Create
-                </button>
-              </div>
-              <p className="errores" style={{ visibility: userErrors?.createUser?.error ? 'visible' : 'hidden' }}>
-                {userErrors?.createUser?.error}
-              </p>
-            </form>
+      const handleSubmit = async (evento) => {
+        evento.preventDefault();
+        try {
           
-          {/* Add any additional user-related information or preview here if needed */}
+          const long = Object.values(errors);
+          if (long.length === 0) {
+            input.name= primeraMayuscula(input.name)
+            input.last_name= primeraMayuscula(input.last_name)
+            if(input.employee ==="employee"){
+              input.employee=true;
+              input.admin=true;
+            } 
+            
+            dispatch(createUser(input))
+            mostrarAlertaExitosa();
+            setInput({name:'', last_name: '', email:'', address:'', phone_number: '',
+                      password: '', employee: '', admin:'',confirmationToken: ''})
+            setErrors({name:'', last_name: '', email:'', address:'', phone: '', 
+                      password: '', employee: '', admin:'', confirmationToken: ''})
+          
+            
+          }else {
+            setErrorSubmit("Debe llenar los campos sin errores");
+           
+          }
+        }catch (error) {
+          setErrorSubmit(error)
+
+        }
+        
+      }
+
+      return <div className='Formuser-container'>
+      <form  onSubmit={handleSubmit} name ="f1">
+      <div className='formusertitle'>
+      <h3 className="userTitle"> Crear un usuario</h3>
+      <div className="formuser">
+      
+        <div>
+        <label htmlFor="name">Nombre:</label>
+        <input type="text" name ="name" id="name" value={input.name} onChange ={handleChange}
+        className = {errors.name && 'warning'}/>
+        {errors.name && <p className ='danger'>{errors.name}</p>}
         </div>
-      );
-    };
-  
-    export default UserForm;
+
+        <div>
+        <label htmlFor="last_name">Apellido:</label>
+        <input type="text" name ="last_name" id="last_name" value={input.last_name} onChange ={handleChange}
+        className = {errors.last_name && 'warning'}/>
+        {errors.last_name && <p className ='danger'>{errors.last_name}</p>}
+        
+        </div>
+        
+        <div>
+        <label htmlFor="email">Email:</label>
+        <input type="text" name="email" id = "email" value={input.email} onChange = {handleChange}
+        className = {errors.email && 'warning'}/>
+        {errors.email && <p className ='danger'>{errors.email}</p>}
+        </div>
+
+        <div>
+        <label htmlFor="phone">Teléfono:</label>
+        <input type="text" name="phone_number" id="phone_number" value={input.phone_number} onChange = {handleChange}/>
+        {errors.phone && <p className ='danger'>{errors.phone}</p>}
+        </div>
+       
+        <div>
+        <label htmlFor="address">Dirección:</label>
+        <input type="text" name="address" value={input.address} onChange = {handleChange}/>
+        {errors.address && <p className ='danger'>{errors.address}</p>}
+        </div>
+
+        <div>
+        <label htmlFor="password">Contraseña:</label>
+        <input type="text" name="password" value={input.password} onChange = {handleChange}/>
+        {errors.password && <p className ='danger'>{errors.password}</p>}
+        </div>
+        </div>
+        </div>
+        <div className='empleadoform'>
+          <div className='formempleado-group'>
+          <input type="checkbox" name="employee" id="employee" value="employee" onChange={handleChange} />
+          <label htmlFor="empleado">Empleado</label>
+          <span className ='danger'>{errorSubmit}</span>
+        </div>
+
+        
+       
+        
+        <button className ='userbutton' type="submit" id="submit">Crear Usuario</button>
+        </div>
+      
+        
+      </form>
+      </div>
+    }
+
+
+export default CreateUser
 
 
 
