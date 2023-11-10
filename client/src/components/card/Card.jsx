@@ -14,7 +14,7 @@ import { useLocalStorage } from "../../functions/useLocalStorage";
 // comentario de prueba
 
 function Card({id, name, gender, sale, img, color, price}) {
-  const favorites = useSelector((state)=> state.allFavorites)
+  const favorites = useSelector((state)=> state.FavoritesPersist)
   const dispatch = useDispatch();
 
   const [isFav, setIsFav] = useState(false);

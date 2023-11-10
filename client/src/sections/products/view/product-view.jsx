@@ -5,6 +5,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable import/no-unresolved */
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -35,6 +36,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function ProductsPage() {
+ const navigate = useNavigate(); 
   const productoss = useSelector((state) => state.allProducts);
   console.log(productoss);
   console.log('holaa');
@@ -115,15 +117,22 @@ export default function ProductsPage() {
   });
 
   const notFound = !dataFiltered.length && !!filterName;
-
+  const handleRedireccion = () => {
+    navigate('/Form');  // Utiliza navigate para redirigir
+  };
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4">Products</Typography>
 
-        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
-          New Product
-        </Button>
+        <Button
+        variant="contained"
+        color="inherit"
+        startIcon={<Iconify icon="eva:plus-fill" />}
+        onClick={handleRedireccion}
+      >
+        New Product
+      </Button>
       </Stack>
 
       <Card>

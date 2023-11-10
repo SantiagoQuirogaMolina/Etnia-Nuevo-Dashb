@@ -14,7 +14,7 @@ const persistConfig = {
   version: 1,
   storage,
   blacklist: ["productDetail", "allProducts", "productShow", "indexProductShow", "allUsers", "errors", "selectFilter", "page", "localstorage", "shipments", "user"],
-  whitelist: ['allFavorites', "cart"],
+  whitelist: ['FavoritesPersist', "cartPersist"],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
