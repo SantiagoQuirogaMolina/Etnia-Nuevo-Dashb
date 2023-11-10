@@ -38,17 +38,14 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function ProductsPage() {
  const navigate = useNavigate(); 
   const productoss = useSelector((state) => state.allProducts);
-  console.log(productoss);
-  console.log('holaa');
 
   const dispatch = useDispatch();
   // Utiliza useEffect para llamar automáticamente la función cuando el componente se monta
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
-  console.log(productoss);
-  console.log('holaa');
-
+ 
+ 
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -120,7 +117,7 @@ export default function ProductsPage() {
   const handleRedireccion = () => {
     navigate('/Form');  // Utiliza navigate para redirigir
   };
-
+ 
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
@@ -176,7 +173,6 @@ export default function ProductsPage() {
                       gender={row.gender}
                       category={row.category}
                       color={row.color}
-
                       status={row.status}
                       img={row.img}
                       cantidad={row.quantity}

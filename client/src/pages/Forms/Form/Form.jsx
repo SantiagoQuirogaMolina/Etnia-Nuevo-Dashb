@@ -39,7 +39,11 @@ const Form = () => {
     quantity: 0,
   });
 
+
+
+  
   useEffect(() => {
+
     return () => dispatch(clearErrors());
   }, [dispatch]);
 
@@ -65,12 +69,16 @@ const Form = () => {
     setErrorSubmit('');
   };
 
+  
   // const validateInput = (inputData) => {
   //   const errors = Validation(inputData)
   //   setErrors(errors)
   // }
 
+ 
   let isSubmitDisabled = Object.keys(errors).length > 0;
+
+  console.log(isSubmitDisabled);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -379,15 +387,15 @@ const Form = () => {
           </div>
 
           <div className="form-group">
-            <label className="label-form" htmlFor="img">
+            <label className="label-form" htmlFor="image">
               URL de Imagen
             </label>
             <input
               className="input3"
               type="url"
-              id="img"
-              name="img"
-              value={input.img}
+              id="image"
+              name="image"
+              value={input.image}
               onChange={handleChange}
             />
             <p className="errores" style={{ visibility: errors.image ? 'visible' : 'hidden' }}>
@@ -399,7 +407,7 @@ const Form = () => {
           <div className="previewImage">
             <h5>Imagen Previa:</h5>
             <div className="img-container">
-              <img className="img" src={input.img} alt="" />
+              <img className="img" src={input.image} alt="" />
             </div>
           </div>
         </div>
@@ -418,7 +426,7 @@ const Form = () => {
             onChange={handleChange}
           />
           <input type="checkbox" name="s" id="S" value="S" onChange={habilitar} />
-          <label for="S">S</label>
+          <label htmlFor="S">S</label>
           <input
             disabled
             className="input2T"
@@ -430,7 +438,7 @@ const Form = () => {
           />
 
           <input type="checkbox" name="m" id="M" value="M" onChange={habilitar} />
-          <label for="M">M</label>
+          <label htmlFor="M">M</label>
           <input
             disabled
             className="input2T"
@@ -442,7 +450,7 @@ const Form = () => {
           />
 
           <input type="checkbox" name="l" id="L" value="L" onChange={habilitar} />
-          <label for="L">L</label>
+          <label htmlFor="L">L</label>
           <input
             disabled
             className="input2T"
@@ -454,7 +462,7 @@ const Form = () => {
           />
 
           <input type="checkbox" name="xl" id="XL" value="XL" onChange={habilitar} />
-          <label for="XL">XL</label>
+          <label htmlFor="XL">XL</label>
           <input
             disabled
             className="input2T"
@@ -466,7 +474,7 @@ const Form = () => {
           />
 
           <input type="checkbox" name="xxl" id="XXL" value="XXL" onChange={habilitar} />
-          <label for="XXL">XXL</label>
+          <label htmlFor="XXL">XXL</label>
           <input
             disabled
             className="input2T"
@@ -482,8 +490,8 @@ const Form = () => {
           <button
             id="submit"
             className="btn"
-            disabled={isSubmitDisabled}
-            style={isSubmitDisabled ? { opacity: '0.6', cursor: 'not-allowed' } : null}
+            disabled={isSubmitDisabled || input.name.length === 0 }
+            style={(isSubmitDisabled || input.name.length === 0) ? { opacity: '0.6', cursor: 'not-allowed' } : null}
             type="submit"
           >
             Crear Producto
