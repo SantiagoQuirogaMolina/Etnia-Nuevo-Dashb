@@ -5,7 +5,7 @@
 /* eslint-disable import/no-unresolved */
 
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Stack from '@mui/material/Stack';
@@ -21,7 +21,7 @@ import IconButton from '@mui/material/IconButton';
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 
-import { deleteProduct } from '../../redux/actions';
+import { deleteUser } from '../../redux/actions';
 
 export default function UserTableRow({
   id,
@@ -33,19 +33,11 @@ export default function UserTableRow({
   isVerified,
   status,
   handleClick,
-})
- {
-  const usersss = useSelector((state) => state.allUsers);
-  console.log(usersss);
-  console.log('holaa');
+}) {
 
   const dispatch = useDispatch();
   // Utiliza useEffect para llamar automáticamente la función cuando el componente se monta
-  useEffect(() => {
-    dispatch(deleteProduct(1));
-  }, [dispatch]);
-  console.log(usersss);
-  console.log('holaa');
+  useEffect(() => {}, [dispatch]);
 
   const [open, setOpen] = React.useState(null);
 
@@ -63,7 +55,7 @@ export default function UserTableRow({
   };
 
   const handleDeleteClick = () => {
-    console.log('Eliminar', id);
+    dispatch(deleteUser(id));
     handleCloseMenu();
   };
 

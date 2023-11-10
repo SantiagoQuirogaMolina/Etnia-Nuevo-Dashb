@@ -1,5 +1,8 @@
+/* eslint-disable import/no-duplicates */
 import React from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -16,7 +19,10 @@ import Label from 'src/components/label';
 // eslint-disable-next-line import/no-unresolved
 import Iconify from 'src/components/iconify';
 
+import { deleteProduct } from '../../redux/actions';
+
 export default function ProductTableRow({
+  id,
   selected,
   name,
   img,
@@ -28,6 +34,12 @@ export default function ProductTableRow({
   color,
   handleClick,
 }) {
+ 
+
+  const dispatch = useDispatch();
+  
+  useEffect(() => {}, [dispatch]);
+
   const [open, setOpen] = React.useState(null);
 
   const handleOpenMenu = (event) => {
@@ -39,12 +51,13 @@ export default function ProductTableRow({
   };
 
   const handleEditClick = () => {
-    console.log('Editar', name);
+    console.log('Editar', id);
     handleCloseMenu();
   };
 
   const handleDeleteClick = () => {
-    console.log('Eliminar', name);
+    dispatch(deleteProduct(id));
+    console.log('Eliminar', id);
     handleCloseMenu();
   };
 
@@ -121,4 +134,5 @@ ProductTableRow.propTypes = {
   sale: PropTypes.number,
   category: PropTypes.string,
   color: PropTypes.string,
+  id: PropTypes.number,
 };

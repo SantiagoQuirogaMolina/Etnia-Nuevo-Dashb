@@ -32,16 +32,14 @@ import { getAllUsers } from '../../../redux/actions';
 
 export default function UserPage() {
   const usersss = useSelector((state) => state.allUsers);
-  console.log(usersss);
-  console.log('holaa');
+  
 
   const dispatch = useDispatch();
   // Utiliza useEffect para llamar automáticamente la función cuando el componente se monta
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch]);
-  console.log(usersss);
-  console.log('holaa');
+
 
   const [page, setPage] = useState(0);
 
@@ -58,7 +56,9 @@ export default function UserPage() {
       setOrderBy(id);
     }
   };
-
+  if (!usersss) {
+    dispatch(getAllUsers());
+  }
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelecteds = users.map((n) => n.name);
