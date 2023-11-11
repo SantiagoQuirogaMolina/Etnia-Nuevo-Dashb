@@ -43,7 +43,8 @@ import {
   GET_ALL_REVIEWS,
   GET_REVIEW_BY_ID,
   UPDATE_REVIEW,
-  DELETE_REVIEW
+  DELETE_REVIEW,
+  CREATE_REVIEW,
 } from "./actions";
 
 const initialState = {
@@ -89,6 +90,11 @@ const reducer = (state = initialState, action) => {
             ...state,
             reviews:action.payload
           }
+          case CREATE_REVIEW:
+            return{
+              ...state,
+              errors:{},
+            }
          case UPDATE_REVIEW:
           return action.payload
           case DELETE_REVIEW:
