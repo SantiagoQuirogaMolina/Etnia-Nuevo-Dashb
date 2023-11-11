@@ -31,30 +31,45 @@ import {
   REMOVE_FROM_CART,
   UPDATE_CART_ITEM_QUANTITY,
   DELETE_USER,
-  FINISH_PURCHASE
 
+  FINISH_PURCHASE
+  GET_ALL_CARTS,
+  GET_ALL_FAVS,
+  NEW_CART,
+  NEW_FAVORITE,
+  REMOVE_CART_BACK,
+  REMOVE_FAV_BACK,
+  GET_ALL_PURCHASES,
+  GET_PURCHASE_DETAIL,
+  PERSIST_USER,
 } from "./actions";
 
 const initialState = {
   allProducts: [],
+  purchase:{},
+  createdPurchase:{},
+  userPurchases:[],
   productDetail: [],
   purchases: [],
-  allFavorites: [],
   productShow: [],
   indexProductShow: [],
   allUsers: [],
-  cart: [],
   purchases: [],
+  FavoritesPersist: [],
+  cartPersist: [],
+  allFavoritesBack:[],
+  allCartBack:[],
   errors: {},
   selectFilter: {},
   page: null,
   localstorage: [],
-  user: null, // Agregar el estado del usuario
+  user: null,
 };
 
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
 
 
     case FINISH_PURCHASE:
@@ -63,54 +78,92 @@ const reducer = (state = initialState, action) => {
         errors: {},
       };
 
-    case GET_ALL_COMMENTS:
+
+    case GET_ALL_FAVS:
       return{
         ...state,
-        reportedComments:action.payload
+        allFavoritesBack: action.payload
       }
-    case CREATE_COMMENT:
-      return action.payload
-    case UPDATE_COMMENT:
+      case GET_ALL_PURCHASES: {
+        return {
+            ...state,
+            purchasesAdmin: action.payload
+        }
+    }
+
+    
+          case GET_PURCHASE_DETAIL:
+              return {
+                  ...state,
+                  purchase: action.payload,
+              }     
+              
+    
+    case NEW_FAVORITE:
       return{
         ...state,
-        productComments:action.payload
-      }      
-     case DELETE_COMMENT:
+        allFavoritesBack: action.payload
+      }
+    
+    case REMOVE_FAV_BACK:
       return{
         ...state,
-        productComments:action.payload
-      } 
+        allFavoritesBack: action.payload
+      }
+    
+    case GET_ALL_CARTS:
+      return{
+        ...state,
+        allCartBack: action.payload
+      }
+    
+    case NEW_CART:
+      return{
+        ...state,
+        allCartBack: action.payload
+      }
+    
+    case REMOVE_CART_BACK:
+      return{
+        ...state,
+        allCartBack: action.payload
+      }
+    
 
     case REGISTER_USER:
       return {
         ...state,
         user: action.payload,
       };
+
     case GET_ALL_PRODUCTS:
       return {
         ...state,
         allProducts: action.payload,
       };
+
     case ADD_TO_CART:
       return {
         ...state,
-        cart: [...state.cart, action.payload],
+        cartPersist: [...state.cartPersist, action.payload],
       };
+
       case REMOVE_FROM_CART:
         const productIdToRemove = action.payload;
         return {
           ...state,
-          cart: state.cart.filter((item) => item.id !== productIdToRemove),
+          cartPersist: state.cartPersist.filter((item) => item.id !== productIdToRemove),
         };
   
       case UPDATE_CART_ITEM_QUANTITY:
         const { productId, newQuantity } = action.payload;
         return {
           ...state,
-          cart: state.cart.map((item) =>
+          cartPersist: state.cartPersist.map((item) =>
             item.id === productId ? { ...item, cantidad: newQuantity } : item
           ),
         };
+
     case LOCALSTORAGE:
       return {
         ...state,
@@ -159,17 +212,17 @@ const reducer = (state = initialState, action) => {
     case ADD_FAVORITES:
       return {
         ...state,
-        allFavorites: [...state.allFavorites, action.payload],
+        FavoritesPersist: [...state.FavoritesPersist, action.payload],
       };
 
     case REMOVE_FAVORITES:
       // eslint-disable-next-line no-case-declarations
-      let productRemove = state.allFavorites.filter(
+      let productRemove = state.FavoritesPersist.filter(
         (product) => product.id !== action.payload
       );
       return {
         ...state,
-        allFavorites: productRemove,
+        FavoritesPersist: productRemove,
       };
 
     case CREATE_PRODUCT:
@@ -213,11 +266,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: null,
       };
+
     case FINISH_PURCHASE:
       return {
         ...state,
         errors: {},
       };
+
+    
+    case PERSIST_USER:
+      return {
+        ...state,
+        user: action.payload
+      }
+
 
     default:
       return { ...state };

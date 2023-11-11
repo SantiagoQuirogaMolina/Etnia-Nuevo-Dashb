@@ -137,6 +137,11 @@ const createusers = async (userData) => {
       confirmationToken,
     } = userData;
 
+       //verifica si ya existe
+       const userCreated = await User.findOne ({where: {email: email}});
+       if(userCreated){
+           throw new Error (`Un usuario con ese email ya existe`)
+       }
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newuser = await User.create({
@@ -200,7 +205,9 @@ const loginUser = async (req, res) => {
         .status(400)
         .json({ error: "Correo electrónico o contraseña inválidos" });
     }
-
+    const userId = user.id;
+    const userEmail = user.email;
+    
     const passwordMatch = await bcrypt.compare(
       password,
       user.dataValues.password
@@ -209,7 +216,7 @@ const loginUser = async (req, res) => {
     if (passwordMatch) {
       // La contraseña proporcionada coincide con la contraseña almacenada en la base de datos
       const token = jwt.sign({ userId: user.dataValues.id }, "your_jwt_secret"); // Reemplaza 'your_jwt_secret' por tu clave JWT real
-      res.json({ token });
+      res.json({ token, userId, userEmail });
     } else {
       // Las contraseñas no coinciden
       return res
@@ -221,7 +228,6 @@ const loginUser = async (req, res) => {
     return res.status(500).json({ error: "Error interno del servidor" });
   }
 };
-
 module.exports = {
   registerUser,
   getAllUser,

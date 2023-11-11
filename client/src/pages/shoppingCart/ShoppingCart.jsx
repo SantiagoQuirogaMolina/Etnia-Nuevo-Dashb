@@ -14,8 +14,9 @@ function calculateTotalPrice(cart) {
   }, 0);
 }
 
-function ShoppingCart({ onClick }) {
-  const cart = useSelector((state) => state.cart);
+function ShoppingCart() {
+  const cart = useSelector((state) => state.cartPersist);
+
   const dispatch = useDispatch(); // Obtener el dispatcher
   const totalPrice = calculateTotalPrice(cart);
 
