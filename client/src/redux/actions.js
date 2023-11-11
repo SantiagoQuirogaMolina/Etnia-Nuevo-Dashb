@@ -92,13 +92,64 @@ export const UPDATE_SHIPPING = "UPDATE_SHIPPING";
 export const REMOVE_SHIPPING = "REMOVE_SHIPPING";
 export const REGISTER_USER_ERROR= "REGISTER_USER_ERROR";
 export const CONFITRM_TOKEN= "CONFITRM_TOKEN";
-
-
 export const FINISH_PURCHASE = "FINISH_PURCHASE";
+
+// Reviews
+export const GET_ALL_REVIEWS="GET_ALL_REVIEWS";
+export const CREATE_REVIEW="CREATE_REVIEW";
+export const GET_REVIEW_BY_ID="GET_REVIEW_BY_ID";
+export const UPDATE_REVIEW="UPDATE_REVIEW";
+export const DELETE_REVIEW="DELETE_REVIEW";
+
 
  const URL = "http://localhost:3001";
 // const URL = "https://etniasoftcommerce.up.railway.app";
 
+export function getAllReviews(){
+  return async function(dispatch){
+    const reviewsInfo=await axios.get(`${URL}/reviews`)
+    dispatch({
+      type:GET_ALL_REVIEWS,
+      payload:reviewsInfo.data
+    })
+  }
+}
+export function createReview(newReview){
+  return async function(dispatch){
+const reviews=await axios.post(`${URL}/reviews`,newReview);
+dispatch({
+  type:CREATE_REVIEW,
+  payload:reviews.data,
+})
+  }
+}
+export function getReviewById(id){
+return async function(dispatch){
+  const reviewsInfo=await axios.get(`${URL}/reviews/${id}`)
+  dispatch({
+    type:GET_REVIEW_BY_ID,
+    payload:reviewsInfo.data,
+  })
+}
+}
+export function updateReview(payload){
+return async function(dispatch){
+  const info=await axios.put(`${URL}/${payload.id}`,payload)
+  dispatch({
+    type:UPDATE_REVIEW,
+    payload:info.data
+  })
+}
+}
+export function deleteReview(id){
+  return async function(dispatch){
+    const deletedReviews=await axios.delete(`${URL}/reviews/${id}`);
+    dispatch({
+      type:DELETE_REVIEW,
+      payload:deletedReviews.data
+    })
+  }
+}
 
 
 export function finishPurchase(cart) {
