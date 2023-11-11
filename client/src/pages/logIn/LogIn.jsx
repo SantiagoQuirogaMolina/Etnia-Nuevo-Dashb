@@ -112,13 +112,13 @@ function LogIn(props) {
         {error && <div className={styles["error-message"]}>{error}</div>}
 
       </form>
-      <nav>
-          <ul>
-            <li>
-              <Link to="/RegisterForm">¿Aún no tienes una cuenta? obtener una</Link>
+      <nav className={styles.enlacesDiv} >
+          <ul className={styles.enlacesUl}>
+            <li >
+              <Link className={styles.enlaces}  to="/RegisterForm">¿Aún no tienes una cuenta? obtener una</Link>
             </li>
             <li>
-              <Link to="/recuperar-contrasena">¿Olvidaste tu Password?</Link>
+              <Link className={styles.enlaces} to="/recuperar-contrasena">¿Olvidaste tu Password?</Link>
             </li>
           </ul>
         </nav>

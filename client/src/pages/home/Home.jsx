@@ -100,7 +100,7 @@ function Home(props) {
           {pageNumbers.map((pageNumber) => (
             <span
               key={pageNumber}
-              className={`${styles.paginationNumber} ${currentPage === pageNumber && styles.paginationcurrent}`}
+              className={`${styles.paginationNumber} ${currentPage === pageNumber && styles.paginationActual}`}
               onClick={() => handlePageClick(pageNumber)}
             >
               {pageNumber}
