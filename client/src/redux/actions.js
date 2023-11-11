@@ -518,6 +518,7 @@ export function getProductsname(name) {
 export function getByID(id) {
   return async function (dispatch) {
     const { data } = await axios.get(`${URL}/products/${id}`);
+    console.log(data)
     dispatch({
       type: GET_BY_ID,
       payload: data,
@@ -585,13 +586,20 @@ export function updateUser(payload) {
 }
 
 export function createUser(payload) {
+
   return async function (dispatch) {
-    const info = await axios.post(`${URL}`, payload);
-    dispatch({
-      type: CREATE_USER,
-      payload: info.data,
-    });
-  };
+    try{
+      
+      const {data} = await axios.post(`${URL}/users`,payload);
+      dispatch({
+        type: CREATE_USER,
+        payload: data,
+      });
+    }catch(error){
+    
+      throw (error.response.data)
+    }
+  }
 }
 
 export function getAllSelects() {

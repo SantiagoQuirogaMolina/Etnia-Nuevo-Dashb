@@ -65,9 +65,9 @@ const getIdHandler = async (req, res) => {
 const createUsersHandler = async (req, res) => {
   try {
     const user = await createusers(req.body);
-    res.status(201).json(user);
+    return res.status(201).json(user);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    return res.status(500).send(error.message);
   }
 };
 const deleteUserHandler = async (req, res) => {
@@ -76,7 +76,7 @@ const deleteUserHandler = async (req, res) => {
     const user = await deleteUserById(id);
     res.status(201).json(user);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).send({error: error.message});
   }
 };
 const updateUserHandler = async (req, res) => {

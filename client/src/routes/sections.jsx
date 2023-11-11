@@ -23,6 +23,9 @@ import FormTransportadora from '../pages/Forms/FormTransport/CreateTransport';
 import FormCtaBanco from '../pages/Forms/FormCuentaBanco/CreateCtaBanco';
 import ConfirmTokenForm from '../pages/logIn/ConfirmTokenForm';
 import RegisterForm from '../pages/logIn/registerForm';
+import UpdateProducto from '../pages/Forms/FormEditProduct/FormEditProduct'
+import CrearUser from '../pages/Forms/FormCreateUsers/CreateUsers'
+
 
 const IndexPage = lazy(() => import('../pages/app'));
 const UserPage = lazy(() => import('../pages/user'));
@@ -47,6 +50,8 @@ function Router() {
       <Route exact path="/carrito" element={<PublicShoppingCart />} />
       <Route exact path="favorites" element={<PublicFavorites />} />
       <Route exact path="/Form" element={<PublicForm />} />
+      <Route exact path="/editproduct/*" element={<AdminFormUdateProducto />} />
+      <Route exact path="/crearuser" element={<AdminFormCrearUser />} />
       <Route exact path="/crearempresa" element={<PublicFormEmpresa />} />
       <Route exact path="/mediopago" element={<PublicFormMedioPago />} />
       <Route exact path="/transporte" element={<PublicFormTransportadora />} />
@@ -185,6 +190,30 @@ function PublicForm() {
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route exact path="/" element={<Form />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+
+function AdminFormUdateProducto() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<UpdateProducto />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+
+function AdminFormCrearUser() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<CrearUser />} />
         </Routes>
       </Suspense>
     </DashboardLayout>
