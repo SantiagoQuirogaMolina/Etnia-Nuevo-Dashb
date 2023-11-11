@@ -5,6 +5,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable import/no-unresolved */
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -35,17 +36,15 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function ProductsPage() {
+  const navigate = useNavigate();
   const productoss = useSelector((state) => state.allProducts);
-  console.log(productoss);
-  console.log('holaa');
 
   const dispatch = useDispatch();
-  // Utiliza useEffect para llamar automáticamente la función cuando el componente se monta
+ 
+
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
-  console.log(productoss);
-  console.log('holaa');
 
   const [page, setPage] = useState(0);
 
@@ -59,6 +58,9 @@ export default function ProductsPage() {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  if (!productoss) {
+    dispatch(getAllProducts());
+  }
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === 'asc';
     if (id !== '') {
@@ -115,13 +117,21 @@ export default function ProductsPage() {
   });
 
   const notFound = !dataFiltered.length && !!filterName;
+  const handleRedireccion = () => {
+    navigate('/Form'); // Utiliza navigate para redirigir
+  };
 
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4">Products</Typography>
 
-        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
+        <Button
+          variant="contained"
+          color="inherit"
+          startIcon={<Iconify icon="eva:plus-fill" />}
+          onClick={handleRedireccion}
+        >
           New Product
         </Button>
       </Stack>
@@ -145,36 +155,45 @@ export default function ProductsPage() {
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
                   { id: 'name', label: 'Nombre' },
+                  { id: 'gender', label: 'gender' },
+                  { id: 'category', label: 'categoria' },
                   { id: 'color', label: 'color' },
 
                   { id: 'cantidad', label: 'cantidad', align: 'center' },
                   { id: 'precio', label: 'precio' },
+                  { id: 'sale', label: 'sale' },
+
                   { id: '' },
                 ]}
               />
-              <TableBody>
-                {dataFiltered
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => (
-                    <UserTableRow
-                      key={row.id}
-                      name={row.name}
-                      role={row.role}
-                      status={row.status}
-                      avatarUrl={row.avatarUrl}
-                      cantidad={row.cantidad}
-                      selected={selected.indexOf(row.name) !== -1}
-                      handleClick={(event) => handleClick(event, row.name)}
-                    />
-                  ))}
-
-                <TableEmptyRows
-                  height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, product.length)}
-                />
-
-                {notFound && <TableNoData query={filterName} />}
-              </TableBody>
+              {productoss && (
+                <TableBody>
+                  {productoss
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => (
+                      <UserTableRow
+                        key={row.id}
+                        id={row.id}
+                        name={row.name}
+                        gender={row.gender}
+                        category={row.category}
+                        color={row.color}
+                        status={row.status}
+                        img={row.img}
+                        cantidad={row.quantity}
+                        precio={row.price}
+                        sale={row.sale}
+                        selected={selected.indexOf(row.name) !== -1}
+                        handleClick={(event) => handleClick(event, row.name)}
+                      />
+                    ))}
+                  <TableEmptyRows
+                    height={77}
+                    emptyRows={emptyRows(page, rowsPerPage, productoss.length)}
+                  />
+                  {notFound && <TableNoData query={filterName} />}
+                </TableBody>
+              )}
             </Table>
           </TableContainer>
         </Scrollbar>

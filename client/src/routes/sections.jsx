@@ -23,13 +23,15 @@ import FormTransportadora from '../pages/Forms/FormTransport/CreateTransport';
 import FormCtaBanco from '../pages/Forms/FormCuentaBanco/CreateCtaBanco';
 import ConfirmTokenForm from '../pages/logIn/ConfirmTokenForm';
 import RegisterForm from '../pages/logIn/registerForm';
+import UpdateProducto from '../pages/Forms/FormEditProduct/FormEditProduct'
+import CrearUser from '../pages/Forms/FormCreateUsers/CreateUsers'
+
 
 const IndexPage = lazy(() => import('../pages/app'));
 const UserPage = lazy(() => import('../pages/user'));
 const LoginPage = lazy(() => import('../pages/login'));
 const ProductsPage = lazy(() => import('../pages/products'));
 const ProductstPage = lazy(() => import('../pages/productst'));
-
 
 function Router() {
   return (
@@ -40,7 +42,6 @@ function Router() {
       <Route path="/productsT/" element={<AdminProductst />} />
       <Route exact path="login-admin" element={<AdminLogin />} />
 
-
       <Route path="/" element={<PublicHome />} />
       <Route path="/product/:id" element={<PublicProduct />} />
       <Route exact path="/user" element={<PublicLogIn />} />
@@ -49,6 +50,8 @@ function Router() {
       <Route exact path="/carrito" element={<PublicShoppingCart />} />
       <Route exact path="favorites" element={<PublicFavorites />} />
       <Route exact path="/Form" element={<PublicForm />} />
+      <Route exact path="/editproduct/*" element={<AdminFormUdateProducto />} />
+      <Route exact path="/crearuser" element={<AdminFormCrearUser />} />
       <Route exact path="/crearempresa" element={<PublicFormEmpresa />} />
       <Route exact path="/mediopago" element={<PublicFormMedioPago />} />
       <Route exact path="/transporte" element={<PublicFormTransportadora />} />
@@ -56,7 +59,6 @@ function Router() {
       <Route exact path="/RegisterForm" element={<PublicRegisterForm />} />
       <Route exact path="/ConfirmTokenForm" element={<PublicConfirmTokenForm />} />
       <Route exact path="*" element={<PublicRoutes />} />
-
     </Routes>
   );
 }
@@ -127,139 +129,163 @@ function PublicRoutes() {
 }
 function PublicConfirmTokenForm() {
   return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route exact path="/" element={<ConfirmTokenForm />} />
-        </Routes>
-      </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<ConfirmTokenForm />} />
+      </Routes>
+    </Suspense>
   );
 }
 function PublicRegisterForm() {
   return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route exact path="/" element={<RegisterForm />} />
-        </Routes>
-      </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<RegisterForm />} />
+      </Routes>
+    </Suspense>
   );
 }
 function PublicFormCtaBanco() {
   return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route exact path="/" element={<FormCtaBanco />} />
-        </Routes>
-      </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<FormCtaBanco />} />
+      </Routes>
+    </Suspense>
   );
 }
 function PublicFormTransportadora() {
   return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route exact path="/" element={<FormTransportadora />} />
-        </Routes>
-      </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<FormTransportadora />} />
+      </Routes>
+    </Suspense>
   );
 }
 
 function PublicFormMedioPago() {
   return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route exact path="/" element={<FormMedioPago />} />
-        </Routes>
-      </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<FormMedioPago />} />
+      </Routes>
+    </Suspense>
   );
 }
 
-
 function PublicFormEmpresa() {
   return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route exact path="/" element={<FormEmpresa />} />
-        </Routes>
-      </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<FormEmpresa />} />
+      </Routes>
+    </Suspense>
   );
 }
 
 function PublicForm() {
   return (
+    <DashboardLayout>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route exact path="/" element={<Form />} />
         </Routes>
       </Suspense>
+    </DashboardLayout>
+  );
+}
+
+function AdminFormUdateProducto() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<UpdateProducto />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+
+function AdminFormCrearUser() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<CrearUser />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
   );
 }
 
 function PublicFavorites() {
   return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route exact path="/" element={<Favorites />} />
-        </Routes>
-      </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<Favorites />} />
+      </Routes>
+    </Suspense>
   );
 }
 
-
 function PublicShoppingCart() {
   return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route exact path="/" element={<ShoppingCart />} />
-        </Routes>
-      </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<ShoppingCart />} />
+      </Routes>
+    </Suspense>
   );
 }
 
 function PublicHome() {
   return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-        </Routes>
-      </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+      </Routes>
+    </Suspense>
   );
 }
 
 function PublicProduct() {
   return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route exact path="/"  element={<ProductDetail />} />
-        </Routes>
-      </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<ProductDetail />} />
+      </Routes>
+    </Suspense>
   );
 }
 
 function PublicLogIn() {
   return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route exact path="/"  element={<LogIn />} />
-        </Routes>
-      </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<LogIn />} />
+      </Routes>
+    </Suspense>
   );
 }
 function PublicUserDetail() {
   return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route exact path="/"  element={<UserDetail />} />
-        </Routes>
-      </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<UserDetail />} />
+      </Routes>
+    </Suspense>
   );
 }
 
 function PublicPayForm() {
   return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route exact path="/"  element={<PayForm />} />
-        </Routes>
-      </Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<PayForm />} />
+      </Routes>
+    </Suspense>
   );
 }
 export default Router;

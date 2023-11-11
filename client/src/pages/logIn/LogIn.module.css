@@ -31,7 +31,7 @@ label {
 }
 
 input {
-  width: 18.8rem;
+  width: 100%;
   padding: 10px;
   border-radius: 5px;
   border: none;
@@ -76,4 +76,15 @@ p {
   color: rgb(0, 255, 68); /* Color rojo para los mensajes de error */
   font-size: 14px; /* Tamaño de fuente */
   margin-top: 5px;
+}
+.enlacesUl {
+  list-style: none;
+}
+.enlaces {
+  color: #fffdfd;
+  text-decoration: none;
+}
+.enlacesDiv {
+  margin-left: -6vh;
+  list-style: none;
 }
