@@ -44,6 +44,7 @@ const initialState = {
   indexProductShow: [],
   allUsers: [],
   cart: [],
+  purchases: [],
   errors: {},
   selectFilter: {},
   page: null,
@@ -54,6 +55,31 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
+
+    case FINISH_PURCHASE:
+      return {
+        ...state,
+        errors: {},
+      };
+
+    case GET_ALL_COMMENTS:
+      return{
+        ...state,
+        reportedComments:action.payload
+      }
+    case CREATE_COMMENT:
+      return action.payload
+    case UPDATE_COMMENT:
+      return{
+        ...state,
+        productComments:action.payload
+      }      
+     case DELETE_COMMENT:
+      return{
+        ...state,
+        productComments:action.payload
+      } 
 
     case REGISTER_USER:
       return {

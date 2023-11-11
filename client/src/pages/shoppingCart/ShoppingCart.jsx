@@ -14,7 +14,7 @@ function calculateTotalPrice(cart) {
   }, 0);
 }
 
-function ShoppingCart() {
+function ShoppingCart({ onClick }) {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch(); // Obtener el dispatcher
   const totalPrice = calculateTotalPrice(cart);
@@ -85,10 +85,12 @@ function ShoppingCart() {
       </div>
       <button 
         className={styles['checkout-button']}
+
         onClick={handleCheckout} // Use the new handleCheckout function
         id="checkout-btn"
         disabled={disabled}
       >
+
         Finalizar compra
         </button>
     </div>

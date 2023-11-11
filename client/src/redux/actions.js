@@ -24,7 +24,9 @@ export const GET_EMPRESA="GET_EMPRESA";
 export const GET_CUENTAS="GET_CUENTAS";
 export const GET_MEDIOPAGO="GET_MEDIOPAGO";
 export const GET_LOGISTICA="GET_LOGISTICA";
+export const GET_ALL_COMMENTS = "GET_ALL_COMMENTS";
 // routes Delete
+export const DELETE_COMMENT = "DELETE_COMMENT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const DELETE_USER="DELETE_USER";
 export const DELETE_EMPRESA="DELETE_EMPRESA";
@@ -32,6 +34,7 @@ export const DELETE_CUENTAS="DELETE_CUENTAS";
 export const DELETE_MEDIOPAGO="DELETE_MEDIOPAGO";
 export const DELETE_LOGISTICA="DELETE_LOGISTICA";
 // Routes Post
+export const CREATE_COMMENT = "CREATE_COMMENT";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const CREATE_USER = "CREATE_USER";
 export const RESTORE_PRODUCT = "RESTORE_PRODUCT";
@@ -40,6 +43,7 @@ export const CREATE_CUENTAS="CREATE_CUENTAS";
 export const CREATE_MEDIOPAGO="CREATE_MEDIOPAGO";
 export const CREATE_LOGISTICA="CREATE_LOGISTICA";
 // routes Put
+export const UPDATE_COMMENT = "UPDATE_COMMENT";
 export const UPDATE_USER = "UPDATE_USER";
 export const UPDATE_PRODUCT="UPDATE_PRODUCT";
 export const UPDATE_EMPRESA="UPDATE_EMPRESA";
@@ -75,8 +79,13 @@ export const REGISTER_USER = "REGISTER_USER";
 export const ADD_SHIPPING = "ADD_SHIPPING";
 export const UPDATE_SHIPPING = "UPDATE_SHIPPING";
 export const REMOVE_SHIPPING = "REMOVE_SHIPPING";
-export const REGISTER_USER_ERROR= "REGISTER_USER_ERROR"
-export const CONFITRM_TOKEN= "CONFITRM_TOKEN"
+export const REGISTER_USER_ERROR= "REGISTER_USER_ERROR";
+export const CONFITRM_TOKEN= "CONFITRM_TOKEN";
+
+//Compras
+
+export const FINISH_PURCHASE = "FINISH_PURCHASE";
+
 
 //  Compras
 
@@ -85,6 +94,17 @@ export const FINISH_PURCHASE = "FINISH_PURCHASE";
 
  const URL = "http://localhost:3001";
 // const URL = "https://etniasoftcommerce.up.railway.app";
+
+
+export function finishPurchase(cart) {
+  return async function (dispatch) {
+    const purchase = await axios.post(`${URL}/purchase`, purchase);
+    dispatch({
+      type: FINISH_PURCHASE,
+      payload: purchase.data,
+    });
+  }; 
+}
 
 export function getCuentas(){
   return async function(dispatch){
