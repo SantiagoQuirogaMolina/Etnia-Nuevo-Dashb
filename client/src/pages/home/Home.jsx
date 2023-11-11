@@ -23,6 +23,7 @@ import resetView from "../home/clockwise.svg"
 
 function Home(props) {
   const Page = useSelector((state) => state.indexProductShow);
+  const {token, userEmail, userId} = useSelector((state)=> state.user);
   const selects = useSelector ((state) => state.selectFilter)
   const [initialPageSet, setInitialPageSet] = useState(1);
   const [initialFilters, setInitialFilters] = useLocalStorage("initialFilters", {})
@@ -32,11 +33,7 @@ function Home(props) {
   const dispatch = useDispatch();
 
   const autoLogin = () => {
-    const token = localStorage.getItem("token");
-    console.log(token);
-    // if (token) {
-    //   dispatch(autoLoginAction(token));
-    // }
+    console.log(token, userEmail, userId);
   };
 
   useEffect(() => {
@@ -135,10 +132,11 @@ function Home(props) {
     );
   }
   
+  const textPaginado = `${currentPage  } of ${  maxPages}`;
   useEffect(()=>{
     console.log(Page?.info?.total)
+    console.log(textPaginado);
   },[handleChange])
-  const textPaginado = `${currentPage  } of ${  maxPages}`;
 
   return (
     <div className={styles.home}>

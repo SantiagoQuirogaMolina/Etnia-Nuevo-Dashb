@@ -40,6 +40,7 @@ import {
   GET_ALL_PURCHASES,
   CREATE_PURCHASE,
   GET_PURCHASE_DETAIL,
+  PERSIST_USER,
 } from "./actions";
 
 const initialState = {
@@ -59,7 +60,7 @@ const initialState = {
   selectFilter: {},
   page: null,
   localstorage: [],
-  user: null, // Agregar el estado del usuario
+  user: null,
 };
 
 
@@ -256,6 +257,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: null,
       };
+    
+    case PERSIST_USER:
+      return {
+        ...state,
+        user: action.payload
+      }
 
     default:
       return { ...state };

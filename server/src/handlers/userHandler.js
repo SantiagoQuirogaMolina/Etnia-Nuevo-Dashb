@@ -7,7 +7,8 @@ const {
   deleteUserById,
   updateUserById,
   loginUser,
-  confirmEmailControll
+  confirmEmailControll,
+  userEmail
 } = require("../controllers/userControllers");
 
 const confirmEmail = async (req, res) => {
@@ -41,7 +42,6 @@ const getUsersByName = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
 
 const getUsersHandler = async (req, res) => {
   try {
@@ -111,5 +111,5 @@ module.exports = {
   updateUserHandler: updateUserHandler,
   loginUserHandler: loginUserHandler,
   postUsersRegsiter:postUsersRegsiter,
-  confirmEmail:confirmEmail
+  confirmEmail:confirmEmail,
 };
