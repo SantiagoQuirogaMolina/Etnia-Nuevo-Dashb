@@ -31,6 +31,7 @@ export const GET_PURCHASE_DETAIL = "GET_PURCHASE_DETAIL";
 export const GET_ALL_PURCHASES = "GET_ALL_PURCHASES";
 export const GET_USER_PURCHASES = "GET_USER_PURCHASES";
 // routes Delete
+export const DELETE_COMMENT = "DELETE_COMMENT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const DELETE_USER="DELETE_USER";
 export const DELETE_EMPRESA="DELETE_EMPRESA";
@@ -40,6 +41,7 @@ export const DELETE_LOGISTICA="DELETE_LOGISTICA";
 export const REMOVE_FAV_BACK="REMOVE_FAV_BACK";
 export const REMOVE_CART_BACK="REMOVE_CART_BACK";
 // Routes Post
+export const CREATE_COMMENT = "CREATE_COMMENT";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const CREATE_USER = "CREATE_USER";
 export const RESTORE_PRODUCT = "RESTORE_PRODUCT";
@@ -52,6 +54,7 @@ export const NEW_CART="NEW_CART";
 export const CREATE_PURCHASE = "CREATE_PURCHASE";
 
 // routes Put
+export const UPDATE_COMMENT = "UPDATE_COMMENT";
 export const UPDATE_USER = "UPDATE_USER";
 export const UPDATE_PRODUCT="UPDATE_PRODUCT";
 export const UPDATE_EMPRESA="UPDATE_EMPRESA";
@@ -87,13 +90,32 @@ export const REGISTER_USER = "REGISTER_USER";
 export const ADD_SHIPPING = "ADD_SHIPPING";
 export const UPDATE_SHIPPING = "UPDATE_SHIPPING";
 export const REMOVE_SHIPPING = "REMOVE_SHIPPING";
-export const REGISTER_USER_ERROR= "REGISTER_USER_ERROR"
-export const CONFITRM_TOKEN= "CONFITRM_TOKEN"
+export const REGISTER_USER_ERROR= "REGISTER_USER_ERROR";
+export const CONFITRM_TOKEN= "CONFITRM_TOKEN";
 
+//Compras
+
+export const FINISH_PURCHASE = "FINISH_PURCHASE";
+
+
+//  Compras
+
+export const FINISH_PURCHASE = "FINISH_PURCHASE";
 
 
  const URL = "http://localhost:3001";
 // const URL = "https://etniasoftcommerce.up.railway.app";
+
+
+
+export function finishPurchase(cart) {
+  return async function (dispatch) {
+    const purchase = await axios.post(`${URL}/purchase`, purchase);
+    dispatch({
+      type: FINISH_PURCHASE,
+      payload: purchase.data,
+    });
+  }; 
 
 export function getAllPurchases(){
   return async function(dispatch){
@@ -122,15 +144,6 @@ export function getPurchaseDetail(payload){
       payload:productDetail
     })
   }
-}
-export function createPurchase(payload){
-return async function(dispatch){
-  const info= await axios.post(`${URL}/purchase`,payload)
-  dispatch({
-    type:CREATE_PURCHASE,
-    payload:info.data
-  })
-}
 }
 
 export function getAllFavs(id){
@@ -192,6 +205,7 @@ export function removeCartBack(objectId){
       payload:response.data,
     })
   }
+
 }
 
 export function getCuentas(){
@@ -648,6 +662,16 @@ export function restoreProduct(id) {
       });
     }
   };
+}
+
+export function finishPurchase(cart) {
+  return async function (dispatch) {
+    const purchase = await axios.post(`${URL}/purchase`, purchase);
+    dispatch({
+      type: FINISH_PURCHASE,
+      payload: purchase.data,
+    });
+  }; 
 }
 
 export const getFiltersAndPagination = (filtros, pageNumber) => {
