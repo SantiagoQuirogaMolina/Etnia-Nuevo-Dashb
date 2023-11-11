@@ -9,7 +9,7 @@
 /* eslint-disable no-useless-catch */
 import axios from "axios";
 import getFindSelects from "../functions/getFindSelects";
-import ProductDetail from "src/pages/productDetail/ProductDetail";
+// import ProductDetail from "src/pages/productDetail/ProductDetail";
 
 // Routes Get
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
@@ -80,7 +80,7 @@ export const UPDATE_CART_ITEM_QUANTITY = "UPDATE_CART_ITEM_QUANTITY";
 // LocalStorage
 
 export const LOCALSTORAGE = "LOCALSTORAGE";
-
+export const PERSIST_USER = "PERSIST_USER";
 export const USER_LOGIN = "USER_LOGIN";
 export const USER_LOGOUT = "USER_LOGOUT";
 export const REGISTER_USER = "REGISTER_USER";
@@ -134,6 +134,7 @@ return async function(dispatch){
 }
 
 export function getAllFavs(id){
+  console.log("me despacharon");
   return async function(dispatch){
     const response = await axios.get(`${URL}/favs/${id}`);
     dispatch({
@@ -692,3 +693,16 @@ export function userLogout() {
      type: USER_LOGOUT,
    };
  }
+
+export function userLogeado(user){
+  return async function (dispatch) {
+    try {
+      dispatch({
+        type: PERSIST_USER,
+        payload: user
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  };
+}
