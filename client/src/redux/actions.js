@@ -27,7 +27,7 @@ export const GET_CUENTAS="GET_CUENTAS";
 export const GET_MEDIOPAGO="GET_MEDIOPAGO";
 export const GET_LOGISTICA="GET_LOGISTICA";
 export const GET_ALL_FAVS="GET_ALL_FAVS";
-export const GET_ALL_CARTS="GET_ALL_FAVS";
+export const GET_ALL_CARTS="GET_ALL_CARTS";
 export const GET_PURCHASE_DETAIL = "GET_PURCHASE_DETAIL";
 export const GET_ALL_PURCHASES = "GET_ALL_PURCHASES";
 export const GET_USER_PURCHASES = "GET_USER_PURCHASES";
@@ -92,16 +92,9 @@ export const UPDATE_SHIPPING = "UPDATE_SHIPPING";
 export const REMOVE_SHIPPING = "REMOVE_SHIPPING";
 export const REGISTER_USER_ERROR= "REGISTER_USER_ERROR";
 export const CONFITRM_TOKEN= "CONFITRM_TOKEN";
-   
-//Compras
+
 
 export const FINISH_PURCHASE = "FINISH_PURCHASE";
-
-
-//  Compras
-
-export const FINISH_PURCHASE = "FINISH_PURCHASE";
-
 
  const URL = "http://localhost:3001";
 // const URL = "https://etniasoftcommerce.up.railway.app";
@@ -116,6 +109,7 @@ export function finishPurchase(cart) {
       payload: purchase.data,
     });
   }; 
+}
 
 export function getAllPurchases(){
   return async function(dispatch){
@@ -601,15 +595,15 @@ export function deleteUser(id) {
   };
 }
 
-export function deleteUser(id){
-  return async function(dispatch){
-    const deletedUser= await axios.delete(`${URL}/users/${id}`);
-    dispatch({
-      type:DELETE_USER,
-      payload:deletedUser.data,
-    })
-  }
-}
+// export function deleteUser(id){
+//   return async function(dispatch){
+//     const deletedUser= await axios.delete(`${URL}/users/${id}`);
+//     dispatch({
+//       type:DELETE_USER,
+//       payload:deletedUser.data,
+//     })
+//   }
+// }
 
 export function updateUser(payload) {
   return async function (dispatch) {
@@ -684,16 +678,6 @@ export function restoreProduct(id) {
       });
     }
   };
-}
-
-export function finishPurchase(cart) {
-  return async function (dispatch) {
-    const purchase = await axios.post(`${URL}/purchase`, purchase);
-    dispatch({
-      type: FINISH_PURCHASE,
-      payload: purchase.data,
-    });
-  }; 
 }
 
 export const getFiltersAndPagination = (filtros, pageNumber) => {

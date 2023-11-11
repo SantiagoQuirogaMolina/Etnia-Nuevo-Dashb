@@ -2,7 +2,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';

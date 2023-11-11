@@ -6,7 +6,6 @@ const emailRouter = require("./emailRouter");
 const favsRouter = require("./favoritesRoute");
 const cartRouter = require("./cartRouter");
 const mercadoRouter = require("./mercadoRoute");
-const mercadoRouter = require("./mercadoRoute");
 //const tablesRouter = require("./tablesRouter");
 
 

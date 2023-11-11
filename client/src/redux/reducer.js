@@ -31,9 +31,7 @@ import {
   REMOVE_FROM_CART,
   UPDATE_CART_ITEM_QUANTITY,
   DELETE_USER,
-
-  FINISH_PURCHASE
-  GET_ALL_CARTS,
+  FINISH_PURCHASE,
   GET_ALL_FAVS,
   NEW_CART,
   NEW_FAVORITE,
@@ -54,7 +52,6 @@ const initialState = {
   productShow: [],
   indexProductShow: [],
   allUsers: [],
-  purchases: [],
   FavoritesPersist: [],
   cartPersist: [],
   allFavoritesBack:[],
@@ -111,11 +108,11 @@ const reducer = (state = initialState, action) => {
         allFavoritesBack: action.payload
       }
     
-    case GET_ALL_CARTS:
-      return{
-        ...state,
-        allCartBack: action.payload
-      }
+    // case GET_ALL_CARTS:
+    //   return{
+    //     ...state,
+    //     allCartBack: action.payload
+    //   }
     
     case NEW_CART:
       return{
@@ -267,11 +264,11 @@ const reducer = (state = initialState, action) => {
         user: null,
       };
 
-    case FINISH_PURCHASE:
-      return {
-        ...state,
-        errors: {},
-      };
+    // case FINISH_PURCHASE:
+    //   return {
+    //     ...state,
+    //     errors: {},
+    //   };
 
     
     case PERSIST_USER:
