@@ -5,6 +5,7 @@ const express = require("express");
 const prendas = require("./src/controllers/savedInDB");
 const cloudinary = require("cloudinary").v2;
 const app = express();
+const reviewsRouter= require("./src/routes/reviewsRouter.js");
 
 cloudinary.config({
   cloud_name: "dauvht6ky",
@@ -12,11 +13,12 @@ cloudinary.config({
   api_secret: "tDiz5YwUPgG1cWN15m96Qh-_0tg",
 });
 
+app.use('/api', reviewsRouter);
 app.use(express.json());
 const PORT = process.env.PORT || 3001;
 
 conn
-  .sync({ force: false })
+  .sync({ force: true })
   .then(() => {
     prendas();
 

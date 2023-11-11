@@ -40,6 +40,10 @@ import {
   GET_ALL_PURCHASES,
   GET_PURCHASE_DETAIL,
   PERSIST_USER,
+  GET_ALL_REVIEWS,
+  GET_REVIEW_BY_ID,
+  UPDATE_REVIEW,
+  DELETE_REVIEW
 } from "./actions";
 
 const initialState = {
@@ -61,6 +65,7 @@ const initialState = {
   page: null,
   localstorage: [],
   user: null,
+  reviews:[],
 };
 
 
@@ -74,6 +79,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         errors: {},
       };
+      case GET_ALL_REVIEWS:
+        return{
+          ...state,
+          reviews:action.payload
+        }
+        case GET_REVIEW_BY_ID:
+          return{
+            ...state,
+            reviews:action.payload
+          }
+         case UPDATE_REVIEW:
+          return action.payload
+          case DELETE_REVIEW:
+            return action.payload 
 
 
     case GET_ALL_FAVS:
