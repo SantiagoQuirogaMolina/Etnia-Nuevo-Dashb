@@ -25,13 +25,15 @@
   margin: 0.5rem;
   min-width: 150px;
   text-align: center;
-  transition: transform 0.2s ease-in-out, background-color 0.2s;
+  transition:
+    transform 0.2s ease-in-out,
+    background-color 0.2s;
   cursor: pointer;
   position: relative; /* Permite posicionar los elementos internos */
 }
 
 .filters:before {
-  content: ""; /* Agrega un elemento pseudo ::before para detalles internos */
+  content: ''; /* Agrega un elemento pseudo ::before para detalles internos */
   position: absolute;
   top: 0;
   left: 0;
@@ -68,13 +70,16 @@
 }
 
 .button {
+  margin-top: 1vh;
   background-color: #71a611;
   border: none;
   cursor: pointer;
   padding: 0.5rem 1rem; /* Agrega relleno para hacer el botón más grande y legible */
   border-radius: 5px; /* Bordes redondeados */
   font-size: 1rem;
-  transition: background-color 0.3s, transform 0.2s; /* Agrega una transición suave */
+  transition:
+    background-color 0.3s,
+    transform 0.2s; /* Agrega una transición suave */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,12 +124,9 @@
   max-width: 7vh;
 }
 
-.paginationbutton:hover {
-  background-color: #71a611;
-}
-
 .paginationcurrent {
-  background-color: #71a611;
+  background-color: #72a61169;
+  margin: 0.5rem;
 }
 
 .paginationbutton:not(.paginationcurrent):hover {
@@ -146,4 +148,17 @@
   &:hover {
     border: 2px solid rgba(161, 2, 2, 0.591); /* Cambia el borde a rojo en el hover */
   }
+}
+.numberIndexPage {
+  background-color: #f0f0f0;
+}
+.numberIndexPage:hover {
+  background-color: #f0f0f0;
+}
+.paginationNumber {
+  color: #71a611;
+  font-size: larger;
+}
+.paginationNumber:hover {
+  background-color: #f0f0f0;
 }
