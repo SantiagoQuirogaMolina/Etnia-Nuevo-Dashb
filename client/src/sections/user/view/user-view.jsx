@@ -1,5 +1,6 @@
+/* eslint-disable perfectionist/sort-named-imports */
+/* eslint-disable perfectionist/sort-imports */
 /* eslint-disable import/no-unresolved */
-import { useState } from 'react';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -16,6 +17,8 @@ import { users } from 'src/_mock/user';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import TableNoData from '../table-no-data';
 import UserTableRow from '../user-table-row';
 import UserTableHead from '../user-table-head';
@@ -23,9 +26,21 @@ import TableEmptyRows from '../table-empty-rows';
 import UserTableToolbar from '../user-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
 
+import { getAllUsers } from '../../../redux/actions';
+
 // ----------------------------------------------------------------------
 
 export default function UserPage() {
+  const usersss = useSelector((state) => state.allUsers);
+  
+
+  const dispatch = useDispatch();
+  // Utiliza useEffect para llamar automáticamente la función cuando el componente se monta
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
+
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -41,7 +56,9 @@ export default function UserPage() {
       setOrderBy(id);
     }
   };
-
+  if (!usersss) {
+    dispatch(getAllUsers());
+  }
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelecteds = users.map((n) => n.name);
@@ -120,28 +137,27 @@ export default function UserPage() {
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
                   { id: 'name', label: 'Nombre' },
-                  { id: 'role', label: 'Rol' },
-               
+                  { id: 'admin', label: 'admin' },
+                  { id: 'employe', label: 'empleado' },
                   { id: 'isVerified', label: 'Verificado', align: 'center' },
                   { id: 'status', label: 'Estado' },
                   { id: '' },
                 ]}
               />
               <TableBody>
-                {dataFiltered
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => (
-                    <UserTableRow
-                      key={row.id}
-                      name={row.name}
-                      role={row.role}
-                      status={row.status}
-                      avatarUrl={row.avatarUrl}
-                      isVerified={row.isVerified}
-                      selected={selected.indexOf(row.name) !== -1}
-                      handleClick={(event) => handleClick(event, row.name)}
-                    />
-                  ))}
+                {usersss.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                  <UserTableRow
+                    id={row.id}
+                    key={row.id}
+                    name={row.email}
+                    admin={row.admin}
+                    status={row.status}
+                    avatarUrl={row.avatarUrl}
+                    isVerified={row.isVerify}
+                    selected={selected.indexOf(row.id) !== -1}
+                    handleClick={(event) => handleClick(event, row.id)}
+                  />
+                ))}
 
                 <TableEmptyRows
                   height={77}

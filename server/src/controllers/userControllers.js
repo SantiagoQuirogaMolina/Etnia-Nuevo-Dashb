@@ -137,6 +137,11 @@ const createusers = async (userData) => {
       confirmationToken,
     } = userData;
 
+       //verifica si ya existe
+       const userCreated = await User.findOne ({where: {email: email}});
+       if(userCreated){
+           throw new Error (`Un usuario con ese email ya existe`)
+       }
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newuser = await User.create({
@@ -158,6 +163,7 @@ const createusers = async (userData) => {
 };
 
 const deleteUserById = async (id) => {
+  console.log("Deleting user")
   try {
     const userToDelete = await User.findByPk(id);
 
@@ -167,7 +173,7 @@ const deleteUserById = async (id) => {
 
     await userToDelete.destroy();
 
-    return `usero con ID ${id} eliminado exitosamente.`;
+    return `user con ID ${id} eliminado exitosamente.`;
   } catch (error) {
     throw error;
   }

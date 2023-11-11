@@ -16,46 +16,56 @@ function Card({id, name, gender, sale, img, color, price}) {
   const favorites = useSelector((state)=> state.FavoritesPersist)
   const favoritesBACK = useSelector((state)=> state.allFavoritesBack)
   const user = useSelector((state)=> state.user);
+
   const dispatch = useDispatch();
 
   const [isFav, setIsFav] = useState(false);
 
-  const product = {id, name, gender, sale, img, color, price};
+  const product = { id, name, gender, sale, img, color, price };
 
   const handleFavorite = () => {
-    if(isFav){
-       setIsFav(false);
-      dispatch(removeFav(id))
+    if (isFav) {
+      setIsFav(false);
+      dispatch(removeFav(id));
+    } else {
+      setIsFav(true);
+      dispatch(getAddFavorites(product));
     }
-    else{
-       setIsFav(true);
-      dispatch(getAddFavorites(product))
-    }
- };
+  };
 
- useEffect(() => {
-  favorites?.forEach((fav) => {
-     if (fav.id === id) {
+  useEffect(() => {
+    favorites?.forEach((fav) => {
+      if (fav.id === id) {
         setIsFav(true);
-     }
-  });
-}, [id, favorites]);
+      }
+    });
+  }, [id, favorites]);
 
+  function truncateText(text, maxCharacters) {
+    if (text.length > maxCharacters) {
+      return `${text.slice(0, maxCharacters)}...`;
+    }
+    return text;
+  }
+  
   return (
-  <div>
-    <button onClick={handleFavorite}>{isFav ? "❤️" : "🤍"}</button>
-    <div className={styles.card}>
-
-      <Link to={`/product/${id}`}>
-      <div>
-        <img src={img} alt={name}/>
-        <h2>{name}</h2>
-        <h2>${price}</h2>
-        {sale > 0 && <h2>{sale}% OFF</h2>}
+    <div>
+      <div className={styles.card}>
+        <button className={styles.corazon} onClick={handleFavorite}>
+          {isFav ? '❤️' : '🤍'}
+        </button>
+        <Link to={`/product/${id}`}>
+          <div>
+            <img className={styles.imagen} src={img} alt={name} />
+            <div className={styles.descripcion}>
+              <h2 className={styles.name}>{truncateText(name, 15)}</h2>
+              <h2 className={styles.price}>{`$${price}`}</h2>
+              {sale > 0 && <h2 className={styles.discount}>{`${sale}% OFF`}</h2>}
+            </div>
+          </div>
+        </Link>
       </div>
-      </Link>
-      </div>
-      </div>
+    </div>
   );
 }
 
