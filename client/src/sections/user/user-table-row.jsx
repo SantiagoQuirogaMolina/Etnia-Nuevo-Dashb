@@ -1,5 +1,12 @@
-import React from 'react';
+/* eslint-disable import/extensions */
+/* eslint-disable no-unused-vars */
+/* eslint-disable perfectionist/sort-named-imports */
+/* eslint-disable unused-imports/no-unused-imports */
+/* eslint-disable import/no-unresolved */
+
 import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -14,15 +21,24 @@ import IconButton from '@mui/material/IconButton';
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 
+import { deleteUser } from '../../redux/actions';
+
 export default function UserTableRow({
+  id,
   selected,
   name,
   avatarUrl,
-  role,
+  admin,
+  employe,
   isVerified,
   status,
   handleClick,
 }) {
+
+  const dispatch = useDispatch();
+  // Utiliza useEffect para llamar automáticamente la función cuando el componente se monta
+  useEffect(() => {}, [dispatch]);
+
   const [open, setOpen] = React.useState(null);
 
   const handleOpenMenu = (event) => {
@@ -34,12 +50,12 @@ export default function UserTableRow({
   };
 
   const handleEditClick = () => {
-    console.log('Editar', name);
+    console.log('Editar', id);
     handleCloseMenu();
   };
 
   const handleDeleteClick = () => {
-    console.log('Eliminar', name);
+    dispatch(deleteUser(id));
     handleCloseMenu();
   };
 
@@ -59,8 +75,8 @@ export default function UserTableRow({
           </Stack>
         </TableCell>
 
-        <TableCell>{role}</TableCell>
-
+        <TableCell>{admin ? 'Yes' : 'No'}</TableCell>
+        <TableCell>{employe ? 'Yes' : 'No'}</TableCell>
         <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
 
         <TableCell>
@@ -103,7 +119,9 @@ UserTableRow.propTypes = {
   handleClick: PropTypes.func,
   isVerified: PropTypes.any,
   name: PropTypes.any,
-  role: PropTypes.any,
+  admin: PropTypes.any,
+  employe: PropTypes.any,
   selected: PropTypes.any,
   status: PropTypes.string,
+  id: PropTypes.number,
 };

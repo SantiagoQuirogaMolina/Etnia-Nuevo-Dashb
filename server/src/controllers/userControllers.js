@@ -163,6 +163,7 @@ const createusers = async (userData) => {
 };
 
 const deleteUserById = async (id) => {
+  console.log("Deleting user")
   try {
     const userToDelete = await User.findByPk(id);
 
@@ -172,7 +173,7 @@ const deleteUserById = async (id) => {
 
     await userToDelete.destroy();
 
-    return `usero con ID ${id} eliminado exitosamente.`;
+    return `user con ID ${id} eliminado exitosamente.`;
   } catch (error) {
     throw error;
   }

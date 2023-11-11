@@ -43,7 +43,11 @@ const Form = () => {
     quantity: 0,
   });
 
+
+
+  
   useEffect(() => {
+
     return () => dispatch(clearErrors());
   }, [dispatch]);
 
@@ -71,6 +75,7 @@ const Form = () => {
     setErrorSubmit('');
   };
 
+
   const handleChangeImage = (event) => {
     const file = event.target.files[0];
     console.log(file);
@@ -83,7 +88,11 @@ const Form = () => {
     })
   }
 
+
+ 
   let isSubmitDisabled = Object.keys(errors).length > 0;
+
+  console.log(isSubmitDisabled);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -399,6 +408,7 @@ const Form = () => {
 
           <div className="form-group">
             <label className="label-form" htmlFor="image">
+
               Imagen del producto
             </label>
             <input
@@ -408,6 +418,7 @@ const Form = () => {
               name="image"
               value={input.image}
               onChange={handleChangeImage}
+
             />
             <p className="errores" style={{ visibility: errors.image ? 'visible' : 'hidden' }}>
               {errors.image}
@@ -439,7 +450,7 @@ const Form = () => {
             onChange={handleChange}
           />
           <input type="checkbox" name="s" id="S" value="S" onChange={habilitar} />
-          <label for="S">S</label>
+          <label htmlFor="S">S</label>
           <input
             disabled
             className="input2T"
@@ -451,7 +462,7 @@ const Form = () => {
           />
 
           <input type="checkbox" name="m" id="M" value="M" onChange={habilitar} />
-          <label for="M">M</label>
+          <label htmlFor="M">M</label>
           <input
             disabled
             className="input2T"
@@ -463,7 +474,7 @@ const Form = () => {
           />
 
           <input type="checkbox" name="l" id="L" value="L" onChange={habilitar} />
-          <label for="L">L</label>
+          <label htmlFor="L">L</label>
           <input
             disabled
             className="input2T"
@@ -475,7 +486,7 @@ const Form = () => {
           />
 
           <input type="checkbox" name="xl" id="XL" value="XL" onChange={habilitar} />
-          <label for="XL">XL</label>
+          <label htmlFor="XL">XL</label>
           <input
             disabled
             className="input2T"
@@ -487,7 +498,7 @@ const Form = () => {
           />
 
           <input type="checkbox" name="xxl" id="XXL" value="XXL" onChange={habilitar} />
-          <label for="XXL">XXL</label>
+          <label htmlFor="XXL">XXL</label>
           <input
             disabled
             className="input2T"
