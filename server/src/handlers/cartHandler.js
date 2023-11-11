@@ -18,7 +18,10 @@ const postCart = async (req, res)=>{
         if(!UserId || !ProductId){return res.status(404).json("Missing data")};
 
         let cart= await createCart({UserId, ProductId});
-        res.json(cart);
+        if(!cart){return res.status(403).json({message: "Error to createCart"})}
+
+        let carts = await getCarts(UserId);
+        res.json(carts);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -30,8 +33,10 @@ const deleteCart = async (req, res)=>{
         if(!UserId || !ProductId){return res.status(404).json("Missing data")};
 
         let cart = await deleteFromCart({UserId, ProductId});
-        if(!cart){return res.json({message: "This not a cart"})}
-        res.json(cart);
+        if(!cart){return res.json({message: "This not a favorite"})}
+
+        let carts = await getCarts(UserId);
+        res.json(carts);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

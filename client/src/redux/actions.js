@@ -7,45 +7,61 @@
 /* eslint-disable perfectionist/sort-imports */
 /* eslint-disable func-names */
 /* eslint-disable no-useless-catch */
-import axios from 'axios';
-import getFindSelects from '../functions/getFindSelects';
+
+import axios from "axios";
+import getFindSelects from "../functions/getFindSelects";
+// import ProductDetail from "src/pages/productDetail/ProductDetail";
 
 // Routes Get
-export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
-export const GET_ALL_SELECTS = 'GET_ALL_SELECTS';
-export const GET_DETAIL_SIZE_COLOR = 'GET_DETAIL_SIZE_COLOR';
-export const GET_ORDER_PRICE = 'GET_ORDER_PRICE';
-export const GET_ALL_USERS = 'GET_ALL_USERS';
-export const GET_USERS_BY_NAME = 'GET_USERS_BY_NAME';
-export const GET_PRODUCTS_BY_NAME = 'GET_PRODUCTS_BY_NAME';
-export const ADD_FAVORITES = 'ADD_FAVORITES';
-export const GET_BY_ID = 'GET_BY_ID';
-export const GET_EMPRESA = 'GET_EMPRESA';
-export const GET_CUENTAS = 'GET_CUENTAS';
-export const GET_MEDIOPAGO = 'GET_MEDIOPAGO';
-export const GET_LOGISTICA = 'GET_LOGISTICA';
+export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
+export const GET_ALL_SELECTS = "GET_ALL_SELECTS";
+export const GET_DETAIL_SIZE_COLOR = "GET_DETAIL_SIZE_COLOR";
+export const GET_ORDER_PRICE = "GET_ORDER_PRICE";
+export const GET_ALL_USERS = "GET_ALL_USERS";
+export const GET_USERS_BY_NAME = "GET_USERS_BY_NAME";
+export const GET_PRODUCTS_BY_NAME = "GET_PRODUCTS_BY_NAME";
+export const ADD_FAVORITES = "ADD_FAVORITES";
+export const GET_BY_ID = "GET_BY_ID";
+export const GET_EMPRESA="GET_EMPRESA";
+export const GET_CUENTAS="GET_CUENTAS";
+export const GET_MEDIOPAGO="GET_MEDIOPAGO";
+export const GET_LOGISTICA="GET_LOGISTICA";
+export const GET_ALL_FAVS="GET_ALL_FAVS";
+export const GET_ALL_CARTS="GET_ALL_FAVS";
+export const GET_PURCHASE_DETAIL = "GET_PURCHASE_DETAIL";
+export const GET_ALL_PURCHASES = "GET_ALL_PURCHASES";
+export const GET_USER_PURCHASES = "GET_USER_PURCHASES";
 // routes Delete
-export const DELETE_USER = 'DELETE_USER';
-export const DELETE_PRODUCT = 'DELETE_PRODUCT';
-export const DELETE_EMPRESA = 'DELETE_EMPRESA';
-export const DELETE_CUENTAS = 'DELETE_CUENTAS';
-export const DELETE_MEDIOPAGO = 'DELETE_MEDIOPAGO';
-export const DELETE_LOGISTICA = 'DELETE_LOGISTICA';
+export const DELETE_COMMENT = "DELETE_COMMENT";
+export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const DELETE_USER="DELETE_USER";
+export const DELETE_EMPRESA="DELETE_EMPRESA";
+export const DELETE_CUENTAS="DELETE_CUENTAS";
+export const DELETE_MEDIOPAGO="DELETE_MEDIOPAGO";
+export const DELETE_LOGISTICA="DELETE_LOGISTICA";
+export const REMOVE_FAV_BACK="REMOVE_FAV_BACK";
+export const REMOVE_CART_BACK="REMOVE_CART_BACK";
 // Routes Post
-export const CREATE_PRODUCT = 'CREATE_PRODUCT';
-export const CREATE_USER = 'CREATE_USER';
-export const RESTORE_PRODUCT = 'RESTORE_PRODUCT';
-export const CREATE_EMPRESA = 'CREATE_EMPRESA';
-export const CREATE_CUENTAS = 'CREATE_CUENTAS';
-export const CREATE_MEDIOPAGO = 'CREATE_MEDIOPAGO';
-export const CREATE_LOGISTICA = 'CREATE_LOGISTICA';
+export const CREATE_COMMENT = "CREATE_COMMENT";
+export const CREATE_PRODUCT = "CREATE_PRODUCT";
+export const CREATE_USER = "CREATE_USER";
+export const RESTORE_PRODUCT = "RESTORE_PRODUCT";
+export const CREATE_EMPRESA="CREATE_EMPRESA";
+export const CREATE_CUENTAS="CREATE_CUENTAS";
+export const CREATE_MEDIOPAGO="CREATE_MEDIOPAGO";
+export const CREATE_LOGISTICA="CREATE_LOGISTICA";
+export const NEW_FAVORITE="NEW_FAVORITE";
+export const NEW_CART="NEW_CART";
+export const CREATE_PURCHASE = "CREATE_PURCHASE";
+
 // routes Put
-export const UPDATE_USER = 'UPDATE_USER';
-export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
-export const UPDATE_EMPRESA = 'UPDATE_EMPRESA';
-export const UPDATE_CUENTAS = 'UPDATE_CUENTAS';
-export const UPDATE_MEDIOPAGO = 'UPDATE_MEDIOPAGO';
-export const UPDATE_LOGISTICA = 'UPDATE_LOGISTICA';
+export const UPDATE_COMMENT = "UPDATE_COMMENT";
+export const UPDATE_USER = "UPDATE_USER";
+export const UPDATE_PRODUCT="UPDATE_PRODUCT";
+export const UPDATE_EMPRESA="UPDATE_EMPRESA";
+export const UPDATE_CUENTAS="UPDATE_CUENTAS";
+export const UPDATE_MEDIOPAGO="UPDATE_MEDIOPAGO";
+export const UPDATE_LOGISTICA="UPDATE_LOGISTICA";
 // Filters
 export const GET_FILTER_GENDER = 'GET_FILTER_GENDER';
 export const GET_FILTER_CATEGORY = 'GET_FILTER_CATEGORY';
@@ -66,60 +82,178 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const UPDATE_CART_ITEM_QUANTITY = 'UPDATE_CART_ITEM_QUANTITY';
 // export const UPDATE_SHIPPING = "UPDATE_SHIPPING";
 // LocalStorage
+export const LOCALSTORAGE = "LOCALSTORAGE";
+export const PERSIST_USER = "PERSIST_USER";
+export const USER_LOGIN = "USER_LOGIN";
+export const USER_LOGOUT = "USER_LOGOUT";
+export const REGISTER_USER = "REGISTER_USER";
+export const ADD_SHIPPING = "ADD_SHIPPING";
+export const UPDATE_SHIPPING = "UPDATE_SHIPPING";
+export const REMOVE_SHIPPING = "REMOVE_SHIPPING";
+export const REGISTER_USER_ERROR= "REGISTER_USER_ERROR";
+export const CONFITRM_TOKEN= "CONFITRM_TOKEN";
+   
+//Compras
 
-export const LOCALSTORAGE = 'LOCALSTORAGE';
+export const FINISH_PURCHASE = "FINISH_PURCHASE";
 
-export const USER_LOGIN = 'USER_LOGIN';
-export const USER_LOGOUT = 'USER_LOGOUT';
-export const REGISTER_USER = 'REGISTER_USER';
-export const ADD_SHIPPING = 'ADD_SHIPPING';
-export const UPDATE_SHIPPING = 'UPDATE_SHIPPING';
-export const REMOVE_SHIPPING = 'REMOVE_SHIPPING';
-export const REGISTER_USER_ERROR = 'REGISTER_USER_ERROR';
-export const CONFITRM_TOKEN = 'CONFITRM_TOKEN';
 
-const URL = 'http://localhost:3001';
+//  Compras
+
+export const FINISH_PURCHASE = "FINISH_PURCHASE";
+
+
+ const URL = "http://localhost:3001";
 // const URL = "https://etniasoftcommerce.up.railway.app";
 
-export function getCuentas() {
+
+
+export function finishPurchase(cart) {
   return async function (dispatch) {
-    const cuentasInfo = await axios.get(`/cuentas`);
+    const purchase = await axios.post(`${URL}/purchase`, purchase);
+    dispatch({
+      type: FINISH_PURCHASE,
+      payload: purchase.data,
+    });
+  }; 
+
+export function getAllPurchases(){
+  return async function(dispatch){
+    const purchasesInfo= await axios.get(`${URL}/purchase`)
+    dispatch({
+      type:GET_ALL_PURCHASES,
+      payload:purchasesInfo.data
+    })
+  }
+}
+
+export function getUserPurchases(id){
+  return async function(dispatch){
+    const purchasesInfo= await axios.get(`${URL}/purchase/${id}`)
+    dispatch({
+      type:GET_USER_PURCHASES,
+      payload:purchasesInfo.data
+    })
+  }
+}
+export function getPurchaseDetail(payload){
+  return async function(dispatch){
+    const productDetail= await axios.get(`${URL}/buyings/acceptpayment${payload}`)
+    dispatch({
+      type:GET_PURCHASE_DETAIL,
+      payload:productDetail
+    })
+  }
+}
+
+export function getAllFavs(id){
+  console.log("me despacharon");
+  return async function(dispatch){
+    const response = await axios.get(`${URL}/favs/${id}`);
+    dispatch({
+      type:GET_ALL_FAVS,
+      payload:response.data,
+    })
+  }
+}
+
+export function AddFavoriteBack(objectId){
+  return async function(dispatch){
+    const response = await axios.post(`${URL}/favs`, objectId);
+    dispatch({
+      type:NEW_FAVORITE,
+      payload:response.data,
+    })
+  }
+}
+
+export function removeFavoriteBack(objectId){
+  return async function(dispatch){
+    const response = await axios.put(`${URL}/favs`, objectId);
+    dispatch({
+      type:REMOVE_FAV_BACK,
+      payload:response.data,
+    })
+  }
+}
+
+export function getAllCarts(id){
+  return async function(dispatch){
+    const response = await axios.get(`${URL}/cart/${id}`);
+    dispatch({
+      type:GET_ALL_CARTS,
+      payload:response.data,
+    })
+  }
+}
+
+export function AddCartBack(objectId){
+  return async function(dispatch){
+    const response = await axios.post(`${URL}/cart`, objectId);
+    dispatch({
+      type:NEW_CART,
+      payload:response.data,
+    })
+  }
+}
+
+export function removeCartBack(objectId){
+  return async function(dispatch){
+    const response = await axios.put(`${URL}/cart`, objectId);
+    dispatch({
+      type:REMOVE_CART_BACK,
+      payload:response.data,
+    })
+  }
+
+}
+
+export function getCuentas(){
+  return async function(dispatch){
+    const cuentasInfo= await axios.get(`${URL}/cuentas`);
+
     dispatch({
       type: GET_CUENTAS,
       payload: cuentasInfo.data.results,
     });
   };
 }
-export function getEmpresa() {
-  return async function (dispatch) {
-    const empresaInfo = await axios.get(`/empresa`);
+
+export function getEmpresa(){
+  return async function(dispatch){
+    const empresaInfo= await axios.get(`${URL}/empresa`);
     dispatch({
       type: GET_EMPRESA,
       payload: empresaInfo.data.results,
     });
   };
 }
-export function getMedioPago() {
-  return async function (dispatch) {
-    const mediopagoInfo = await axios.get(`/mediopago`);
+
+export function getMedioPago(){
+  return async function(dispatch){
+    const mediopagoInfo= await axios.get(`${URL}/mediopago`);
+
     dispatch({
       type: GET_MEDIOPAGO,
       payload: mediopagoInfo.data.results,
     });
   };
 }
-export function getLogistica() {
-  return async function (dispatch) {
-    const logisticaInfo = await axios.get(`/logistica`);
+
+export function getLogistica(){
+  return async function(dispatch){
+    const logisticaInfo= await axios.get(`${URL}/logistica`);
+
     dispatch({
       type: GET_LOGISTICA,
       payload: logisticaInfo.data.results,
     });
   };
 }
-export function createLogistica(newLogistica) {
-  return async function (dispatch) {
-    const info = await axios.post(`/logistica`, newLogistica);
+
+export function createLogistica(newLogistica){
+  return async function (dispatch){
+    const info= await axios.post(`${URL}/logistica`,newLogistica);
     dispatch({
       type: CREATE_LOGISTICA,
       payload: info.data,
@@ -127,9 +261,9 @@ export function createLogistica(newLogistica) {
   };
 }
 
-export function createEmpresa(newEmpresa) {
-  return async function (dispatch) {
-    const info = await axios.post(`/empresa`, newEmpresa);
+export function createEmpresa(newEmpresa){
+  return async function (dispatch){
+    const info= await axios.post(`${URL}/empresa`,newEmpresa);
     dispatch({
       type: CREATE_EMPRESA,
       payload: info.data,
@@ -137,18 +271,19 @@ export function createEmpresa(newEmpresa) {
   };
 }
 
-export function createCuentas(newCuentas) {
-  return async function (dispatch) {
-    const info = await axios.post(`/cuentas`, newCuentas);
+export function createCuentas(newCuentas){
+  return async function (dispatch){
+    const info= await axios.post(`${URL}/cuentas`,newCuentas);
     dispatch({
       type: CREATE_CUENTAS,
       payload: info.data,
     });
   };
 }
-export function createMediopago(newMediopago) {
-  return async function (dispatch) {
-    const info = await axios.post(`/mediopago`, newMediopago);
+
+export function createMediopago(newMediopago){
+  return async function (dispatch){
+    const info= await axios.post(`${URL}/mediopago`,newMediopago);
     dispatch({
       type: CREATE_MEDIOPAGO,
       payload: info.data,
@@ -166,9 +301,9 @@ export function createProduct(newproduct) {
   };
 }
 
-export function deleteEmpresa(id) {
-  return async function (dispatch) {
-    const deletedEmpresa = await axios.delete(`/empresa/${id}`);
+export function deleteEmpresa(id){
+  return async function (dispatch){
+    const deletedEmpresa= await axios.delete(`${URL}/empresa/${id}`);
     dispatch({
       type: DELETE_EMPRESA,
       payload: deletedEmpresa.data,
@@ -176,9 +311,9 @@ export function deleteEmpresa(id) {
   };
 }
 
-export function deleteCuentas(id) {
-  return async function (dispatch) {
-    const deletedCuentas = await axios.delete(`/cuentas/${id}`);
+export function deleteCuentas(id){
+  return async function(dispatch){
+    const deletedCuentas= await axios.delete(`${URL}/cuentas/${id}`);
     dispatch({
       type: DELETE_CUENTAS,
       payload: deletedCuentas.data,
@@ -186,18 +321,19 @@ export function deleteCuentas(id) {
   };
 }
 
-export function deleteMediopago(id) {
-  return async function (dispatch) {
-    const deletedMediopago = await axios.delete(`/mediopago/${id}`);
+export function deleteMediopago(id){
+  return async function(dispatch){
+    const deletedMediopago=await axios.delete(`${URL}/mediopago/${id}`);
     dispatch({
       type: DELETE_MEDIOPAGO,
       payload: deletedMediopago.data,
     });
   };
 }
-export function deleteLogistica(id) {
-  return async function (dispatch) {
-    const deletedLogistica = await axios.delete(`/logistica/${id}`);
+
+export function deleteLogistica(id){
+  return async function(dispatch){
+    const deletedLogistica= await axios.delete(`${URL}/logistica/${id}`);
     dispatch({
       type: DELETE_LOGISTICA,
       payload: deletedLogistica.data,
@@ -205,9 +341,9 @@ export function deleteLogistica(id) {
   };
 }
 
-export function updateEmpresa(payload) {
-  return async function (dispatch) {
-    const info = await axios.put(`/${payload.id}`, payload);
+export function updateEmpresa(payload){
+  return async function(dispatch){
+    const info= await axios.put(`${URL}/${payload.id}`,payload);
     dispatch({
       type: UPDATE_EMPRESA,
       payload: info.data,
@@ -215,9 +351,9 @@ export function updateEmpresa(payload) {
   };
 }
 
-export function updateCuentas(payload) {
-  return async function (dispatch) {
-    const info = await axios.put(`/${payload.id}`, payload);
+export function updateCuentas(payload){
+  return async function(dispatch){
+    const info= await axios.put(`${URL}/${payload.id}`,payload);
     dispatch({
       type: UPDATE_CUENTAS,
       payload: info.data,
@@ -225,9 +361,9 @@ export function updateCuentas(payload) {
   };
 }
 
-export function updateMediopago(payload) {
-  return async function (dispatch) {
-    const info = await axios.put(`/${payload.id}`, payload);
+export function updateMediopago(payload){
+  return async function(dispatch){
+    const info= await axios.put(`${URL}/${payload.id}`,payload);
     dispatch({
       type: UPDATE_MEDIOPAGO,
       payload: info.data,
@@ -235,9 +371,9 @@ export function updateMediopago(payload) {
   };
 }
 
-export function updateLogistica(payload) {
-  return async function (dispatch) {
-    const info = await axios.put(`/${payload.id}`, payload);
+export function updateLogistica(payload){
+  return async function(dispatch){
+    const info=await axios.put(`${URL}/${payload.id}`,payload);
     dispatch({
       type: UPDATE_LOGISTICA,
       payload: info.data,
@@ -401,6 +537,7 @@ export function getProductsname(name) {
 export function getByID(id) {
   return async function (dispatch) {
     const { data } = await axios.get(`${URL}/products/${id}`);
+    console.log(data)
     dispatch({
       type: GET_BY_ID,
       payload: data,
@@ -464,6 +601,16 @@ export function deleteUser(id) {
   };
 }
 
+export function deleteUser(id){
+  return async function(dispatch){
+    const deletedUser= await axios.delete(`${URL}/users/${id}`);
+    dispatch({
+      type:DELETE_USER,
+      payload:deletedUser.data,
+    })
+  }
+}
+
 export function updateUser(payload) {
   return async function (dispatch) {
     const info = await axios.put(`${URL}/${payload.id}`, payload);
@@ -475,13 +622,20 @@ export function updateUser(payload) {
 }
 
 export function createUser(payload) {
+
   return async function (dispatch) {
-    const info = await axios.post(`${URL}`, payload);
-    dispatch({
-      type: CREATE_USER,
-      payload: info.data,
-    });
-  };
+    try{
+      
+      const {data} = await axios.post(`${URL}/users`,payload);
+      dispatch({
+        type: CREATE_USER,
+        payload: data,
+      });
+    }catch(error){
+    
+      throw (error.response.data)
+    }
+  }
 }
 
 export function getAllSelects() {
@@ -532,6 +686,16 @@ export function restoreProduct(id) {
   };
 }
 
+export function finishPurchase(cart) {
+  return async function (dispatch) {
+    const purchase = await axios.post(`${URL}/purchase`, purchase);
+    dispatch({
+      type: FINISH_PURCHASE,
+      payload: purchase.data,
+    });
+  }; 
+}
+
 export const getFiltersAndPagination = (filtros, pageNumber) => {
   return async (dispatch) => {
     // Construye un objeto que solo incluye filtros que tienen un valor definido y no son nulos
@@ -578,7 +742,20 @@ export function userLogin(email, password) {
 }
 
 export function userLogout() {
-  return {
-    type: USER_LOGOUT,
+   return {
+     type: USER_LOGOUT,
+   };
+ }
+
+export function userLogeado(user){
+  return async function (dispatch) {
+    try {
+      dispatch({
+        type: PERSIST_USER,
+        payload: user
+      });
+    } catch (error) {
+      console.log(error)
+    }
   };
 }

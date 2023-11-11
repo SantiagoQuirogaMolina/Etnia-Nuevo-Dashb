@@ -23,13 +23,18 @@ import resetView from '../home/clockwise.svg';
 
 function Home(props) {
   const Page = useSelector((state) => state.indexProductShow);
-  const selects = useSelector((state) => state.selectFilter);
+  const {token, userEmail, userId} = useSelector((state)=> state.user);
+  const selects = useSelector ((state) => state.selectFilter)
   const [initialPageSet, setInitialPageSet] = useState(1);
   const [initialFilters, setInitialFilters] = useLocalStorage('initialFilters', {});
   const maxPages = Math.ceil(Page?.info?.total / 10);
   const currentPage = Page?.info?.page;
 
   const dispatch = useDispatch();
+
+  const autoLogin = () => {
+    console.log(token, userEmail, userId);
+  };
 
   useEffect(() => {
     if (!initialPageSet) {
@@ -46,7 +51,8 @@ function Home(props) {
 
   useEffect(() => {
     loadProducts();
-    dispatch(getAllSelects());
+    dispatch(getAllSelects())
+    autoLogin();
   }, [dispatch, initialFilters, initialPageSet]);
 
   const handleChange = (event) => {

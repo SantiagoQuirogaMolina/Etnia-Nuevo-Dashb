@@ -19,8 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getByID, addToCart } from "../../redux/actions";
 import NavBar from '../../components/navBar/NavBar'
 import ReactImageMagnify from 'react-image-magnify';
-
-import { useLocalStorage } from "../../functions/useLocalStorage";
+import Swal from 'sweetalert2';
 import styles from './ProductDetail.module.css';
 
 export default function ProductDetail({handleChange}) {
@@ -43,6 +42,7 @@ export default function ProductDetail({handleChange}) {
     const handleAddToCart = () => {
       if (Product) {
         dispatch(addToCart(Product));
+        mostrarAlerta();
         setProductAdded(true);
       }
     }
@@ -65,6 +65,14 @@ export default function ProductDetail({handleChange}) {
       setIsHovered(false);
     }
     return
+   }
+
+   const mostrarAlerta = () => {
+    Swal.fire({
+      icon: 'success',
+      title: '',
+      text: 'Añadido al Carrito'
+    })
    }
 
     return (
@@ -113,9 +121,7 @@ export default function ProductDetail({handleChange}) {
               onMouseLeave={()=>handleMouseLeave()}              
               onClick={handleAddToCart} className={styles.addToCartButton}>
                 Agregar al carrito
-                  {productAdded && (
-                    <p className={styles.productAddedMessage}>añadido</p>
-                    )}
+                  
               </button>
               <p>      </p>
                   <p>Marca: {Product.brand} | Categoria: {Product.category}</p>

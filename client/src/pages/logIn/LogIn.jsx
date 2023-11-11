@@ -16,9 +16,10 @@ import Google from "../../assets/png/Google.png";
 import styles from "./LogIn.module.css";
 import LoginButton from "./logInButton.jsx";
 import LogoutButton from "./logOutButton.jsx";
+import { useLocalStorage } from "../../functions/useLocalStorage";
 // eslint-disable-next-line import/order
 import { useAuth0 } from "@auth0/auth0-react";
-import { userLogin } from "../../redux/actions";
+import { userLogin, userLogeado } from "../../redux/actions";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -65,7 +66,7 @@ function LogIn(props) {
 
     dispatch(userLogin(email, password))
       .then((response) => {
-        console.log(response);
+        dispatch(userLogeado(response));
         // Aquí puedes continuar con el código después de iniciar sesión con éxito
         navigate("/");
       })
