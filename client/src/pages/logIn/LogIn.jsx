@@ -19,7 +19,7 @@ import LogoutButton from "./logOutButton.jsx";
 import { useLocalStorage } from "../../functions/useLocalStorage";
 // eslint-disable-next-line import/order
 import { useAuth0 } from "@auth0/auth0-react";
-import { userLogin } from "../../redux/actions";
+import { userLogin, userLogeado } from "../../redux/actions";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -28,7 +28,6 @@ function LogIn(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const [token, setToken] = useLocalStorage("token", "");
   const User = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
@@ -67,7 +66,7 @@ function LogIn(props) {
 
     dispatch(userLogin(email, password))
       .then((response) => {
-        setToken(response.token);
+        dispatch(userLogeado(response));
         // Aquí puedes continuar con el código después de iniciar sesión con éxito
         navigate("/");
       })
@@ -114,13 +113,13 @@ function LogIn(props) {
         {error && <div className={styles["error-message"]}>{error}</div>}
 
       </form>
-      <nav>
-          <ul>
-            <li>
-              <Link to="/RegisterForm">¿Aún no tienes una cuenta? obtener una</Link>
+      <nav className={styles.enlacesDiv} >
+          <ul className={styles.enlacesUl}>
+            <li >
+              <Link className={styles.enlaces}  to="/RegisterForm">¿Aún no tienes una cuenta? obtener una</Link>
             </li>
             <li>
-              <Link to="/recuperar-contrasena">¿Olvidaste tu Password?</Link>
+              <Link className={styles.enlaces} to="/recuperar-contrasena">¿Olvidaste tu Password?</Link>
             </li>
           </ul>
         </nav>

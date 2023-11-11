@@ -71,6 +71,7 @@ const restoreProductHandler = async (req, res) => {
   }
 };
 const deleteProductsHandler = async (req, res) => {
+  console.log("hanlde delee")
   const id = req.params.id;
   try {
     const product = await deleteProductById(id);

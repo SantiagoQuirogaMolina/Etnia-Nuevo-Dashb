@@ -126,10 +126,10 @@ function RegisterForm(props) {
       </form>
       {error && <div className={styles["error-message"]}>{error}</div>}
       {mensaje && <div className={styles["exito-message"]}>{mensaje}</div>}
-      <nav>
-        <ul>
+      <nav className={styles.enlacesDiv}>
+        <ul className={styles.enlacesUl}>
           <li>
-            <Link to="/user">¿Ya tienes cuenta? Iniciar Sesión</Link>
+            <Link className={styles.enlaces} to="/user">¿Ya tienes cuenta? Iniciar Sesión</Link>
           </li>
         </ul>
       </nav>

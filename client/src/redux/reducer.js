@@ -31,15 +31,19 @@ import {
   REMOVE_FROM_CART,
   UPDATE_CART_ITEM_QUANTITY,
   DELETE_USER,
-  GET_ALL_CARTS,
+  FINISH_PURCHASE,
   GET_ALL_FAVS,
   NEW_CART,
   NEW_FAVORITE,
   REMOVE_CART_BACK,
   REMOVE_FAV_BACK,
   GET_ALL_PURCHASES,
-  CREATE_PURCHASE,
   GET_PURCHASE_DETAIL,
+  PERSIST_USER,
+  GET_ALL_REVIEWS,
+  GET_REVIEW_BY_ID,
+  UPDATE_REVIEW,
+  DELETE_REVIEW
 } from "./actions";
 
 const initialState = {
@@ -48,23 +52,48 @@ const initialState = {
   createdPurchase:{},
   userPurchases:[],
   productDetail: [],
+  purchases: [],
+  productShow: [],
+  indexProductShow: [],
+  allUsers: [],
   FavoritesPersist: [],
   cartPersist: [],
   allFavoritesBack:[],
   allCartBack:[],
-  productShow: [],
-  indexProductShow: [],
-  allUsers: [],
   errors: {},
   selectFilter: {},
   page: null,
   localstorage: [],
-  user: null, // Agregar el estado del usuario
+  user: null,
+  reviews:[],
 };
 
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
+
+
+    case FINISH_PURCHASE:
+      return {
+        ...state,
+        errors: {},
+      };
+      case GET_ALL_REVIEWS:
+        return{
+          ...state,
+          reviews:action.payload
+        }
+        case GET_REVIEW_BY_ID:
+          return{
+            ...state,
+            reviews:action.payload
+          }
+         case UPDATE_REVIEW:
+          return action.payload
+          case DELETE_REVIEW:
+            return action.payload 
+
 
     case GET_ALL_FAVS:
       return{
@@ -84,11 +113,7 @@ const reducer = (state = initialState, action) => {
                   ...state,
                   purchase: action.payload,
               }     
-              case CREATE_PURCHASE:
-                return {
-                    ...state,
-                    createdPurchase: action.payload,
-                }
+              
     
     case NEW_FAVORITE:
       return{
@@ -102,11 +127,11 @@ const reducer = (state = initialState, action) => {
         allFavoritesBack: action.payload
       }
     
-    case GET_ALL_CARTS:
-      return{
-        ...state,
-        allCartBack: action.payload
-      }
+    // case GET_ALL_CARTS:
+    //   return{
+    //     ...state,
+    //     allCartBack: action.payload
+    //   }
     
     case NEW_CART:
       return{
@@ -120,6 +145,7 @@ const reducer = (state = initialState, action) => {
         allCartBack: action.payload
       }
     
+
     case REGISTER_USER:
       return {
         ...state,
@@ -256,6 +282,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: null,
       };
+
+    // case FINISH_PURCHASE:
+    //   return {
+    //     ...state,
+    //     errors: {},
+    //   };
+
+    
+    case PERSIST_USER:
+      return {
+        ...state,
+        user: action.payload
+      }
+
 
     default:
       return { ...state };

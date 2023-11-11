@@ -11,20 +11,23 @@
 /* eslint-disable perfectionist/sort-imports */
 /* eslint-disable eqeqeq */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import './form.css';
-
+//import { useParams } from "react-router";
 import Validation from './validation';
 import primeraMayuscula from '../../../functions/primeraMayuscula';
-import { createProduct, clearErrors } from '../../../redux/actions';
+import { updateProduct, clearErrors, getByID } from '../../../redux/actions';
 import Swal from 'sweetalert2';
+import './formedit.css';
 
+const FormEditProduct = () => {
 
-
-const Form = () => {
   const dispatch = useDispatch();
+  //const {id} = useParams();
+  const id = 6;
+
+  const inputReduce = useSelector((state) => state.productDetail);
+  console.log(inputReduce)
 
   const [errorSubmit, setErrorSubmit] = useState('');
   const gErrors = useSelector((state) => state.errors);
@@ -41,21 +44,74 @@ const Form = () => {
     gender: '',
     image: '',
     quantity: 0,
+    quantityXS: 0,
+    quantityS: 0,
+    quantityM: 0,
+    quantityL: 0,
+    quantityXL: 0,
+    quantityXXL: 0,
+
   });
-
-
+  
+  useEffect (() => {
+    dispatch(getByID(id))
+    setInput(inputReduce);
+    return () => dispatch(clearErrors());
+  }, [id, inputReduce, dispatch]);
 
   
-  useEffect(() => {
+  console.log(input)  
+  //para armar el muñeco de entrada
 
-    return () => dispatch(clearErrors());
-  }, [dispatch]);
+  //  const option = inputReduce.size 
+  //  if (Object.keys(option).includes("XS")) {
+  //     document.querySelector('#quantityXS').value = option.XS
+  //     document.querySelector('#quantityXS').disabled = false
+  //     document.getElementById('XS').checked = true
+  //     input.quantityXS = option.XS
+  //  };
 
+  //  if (Object.keys(option).includes("S")) {
+  //     document.querySelector('#quantityS').value = option.S
+  //     document.querySelector('#quantityS').disabled = false
+  //     document.getElementById('S').checked = true
+  //     input.quantityXS = option.S
+  //   };
+
+  //  if (Object.keys(option).includes("M")) {
+  //     document.querySelector('#quantityM').value = option.M
+  //     document.querySelector('#quantityM').disabled = false
+  //     document.getElementById('M').checked = true
+  //     input.quantityXS = option.M
+  //   };
+
+  //   if (Object.keys(option).includes("L")) {
+  //     document.querySelector('#quantityL').value = option.L
+  //     document.querySelector('#quantityL').disabled = false
+  //     document.getElementById('L').checked = true
+  //     input.quantityXS = option.L
+  //   };
+
+  //   if (Object.keys(option).includes("XL")) {
+  //     document.querySelector('#quantityXL').value = option.XL
+  //     document.querySelector('#quantityXL').disabled = false
+  //     document.getElementById('XL').checked = true
+  //     input.quantityXS = option.XL
+  //   };
+
+  //   if (Object.keys(option).includes("XXL")) {
+  //     document.querySelector('#quantityXXL').value = option.XXL
+  //     document.querySelector('#quantityXXL').disabled = false
+  //     document.getElementById('XXL').checked = true
+  //     input.quantityXS = option.XXL
+  //   };
+
+ 
   const mostrarAlertaExitosa = () => {
     Swal.fire({
       icon: 'success',
-      title: 'Producto creado',
-      text: 'El producto se guardó de manera exitosa',
+      title: '',
+      text: 'El producto se actualizó de manera exitosa',
     });
   };
 
@@ -65,7 +121,6 @@ const Form = () => {
       [event.target.name]: event.target.value,
     });
     
-    console.log(input)
     setErrors(
       Validation({
         ...input,
@@ -75,24 +130,9 @@ const Form = () => {
     setErrorSubmit('');
   };
 
-
-  const handleChangeImage = (event) => {
-    const file = event.target.files[0];
-    console.log(file);
-    //const reader = URL.createObjectURL(file);
-    
-    //console.log(reader);
-    setInput({
-      ...input,
-      [event.target.name]: event.target.value,
-    })
-  }
-
-
  
-  let isSubmitDisabled = Object.keys(errors).length > 0;
 
-  console.log(isSubmitDisabled);
+ // let isSubmitDisabled = Object.keys(errors).length > 0;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -138,8 +178,8 @@ const Form = () => {
 
     let suma = 0;
     input.size = selected;
-    for (let option of input.size) {
-      suma += parseInt(Object.values(option), 10);
+    for (let options of input.size) {
+      suma += parseInt(Object.values(options), 10);
     }
     input.quantity = suma;
     input.name = input.name.toUpperCase();
@@ -154,21 +194,21 @@ const Form = () => {
       console.log (errorSubmit);
     }
     else {
-      dispatch(createProduct(input));
+      dispatch(updateProduct(input));
 
-      setInput({
-        name: '',
-        description: '',
-        brand: '',
-        sale: 0,
-        category: '',
-        size: [],
-        color: '',
-        price: 0,
-        gender: 'default',
-        image: '',
-        quantity: 0,
-      });
+      // setInput({
+      //   name: '',
+      //   description: '',
+      //   brand: '',
+      //   sale: 0,
+      //   category: '',
+      //   size: [],
+      //   color: '',
+      //   price: 0,
+      //   gender: 'default',
+      //   image: '',
+      //   quantity: 0,
+      // });
       console.log(input);
       // desmarca todo los checkbox
       for (let i = 0; i < document.f1.elements.length; i++) {
@@ -256,20 +296,20 @@ const Form = () => {
   
 
   return (
-    <div className="Form-container">
+    <div className="Formedit-container">
       <form
         onSubmit={(event) => handleSubmit(event)}
         name="f1"
         id="formElement"
-        className="form-container"
+        className="formedit-container"
       >
         <div className="globalCont">
           
-          <h3 className="formTitle">Crear nuevo producto</h3>
+          <h3 className="formeditTitle">Actualizar producto</h3>
           <br />
 
-          <div className="form-precio-descuento">
-            <div className="form-group">
+          <div className="formedit-precio-descuento">
+            <div className="formedit-group">
               <label className="label-form" htmlFor="name">
                 Nombre
               </label>
@@ -286,7 +326,7 @@ const Form = () => {
               </p>
             </div>
 
-            <div className="form-group">
+            <div className="formedit-group">
               <label className="label-form" htmlFor="brand">
                 Marca
               </label>
@@ -303,7 +343,7 @@ const Form = () => {
               </p>
             </div>
 
-            <div className="form-group">
+            <div className="formedit-group">
               <label className="label-form" htmlFor="category">
                 Categoria
               </label>
@@ -321,12 +361,13 @@ const Form = () => {
             </div>
           </div>
 
-          <div className="form-group">
+          <div className="formedit-group">
             <label className="label-form-descripcion" htmlFor="description">
               Descripción
             </label>
             <br />
             <textarea
+              className="textarea-descripcion"
               id="description"
               name="description"
               value={input.description}
@@ -340,8 +381,8 @@ const Form = () => {
             </p>
           </div>
 
-          <div className="form-precio-descuento">
-            <div className="form-group">
+          <div className="formedit-precio-descuento">
+            <div className="formedit-group">
               <label className="label-form" htmlFor="color">
                 Color
               </label>
@@ -357,7 +398,7 @@ const Form = () => {
                 {errors.color}
               </p>
             </div>
-            <div className="form-group">
+            <div className="formedit-group">
               <label className="label-form" htmlFor="price">
                 Precio
               </label>
@@ -374,7 +415,7 @@ const Form = () => {
               </p>
             </div>
 
-            <div className="form-group">
+            <div className="formedit-group">
               <label className="label-form" htmlFor="sale">
                 Descuento
               </label>
@@ -392,7 +433,7 @@ const Form = () => {
             </div>
           </div>
 
-          <div className="form-group">
+          <div className="formedit-group">
             <label className="label-form" htmlFor="gender">
               Genero
             </label>
@@ -406,19 +447,17 @@ const Form = () => {
             </p>
           </div>
 
-          <div className="form-group">
-            <label className="label-form" htmlFor="image">
-
-              Imagen del producto
+          <div className="formedit-group">
+            <label className="label-form" htmlFor="img">
+              Imagen
             </label>
             <input
               className="input3"
-              type="file"
+              type="url"
               id="image"
               name="image"
-              value={input.image}
-              onChange={handleChangeImage}
-
+              value={input.img}
+              onChange={handleChange}
             />
             <p className="errores" style={{ visibility: errors.image ? 'visible' : 'hidden' }}>
               {errors.image}
@@ -429,7 +468,7 @@ const Form = () => {
           <div className="previewImage">
             <h5>Imagen Previa:</h5>
             <div className="img-container">
-              <img className="img" src={input.image} alt="" />
+              <img className="img" src={input.img} alt="" />
             </div>
             <p className="errorsubmit">{errorSubmit}</p>
           </div>
@@ -437,7 +476,7 @@ const Form = () => {
         
         <div className="globalTalla">
         
-          <label htmlFor="XS">Tallas:</label>
+          <label>Tallas:</label>
           <input type="checkbox" name="xs" id="XS" value="XS" onChange={habilitar} />
           <label htmlFor="XS">XS</label>
           <input
@@ -450,7 +489,7 @@ const Form = () => {
             onChange={handleChange}
           />
           <input type="checkbox" name="s" id="S" value="S" onChange={habilitar} />
-          <label htmlFor="S">S</label>
+          <label for="S">S</label>
           <input
             disabled
             className="input2T"
@@ -462,7 +501,7 @@ const Form = () => {
           />
 
           <input type="checkbox" name="m" id="M" value="M" onChange={habilitar} />
-          <label htmlFor="M">M</label>
+          <label for="M">M</label>
           <input
             disabled
             className="input2T"
@@ -474,7 +513,7 @@ const Form = () => {
           />
 
           <input type="checkbox" name="l" id="L" value="L" onChange={habilitar} />
-          <label htmlFor="L">L</label>
+          <label for="L">L</label>
           <input
             disabled
             className="input2T"
@@ -486,7 +525,7 @@ const Form = () => {
           />
 
           <input type="checkbox" name="xl" id="XL" value="XL" onChange={habilitar} />
-          <label htmlFor="XL">XL</label>
+          <label for="XL">XL</label>
           <input
             disabled
             className="input2T"
@@ -498,7 +537,7 @@ const Form = () => {
           />
 
           <input type="checkbox" name="xxl" id="XXL" value="XXL" onChange={habilitar} />
-          <label htmlFor="XXL">XXL</label>
+          <label for="XXL">XXL</label>
           <input
             disabled
             className="input2T"
@@ -514,11 +553,9 @@ const Form = () => {
           <button
             id="submit"
             className="btn"
-            disabled={isSubmitDisabled || input.name.length === 0}
-            style={(isSubmitDisabled ||input.name.length === 0) ? { opacity: '0.6', cursor: 'not-allowed' } : null}
             type="submit"
           >
-            Crear Producto
+            Actualizar Producto
           </button>
         </div>
 
@@ -533,4 +570,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default FormEditProduct;

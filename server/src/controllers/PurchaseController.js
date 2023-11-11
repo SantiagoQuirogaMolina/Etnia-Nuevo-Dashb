@@ -1,4 +1,4 @@
-const { Purchases, User, Products } = require('../db.js');
+const { Purchases, User, Products } = require('../db');
 
 const getPurchaseAll = async (req, res) => {
 	let purchaseTable = await Purchases.findAll({
