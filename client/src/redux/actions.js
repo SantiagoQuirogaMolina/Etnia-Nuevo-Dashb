@@ -404,7 +404,7 @@ export function getProductsname(name) {
 export function getByID(id) {
   return async function (dispatch) {
     const { data } = await axios.get(`${URL}/products/${id}`);
-    
+    console.log(data)
     dispatch({
       type: GET_BY_ID,
       payload: data,
@@ -476,13 +476,14 @@ export function createUser(payload) {
   return async function (dispatch) {
     try{
       
-      const info = await axios.post(`${URL}/users`,payload);
+      const {data} = await axios.post(`${URL}/users`,payload);
       dispatch({
         type: CREATE_USER,
-        payload: info.data,
+        payload: data,
       });
     }catch(error){
-      console.log(error.message)
+    
+      throw (error.response.data)
     }
   }
 }

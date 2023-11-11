@@ -21,72 +21,92 @@ import Swal from 'sweetalert2';
 import './formedit.css';
 
 const FormEditProduct = () => {
-  
+
   const dispatch = useDispatch();
   //const {id} = useParams();
-  const id = 4;
-  console.log(id)
+  const id = 6;
+
   const inputReduce = useSelector((state) => state.productDetail);
-  
+  console.log(inputReduce)
 
   const [errorSubmit, setErrorSubmit] = useState('');
   const gErrors = useSelector((state) => state.errors);
   const [errors, setErrors] = useState({});
-  const [input, setInput] = useState(inputReduce);
+  const [input, setInput] = useState({
+    name: '',
+    description: '',
+    brand: '',
+    sale: 0,
+    category: '',
+    size: [],
+    color: '',
+    price: 0,
+    gender: '',
+    image: '',
+    quantity: 0,
+    quantityXS: 0,
+    quantityS: 0,
+    quantityM: 0,
+    quantityL: 0,
+    quantityXL: 0,
+    quantityXXL: 0,
 
+  });
   
-  // para armar el muñeco de entrada
-
-//   for (let option of input.size) {
-//    if (Object.keys(option).includes("XS")) {
-//       document.querySelector('#quantityXS').value = option.XS
-//       document.querySelector('#quantityXS').disabled = true
-//       document.getElementById('XS').checked = true
-//    };
-
-//    if (Object.keys(option).includes("S")) {
-//       document.querySelector('#quantityS').value = option.S
-//       document.querySelector('#quantityS').disabled = true
-//       document.getElementById('S').checked = true
-//     };
-
-//    if (Object.keys(option).includes("M")) {
-//       document.querySelector('#quantityM').value = option.M
-//       document.querySelector('#quantityM').disabled = true
-//       document.getElementById('M').checked = true
-//     };
-
-//     if (Object.keys(option).includes("L")) {
-//       document.querySelector('#quantityL').value = option.L
-//       document.querySelector('#quantityL').disabled = true
-//       document.getElementById('XS').checked = true
-//     };
-
-//     if (Object.keys(option).includes("XL")) {
-//       document.querySelector('#quantityXL').value = option.XL
-//       document.querySelector('#quantityXL').disabled = true
-//       document.getElementById('XL').checked = true
-//     };
-
-//     if (Object.keys(option).includes("XXL")) {
-//       document.querySelector('#quantityXXL').value = option.XXL
-//       document.querySelector('#quantityXXL').disabled = true
-//       document.getElementById('XXL').checked = true
-//     };
-
-//  }
-  
-    
-  
-
-
-
-  useEffect(() => {
+  useEffect (() => {
     dispatch(getByID(id))
+    setInput(inputReduce);
     return () => dispatch(clearErrors());
-  }, [id, dispatch]);
+  }, [id, inputReduce, dispatch]);
 
   
+  console.log(input)  
+  //para armar el muñeco de entrada
+
+  //  const option = inputReduce.size 
+  //  if (Object.keys(option).includes("XS")) {
+  //     document.querySelector('#quantityXS').value = option.XS
+  //     document.querySelector('#quantityXS').disabled = false
+  //     document.getElementById('XS').checked = true
+  //     input.quantityXS = option.XS
+  //  };
+
+  //  if (Object.keys(option).includes("S")) {
+  //     document.querySelector('#quantityS').value = option.S
+  //     document.querySelector('#quantityS').disabled = false
+  //     document.getElementById('S').checked = true
+  //     input.quantityXS = option.S
+  //   };
+
+  //  if (Object.keys(option).includes("M")) {
+  //     document.querySelector('#quantityM').value = option.M
+  //     document.querySelector('#quantityM').disabled = false
+  //     document.getElementById('M').checked = true
+  //     input.quantityXS = option.M
+  //   };
+
+  //   if (Object.keys(option).includes("L")) {
+  //     document.querySelector('#quantityL').value = option.L
+  //     document.querySelector('#quantityL').disabled = false
+  //     document.getElementById('L').checked = true
+  //     input.quantityXS = option.L
+  //   };
+
+  //   if (Object.keys(option).includes("XL")) {
+  //     document.querySelector('#quantityXL').value = option.XL
+  //     document.querySelector('#quantityXL').disabled = false
+  //     document.getElementById('XL').checked = true
+  //     input.quantityXS = option.XL
+  //   };
+
+  //   if (Object.keys(option).includes("XXL")) {
+  //     document.querySelector('#quantityXXL').value = option.XXL
+  //     document.querySelector('#quantityXXL').disabled = false
+  //     document.getElementById('XXL').checked = true
+  //     input.quantityXS = option.XXL
+  //   };
+
+ 
   const mostrarAlertaExitosa = () => {
     Swal.fire({
       icon: 'success',
@@ -158,8 +178,8 @@ const FormEditProduct = () => {
 
     let suma = 0;
     input.size = selected;
-    for (let option of input.size) {
-      suma += parseInt(Object.values(option), 10);
+    for (let options of input.size) {
+      suma += parseInt(Object.values(options), 10);
     }
     input.quantity = suma;
     input.name = input.name.toUpperCase();
@@ -176,19 +196,19 @@ const FormEditProduct = () => {
     else {
       dispatch(updateProduct(input));
 
-      setInput({
-        name: '',
-        description: '',
-        brand: '',
-        sale: 0,
-        category: '',
-        size: [],
-        color: '',
-        price: 0,
-        gender: 'default',
-        image: '',
-        quantity: 0,
-      });
+      // setInput({
+      //   name: '',
+      //   description: '',
+      //   brand: '',
+      //   sale: 0,
+      //   category: '',
+      //   size: [],
+      //   color: '',
+      //   price: 0,
+      //   gender: 'default',
+      //   image: '',
+      //   quantity: 0,
+      // });
       console.log(input);
       // desmarca todo los checkbox
       for (let i = 0; i < document.f1.elements.length; i++) {
@@ -429,7 +449,7 @@ const FormEditProduct = () => {
 
           <div className="formedit-group">
             <label className="label-form" htmlFor="img">
-              URL de Imagen
+              Imagen
             </label>
             <input
               className="input3"

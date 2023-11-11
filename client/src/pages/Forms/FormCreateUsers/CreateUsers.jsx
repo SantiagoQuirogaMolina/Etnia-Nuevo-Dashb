@@ -23,6 +23,7 @@ const CreateUser = () => {
         phone_number: '',
         address: '',
         password: '',
+        password1: '',
         employee: '',
         admin: '',
         confirmationToken: ''
@@ -35,6 +36,7 @@ const CreateUser = () => {
         phone_number: '',
         address:'',
         password: '',
+        password1: '',
         employee: '',
         admin:'',
         confirmationToken: ''
@@ -74,18 +76,23 @@ const CreateUser = () => {
           if (long.length === 0) {
             input.name= primeraMayuscula(input.name)
             input.last_name= primeraMayuscula(input.last_name)
-            if(input.employee ==="employee"){
-              input.employee=true;
-              input.admin=true;
-            } 
-            
-            dispatch(createUser(input))
+            if(input.employee ==="employee") {input.employee=true}
+            else { input.employee= false}
+            if(input.admin ==="admin")  {input.admin=true}
+            else {input.admin= false}
+            console.log(input)   
+            await dispatch(createUser(input))
             mostrarAlertaExitosa();
             setInput({name:'', last_name: '', email:'', address:'', phone_number: '',
-                      password: '', employee: '', admin:'',confirmationToken: ''})
+                      password: '', password1: '', employee: '', admin:'',confirmationToken: ''})
             setErrors({name:'', last_name: '', email:'', address:'', phone: '', 
-                      password: '', employee: '', admin:'', confirmationToken: ''})
-          
+                      password: '', password1: '', employee: '', admin:'', confirmationToken: ''})
+            // desmarca todo los checkbox
+          for (let i = 0; i < document.f1.elements.length; i +=1) {
+            if (document.f1.elements[i].type === 'checkbox') {
+            document.f1.elements[i].checked = false;
+          }
+      }
             
           }else {
             setErrorSubmit("Debe llenar los campos sin errores");
@@ -140,8 +147,11 @@ const CreateUser = () => {
 
         <div>
         <label htmlFor="password">Contraseña:</label>
-        <input type="text" name="password" value={input.password} onChange = {handleChange}/>
+        <input type="password" name="password" value={input.password} onChange = {handleChange}/>
         {errors.password && <p className ='danger'>{errors.password}</p>}
+        <label htmlFor="password1">Repetir Contraseña:</label>
+        <input type="password" name="password1" value={input.password1} onChange = {handleChange}/>
+        {errors.password1 && <p className ='danger'>{errors.password1}</p>}
         </div>
         </div>
         </div>
@@ -149,6 +159,8 @@ const CreateUser = () => {
           <div className='formempleado-group'>
           <input type="checkbox" name="employee" id="employee" value="employee" onChange={handleChange} />
           <label htmlFor="empleado">Empleado</label>
+          <input type="checkbox" name="admin" id="admin" value="admin" onChange={handleChange} />
+          <label htmlFor="admin">Administrador</label>
           <span className ='danger'>{errorSubmit}</span>
         </div>
 

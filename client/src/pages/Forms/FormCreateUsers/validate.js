@@ -4,6 +4,7 @@ const validate = (state) => {
     const patronEmail = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
     const patronCharact = /^[a-zA-Z0-9\s]+$/;
     const patronNumerico = /^[0-9]+$/;
+    const patronPassword = /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/;
     
     
     if (!state.name) errors.name = 'Este campo es requerido'
@@ -24,12 +25,16 @@ const validate = (state) => {
       errors.email = 'El nombre debe ser menor a 250 caracteres';
     }
    
-    if(!state.phone_number) errors.phone_number = 'Este campo es requerido' 
-    if (!patronNumerico.test(state.phone_number)) errors.phone_number = 'El teléfono debe ser numérico'
+    if(!state.phone_number) errors.phone = 'Este campo es requerido' 
+    if (!patronNumerico.test(state.phone_number)) errors.phone = 'El teléfono debe ser numérico'
     if (state.phone_number.length > 15) {
-        errors.phone_number = 'El campo debe ser menor a 15 digitos'
+        errors.phone = 'El campo debe ser menor a 15 digitos'
     }
 
+    if(!state.password) errors.password = 'Este campo es requerido' 
+    if (!patronPassword.test(state.password)) errors.password = 'La contraseña debe tener entre 8 y 16 caracteres, al menos un dígito, una minúscula, una mayúscula y un caracter no alfanumérico'
+    
+    if(state.password !== state.password1) errors.password1 = 'La contraseña no coincide' 
     
     return errors;
 }
