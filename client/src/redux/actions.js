@@ -28,6 +28,7 @@ export const GET_ALL_COMMENTS = "GET_ALL_COMMENTS";
 // routes Delete
 export const DELETE_COMMENT = "DELETE_COMMENT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const DELETE_USER="DELETE_USER";
 export const DELETE_EMPRESA="DELETE_EMPRESA";
 export const DELETE_CUENTAS="DELETE_CUENTAS";
 export const DELETE_MEDIOPAGO="DELETE_MEDIOPAGO";
@@ -86,6 +87,9 @@ export const CONFITRM_TOKEN= "CONFITRM_TOKEN";
 export const FINISH_PURCHASE = "FINISH_PURCHASE";
 
 
+//  Compras
+
+export const FINISH_PURCHASE = "FINISH_PURCHASE";
 
 
  const URL = "http://localhost:3001";
@@ -104,7 +108,7 @@ export function finishPurchase(cart) {
 
 export function getCuentas(){
   return async function(dispatch){
-    const cuentasInfo= await axios.get(`/cuentas`);
+    const cuentasInfo= await axios.get(`${URL}/cuentas`);
     dispatch({
       type:GET_CUENTAS,
       payload:cuentasInfo.data.results,
@@ -113,7 +117,7 @@ export function getCuentas(){
 }
 export function getEmpresa(){
   return async function(dispatch){
-    const empresaInfo= await axios.get(`/empresa`);
+    const empresaInfo= await axios.get(`${URL}/empresa`);
     dispatch({
       type:GET_EMPRESA,
       payload:empresaInfo.data.results,
@@ -122,7 +126,7 @@ export function getEmpresa(){
 }
 export function getMedioPago(){
   return async function(dispatch){
-    const mediopagoInfo= await axios.get(`/mediopago`);
+    const mediopagoInfo= await axios.get(`${URL}/mediopago`);
     dispatch({
       type:GET_MEDIOPAGO,
       payload:mediopagoInfo.data.results,
@@ -131,7 +135,7 @@ export function getMedioPago(){
 }
 export function getLogistica(){
   return async function(dispatch){
-    const logisticaInfo= await axios.get(`/logistica`);
+    const logisticaInfo= await axios.get(`${URL}/logistica`);
     dispatch({
       type:GET_LOGISTICA,
       payload:logisticaInfo.data.results,
@@ -140,7 +144,7 @@ export function getLogistica(){
 }
 export function createLogistica(newLogistica){
   return async function (dispatch){
-    const info= await axios.post(`/logistica`,newLogistica);
+    const info= await axios.post(`${URL}/logistica`,newLogistica);
     dispatch({
       type:CREATE_LOGISTICA,
       payload:info.data,
@@ -150,7 +154,7 @@ export function createLogistica(newLogistica){
 
 export function createEmpresa(newEmpresa){
   return async function (dispatch){
-    const info= await axios.post(`/empresa`,newEmpresa);
+    const info= await axios.post(`${URL}/empresa`,newEmpresa);
     dispatch({
       type:CREATE_EMPRESA,
       payload:info.data,
@@ -160,7 +164,7 @@ export function createEmpresa(newEmpresa){
 
 export function createCuentas(newCuentas){
   return async function (dispatch){
-    const info= await axios.post(`/cuentas`,newCuentas);
+    const info= await axios.post(`${URL}/cuentas`,newCuentas);
     dispatch({
       type:CREATE_CUENTAS,
       payload:info.data,
@@ -169,7 +173,7 @@ export function createCuentas(newCuentas){
 }
 export function createMediopago(newMediopago){
   return async function (dispatch){
-    const info= await axios.post(`/mediopago`,newMediopago);
+    const info= await axios.post(`${URL}/mediopago`,newMediopago);
     dispatch({
       type:CREATE_MEDIOPAGO,
       payload:info.data,
@@ -189,7 +193,7 @@ export function createProduct(newproduct) {
 
 export function deleteEmpresa(id){
   return async function (dispatch){
-    const deletedEmpresa= await axios.delete(`/empresa/${id}`);
+    const deletedEmpresa= await axios.delete(`${URL}/empresa/${id}`);
     dispatch({
       type:DELETE_EMPRESA,
       payload:deletedEmpresa.data,
@@ -199,7 +203,7 @@ export function deleteEmpresa(id){
 
 export function deleteCuentas(id){
   return async function(dispatch){
-    const deletedCuentas= await axios.delete(`/cuentas/${id}`);
+    const deletedCuentas= await axios.delete(`${URL}/cuentas/${id}`);
     dispatch({
       type:DELETE_CUENTAS,
       payload:deletedCuentas.data,
@@ -209,7 +213,7 @@ export function deleteCuentas(id){
 
 export function deleteMediopago(id){
   return async function(dispatch){
-    const deletedMediopago=await axios.delete(`/mediopago/${id}`);
+    const deletedMediopago=await axios.delete(`${URL}/mediopago/${id}`);
     dispatch({
       type:DELETE_MEDIOPAGO,
       payload:deletedMediopago.data,
@@ -218,7 +222,7 @@ export function deleteMediopago(id){
 }
 export function deleteLogistica(id){
   return async function(dispatch){
-    const deletedLogistica= await axios.delete(`/logistica/${id}`);
+    const deletedLogistica= await axios.delete(`${URL}/logistica/${id}`);
     dispatch({
       type:DELETE_LOGISTICA,
       payload:deletedLogistica.data,
@@ -228,7 +232,7 @@ export function deleteLogistica(id){
 
 export function updateEmpresa(payload){
   return async function(dispatch){
-    const info= await axios.put(`/${payload.id}`,payload);
+    const info= await axios.put(`${URL}/${payload.id}`,payload);
     dispatch({
       type:UPDATE_EMPRESA,
       payload:info.data,
@@ -238,7 +242,7 @@ export function updateEmpresa(payload){
 
 export function updateCuentas(payload){
   return async function(dispatch){
-    const info= await axios.put(`/${payload.id}`,payload);
+    const info= await axios.put(`${URL}/${payload.id}`,payload);
     dispatch({
       type:UPDATE_CUENTAS,
       payload:info.data,
@@ -248,7 +252,7 @@ export function updateCuentas(payload){
 
 export function updateMediopago(payload){
   return async function(dispatch){
-    const info= await axios.put(`/${payload.id}`,payload);
+    const info= await axios.put(`${URL}/${payload.id}`,payload);
     dispatch({
       type:UPDATE_MEDIOPAGO,
       payload:info.data,
@@ -258,7 +262,7 @@ export function updateMediopago(payload){
 
 export function updateLogistica(payload){
   return async function(dispatch){
-    const info=await axios.put(`/${payload.id}`,payload);
+    const info=await axios.put(`${URL}/${payload.id}`,payload);
     dispatch({
       type:UPDATE_LOGISTICA,
       payload:info.data,
@@ -469,6 +473,16 @@ export function deleteProduct(id) {
   };
 }
 
+export function deleteUser(id){
+  return async function(dispatch){
+    const deletedUser= await axios.delete(`${URL}/users/${id}`);
+    dispatch({
+      type:DELETE_USER,
+      payload:deletedUser.data,
+    })
+  }
+}
+
 export function updateUser(payload) {
   return async function (dispatch) {
     const info = await axios.put(`${URL}/${payload.id}`, payload);
@@ -535,6 +549,16 @@ export function restoreProduct(id) {
       });
     }
   };
+}
+
+export function finishPurchase(cart) {
+  return async function (dispatch) {
+    const purchase = await axios.post(`${URL}/purchase`, purchase);
+    dispatch({
+      type: FINISH_PURCHASE,
+      payload: purchase.data,
+    });
+  }; 
 }
 
 export const getFiltersAndPagination = (filtros, pageNumber) => {

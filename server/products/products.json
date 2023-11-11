@@ -9,7 +9,7 @@
       "sale": 20,
       "category": "Licras",
       "image": "https://etniasportswear.com/wp-content/uploads/2023/04/141.png",
-      "description": "Licra para mujer",
+      "description": "Es una prenda cómoda y versátil que puede utilizarse en una variedad de ocasiones. Está hecho de un tejido cuave y transpirable que lo hace perfecto para el clima cálido",
       "price": 68000,
       "size": [{"M": 12},{"S": 30}],
       "quantity": 42
@@ -20,11 +20,11 @@
       "name": "SHORT SOLO TONO PRETINA ALTA",
       "brand": "ETNIA",
       "gender": "female",
-      "color": "Palo de Rosa Claro",
+      "color": "Palo de Rosa",
       "sale": 0,
       "category": "Licras",
       "image": "https://etniasportswear.com/wp-content/uploads/2023/04/1.png",
-      "description": "Pantalones vaqueros modernos para hombres",
+      "description": "El short está hecho de un material ligero y transpirable que permite que la piel respire. La pretina alta ayuda a estilizar la figura y a crear una silueta más favorecedora",
       "price": 70000,
       "size": [{"L": 40},{"M": 20}],
       "quantity": 60
@@ -39,7 +39,7 @@
       "sale": 0,
       "category": "Licras",
       "image": "https://etniasportswear.com/wp-content/uploads/2023/04/114.png",
-      "description": "Rodillero",
+      "description": "Es una prenda cómoda y versátil que puede usarse para una variedad de actividades, desde el ejercicio hasta el uso diario. Está hecha de un material de liicra elástico que se adapta al cuerpo y proporciona un soporte suave.",
       "price": 75000,
       "size": [{"XS": 20}],
       "quantity":20
@@ -53,7 +53,7 @@
       "sale": 0,
       "category": "Licras",
       "image": "https://etniasportswear.com/wp-content/uploads/2023/04/38-1-400x649.png",
-      "description": "Licra plisada de moda para mujeres",
+      "description": "La licra está hecha de un material elástico que se adapta perfectamente al cuerpo. La pretina alta ayuda a controlar el abdomen y a crear una silueta más estilizada.",
       "price": 100000,
       "size": [{"S": 35}],
       "quantity":35
@@ -63,11 +63,11 @@
       "name": "BLUSA SOLO TONO RESORTES",
       "brand": "ETNIA",
       "gender": "female",
-      "color": "Mora en leche",
-      "sale": 1,
+      "color": "Violeta",
+      "sale": 0,
       "category": "Blusas",
       "image": "https://etniasportswear.com/wp-content/uploads/2023/04/175-400x649.png",
-      "description": "Chaqueta de cuero genuino",
+      "description": "Es una prenda de vestir femenina que se caracteriza por su diseño simple y elegante. Está confeccionada en un tejido suave y ligero, que la hace cómoda de llevar en cualquier ocasión.",
       "price": 60000,
       "size": [{"L": 15},{"M": 25},{"XXL": 70}],
       "quantity": 110
@@ -82,7 +82,7 @@
       "sale": 0,
       "category": "Blusas",
       "image": "https://etniasportswear.com/wp-content/uploads/2023/04/188-400x649.png",
-      "description": "Blusa con estampado floral para mujeres",
+      "description": "Es una prenda de vestir femenina que se caracteriza por su diseño simple y elegante. Está confeccionada en un tejido suave y ligero, que la hace cómoda de llevar en cualquier ocasión.",
       "price": 60000,
       "size": [{"L": 45},{"M": 50},{"S": 30},{"XS": 40}],
       "quantity": 165
@@ -96,7 +96,7 @@
       "sale": 0,
       "category": "Blusas",
       "image": "https://etniasportswear.com/wp-content/uploads/2023/04/191-400x649.png",
-      "description": "Elegante vestido de noche para ocasiones especiales",
+      "description": "Es una prenda de vestir femenina que se caracteriza por su diseño simple y elegante. Está confeccionada en un tejido suave y ligero, que la hace cómoda de llevar en cualquier ocasión.",
       "price": 65000,
       "size": [{"M": 20}],
       "quantity": 20
@@ -110,7 +110,7 @@
       "sale": 10,
       "category": "Tops",
       "image": "https://etniasportswear.com/wp-content/uploads/2023/04/106-400x649.png",
-      "description": "Falda plisada de moda para mujeres",
+      "description": "Se trata de una blusa con mangas que se ajusta al cuerpo y tiene un escote redondo. La parte superior está hecha de una sola pieza de tela, que suele ser de algodón o seda",
       "price": 65000,
       "size": [{"S": 35},{"XL":60}],
       "quantity": 95
@@ -125,7 +125,7 @@
       "sale": 0,
       "category": "Camisetas",
       "image": "https://etniasportswear.com/wp-content/uploads/2022/11/Pantaloneta-crossfit1.png",
-      "description": "Chaqueta de cuero genuino",
+      "description": "Camiseta deportiva para hombre fresca, de secado rápido, tela con tecnología anti-bacterial que evita malos olores, permitiendo un entreno cómodo y seguro.",
       "price": 65000,
       "size": [{"L": 15},{"M": 25}],
       "quantity": 40
@@ -139,7 +139,7 @@
       "sale": 0,
       "category": "Camisetas",
       "image": "https://etniasportswear.com/wp-content/uploads/2022/11/Pantaloneta-running.png",
-      "description": "Camiseta de manga larga de calidad",
+      "description": "Camiseta deportiva para hombre fresca, de secado rápido, tela con tecnología anti-bacterial que evita malos olores, permitiendo un entreno cómodo y seguro.",
       "price": 65000,
       "size": [{"XXL": 70}],
       "quantity": 70
@@ -153,9 +153,9 @@
       "sale": 0,
       "category": "Licras",
       "image": "https://etniasportswear.com/wp-content/uploads/2023/04/51-400x649.png",
-      "description": "Blusa con estampado floral para mujeres",
+      "description": "La licra está hecha de un material elástico que se adapta perfectamente al cuerpo. La pretina alta ayuda a controlar el abdomen y a crear una silueta más estilizada",
       "price": 100000,
-      "size": [{"L": 45}],
+      "size": [{"L": 45}, {"M": 20}],
       "quantity": 45
     },
     {
@@ -167,7 +167,7 @@
       "sale": 0,
       "category": "Licras",
       "image": "https://etniasportswear.com/wp-content/uploads/2023/04/36-400x649.png",
-      "description": "Blusa con estampado floral para mujeres",
+      "description": "La licra está hecha de un material elástico que se adapta perfectamente al cuerpo. La pretina alta ayuda a controlar el abdomen y a crear una silueta más estilizada",
       "price": 100000,
       "size":[{"L": 45}],
       "quantity": 45
@@ -177,13 +177,13 @@
       "name": "LICRA SOLO TONO PRETINA ALTA",
       "brand": "ETNIA",
       "gender": "female",
-      "color": "Negro",
+      "color": "Verde Menta",
       "sale": 0,
       "category": "Licras",
-      "image": "https://etniasportswear.com/wp-content/uploads/2023/04/49-400x649.png",
-      "description": "Elegante vestido de noche para ocasiones especiales",
+      "image": "https://etniasportswear.com/wp-content/uploads/2023/04/55-400x649.png",
+      "description": "La licra está hecha de un material elástico que se adapta perfectamente al cuerpo. La pretina alta ayuda a controlar el abdomen y a crear una silueta más estilizada",
       "price": 100000,
-      "size": [{"M": 20}],
+      "size": [{"M": 20}, {"L":10}],
       "quantity": 20
     },
     {
@@ -195,7 +195,7 @@
       "sale": 30,
       "category": "Licras",
       "image": "https://etniasportswear.com/wp-content/uploads/2023/04/220.png",
-      "description": "Elegante vestido de noche para ocasiones especiales",
+      "description": "Está hecho de un material suave y transpirable que proporciona una sensación de frescura y comodidad. La pretina alta brinda un soporte adicional y ayuda a estilizar la figura.",
       "price": 60000,
       "size": [{"M": 5}],
       "quantity": 5
@@ -209,7 +209,7 @@
       "sale": 30,
       "category": "Ciclismo",
       "image": "https://etniasportswear.com/wp-content/uploads/2022/05/frontal-licra-larga-conbadana-y-tirantas.png",
-      "description": "Licra larga con badana y tirantes",
+      "description": "Licra larga con badana y tirantes hecha de un material transpirable y elástico que se adapta al cuerpo, proporcionando un ajuste cómodo y seguro.",
       "price": 150000,
       "size": [{"M": 20}],
       "quantity": 20
@@ -219,11 +219,11 @@
       "name": "BUZO CICLISMO MANGA CORTA MUJER",
       "brand": "ETNIA",
       "gender": "female",
-      "color": "Rojo-Negro",
+      "color": "Negro-Cereza",
       "sale": 0,
       "category": "Ciclismo",
       "image": "https://etniasportswear.com/wp-content/uploads/2022/05/Buzo-ciclismo-manga-corta-cereza-2.png",
-      "description": "Camiseta con diseño gráfico",
+      "description": "El buzo de ciclismo manga corta para mujer es una prenda imprescindible para cualquier ciclista. Está diseñado para proporcionar comodidad y rendimiento durante los paseos en bicicleta, ya sean cortos o largos.",
       "price": 130000,
       "size": [{"XL": 60}],
       "quantity": 60
@@ -237,7 +237,7 @@
       "sale": 0,
       "category": "Ciclismo",
       "image": "https://etniasportswear.com/wp-content/uploads/2022/02/Diseno-sin-titulo-14.png",
-      "description": "Licra costa con badana y banda siliconada",
+      "description": "La licra corta con badana es una prenda de ciclismo esencial para cualquier ciclista, ya sea principiante o experimentado. Está diseñada para ofrecer un ajuste cómodo y ceñido, así como una protección óptima",
       "price": 120000,
       "size": [{"S": 10}],
       "quantity": 10
@@ -248,10 +248,10 @@
       "brand": "ETNIA",
       "gender": "female",
       "color": "Negro",
-      "sale": 1,
+      "sale": 10,
       "category": "Ciclismo",
       "image": "https://etniasportswear.com/wp-content/uploads/2022/02/Diseno-sin-titulo-7-1.png",
-      "description": "Chaqueta de cuero genuino",
+      "description": "Es la prenda perfecta para los ciclistas que buscan comodidad y rendimiento. Está fabricada con un tejido elástico de alta calidad que proporciona un ajuste perfecto y una gran libertad de movimiento.",
       "price": 140000,
       "size": [{"L": 15}],
       "quantity": 15
@@ -265,7 +265,7 @@
       "sale": 20,
       "category": "Ciclismo",
       "image": "https://etniasportswear.com/wp-content/uploads/2022/02/Copia-de-Ciclismo.png",
-      "description": "Vestido cómodo para uso diario",
+      "description": "La licra larga con badana es una prenda de ciclismo indispensable para los ciclistas que buscan comodidad y rendimiento. Esta prenda está diseñada para brindar soporte y protección al ciclista durante las largas horas de pedaleo.",
       "price": 130000,
       "size": [{"XS": 5}],
       "quantity": 5
@@ -279,7 +279,7 @@
       "sale": 0,
       "category": "Ciclismo",
       "image": "https://etniasportswear.com/wp-content/uploads/2022/02/Ciclismo-Hombre.png",
-      "description": "Licra corta con badana, banda siliconada y tirantes",
+      "description": "Es la prenda perfecta para los ciclistas que buscan comodidad y rendimiento. Está fabricada con un tejido elástico de alta calidad que proporciona un ajuste perfecto y una gran libertad de movimiento.",
       "price": 140000,
       "size": [{"XL": 10}],
       "quantity": 10
@@ -292,8 +292,8 @@
       "color": "Blanco",
       "sale": 20,
       "category": "Vestido",
-      "image": "https://etniasportswear.com/wp-content/uploads/2023/04/250.png",
-      "description": "Blusa con estampado floral para mujeres",
+      "image": "https://etniasportswear.com/wp-content/uploads/2023/04/251.png" ,
+      "description": "Este vestido de tenis es perfecto para un día de juego en la cancha. Está hecho de una tela ligera y transpirable que te mantendrá fresca y cómoda mientras te mueves. La silueta de siza te da un aspecto elegante y deportivo",
       "price": 90000,
       "size": [{"L": 5}],
       "quantity": 5

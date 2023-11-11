@@ -22,10 +22,6 @@ import {
   USER_LOGOUT,
   GET_ALL_SELECTS,
   LOCALSTORAGE,
-  CREATE_COMMENT,
-  UPDATE_COMMENT,
-  GET_ALL_COMMENTS,
-  DELETE_COMMENT,
   ADD_TO_CART,
   REMOVE_SHIPPING,
   UPDATE_SHIPPING,
@@ -34,13 +30,15 @@ import {
   UPDATE_PRODUCT,
   REMOVE_FROM_CART,
   UPDATE_CART_ITEM_QUANTITY,
+  DELETE_USER,
+  FINISH_PURCHASE
 
 } from "./actions";
 
 const initialState = {
   allProducts: [],
   productDetail: [],
-  productComments: [],
+  purchases: [],
   allFavorites: [],
   productShow: [],
   indexProductShow: [],
@@ -57,6 +55,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
 
     case FINISH_PURCHASE:
       return {
@@ -81,6 +80,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         productComments:action.payload
       } 
+
     case REGISTER_USER:
       return {
         ...state,
@@ -153,6 +153,8 @@ const reducer = (state = initialState, action) => {
 
     case DELETE_PRODUCT:
       return action.payload;
+    case DELETE_USER:
+      return action.payload;
 
     case ADD_FAVORITES:
       return {
@@ -210,6 +212,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: null,
+      };
+    case FINISH_PURCHASE:
+      return {
+        ...state,
+        errors: {},
       };
 
     default:

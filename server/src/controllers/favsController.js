@@ -1,17 +1,17 @@
 const { User, Products} = require("../db");
 
-const getFavs = async({id})=>{
+const getFavs = async(id)=>{
 
     const favorites = await User.findAll({
         where: {
             id: id,
-        },include: {model: Products, attributes: {
-            exclude: ['user_products']
-          },
-          through: { attributes: [] }}
+        },include: {model: Products}
     });
-
-    return favorites[0].Products;
+    
+    let filtrado = favorites[0]?.Products?.filter(cart=>{
+        return cart.user_products?.isFavorite === true
+    })
+    return filtrado;
 }
 
 const createFav = async({UserId, ProductId})=>{
@@ -26,10 +26,10 @@ const createFav = async({UserId, ProductId})=>{
     if (existingFavorite) {
         await existingFavorite.Products[0]?.user_products?.update({isFavorite: true})
         return (existingFavorite);
-    } else {
-        const newFavorite = await user.addProduct(ProductId, { through: { isFavorite: true } });
-        return (newFavorite);
     }
+    const newFavorite = await user.addProduct(ProductId, { through: { isFavorite: true } });
+    return (newFavorite);
+
 }
 
 const deletefav = async({UserId, ProductId})=>{

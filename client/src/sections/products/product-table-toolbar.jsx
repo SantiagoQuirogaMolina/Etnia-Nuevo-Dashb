@@ -30,41 +30,46 @@ export default function ProductTableToolbar({ numSelected, filterName, onFilterN
         display: 'flex',
         justifyContent: 'space-between',
         p: (theme) => theme.spacing(0, 1, 0, 3),
+        alignItems: 'center', // Añade esta propiedad para centrar verticalmente los elementos
         ...(numSelected > 0 && {
           color: 'primary.main',
           bgcolor: 'primary.lighter',
         }),
       }}
     >
-      {numSelected > 0 ? (
-        <Typography component="div" variant="subtitle1">
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <OutlinedInput
-          value={filterName}
-          onChange={onFilterName}
-          placeholder="Search user..."
-          startAdornment={
-            <InputAdornment position="start">
-              <Iconify
-                icon="eva:search-fill"
-                sx={{ color: 'text.disabled', width: 20, height: 20 }}
-              />
-            </InputAdornment>
-          }
-        />
-      )}
+      <div style={{ flex: 1 }}>
+        {' '}
+        {/* Divisor que ocupa todo el espacio restante */}
+        {numSelected > 0 ? (
+          <Typography component="div" variant="subtitle1">
+            {numSelected} selected
+          </Typography>
+        ) : (
+          <OutlinedInput
+            value={filterName}
+            onChange={onFilterName}
+            placeholder="Search user..."
+            startAdornment={
+              <InputAdornment position="start">
+                <Iconify
+                  icon="eva:search-fill"
+                  sx={{ color: 'text.disabled', width: 20, height: 20 }}
+                />
+              </InputAdornment>
+            }
+          />
+        )}
+      </div>
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton onClick={handleDelete}>
+          <IconButton onClick={handleDelete} sx={{ color: 'text.disabled', width: 100, height: 20 }}>
             <Iconify icon="eva:trash-2-fill" />
           </IconButton>
         </Tooltip>
       ) : (
         <Tooltip title="Edit">
-          <IconButton onClick={handleEdit}>
+          <IconButton onClick={handleEdit} sx={{ color: 'text.disabled', width: 100, height: 30 }}>
             <Iconify icon="eva:edit-fill" />
           </IconButton>
         </Tooltip>

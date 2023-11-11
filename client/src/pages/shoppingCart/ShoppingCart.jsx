@@ -1,9 +1,8 @@
 /* eslint-disable prefer-const */
 /* eslint-disable react/button-has-type */
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { removeFromCart, updateCartItemQuantity } from '../../redux/actions'; // Añadir las acciones necesarias
+import { removeFromCart, finishPurchase, updateCartItemQuantity } from '../../redux/actions'; // Añadir las acciones necesarias
 import styles from './ShoppingCart.module.css';
 import NavBar from '../../components/navBar/NavBar';
 
@@ -20,21 +19,6 @@ function ShoppingCart({ onClick }) {
   const dispatch = useDispatch(); // Obtener el dispatcher
   const totalPrice = calculateTotalPrice(cart);
 
-  const [isVisible, setIsVisible] = React.useState(true);
-  const { preferenceId, isLoading: disabled, orderData, setOrderData } = React.useContext(Context);
-  const shoppingCartClass = classnames('shopping-cart dark', {
-    'shopping-cart--hidden': !isVisible,
-  })
-
-  useEffect(() => {
-    if (preferenceId) setIsVisible(false);
-  }, [preferenceId])
-
-  const updatePrice = (event) => {
-    const quantity = event.target.value;
-    const amount = parseInt(orderData.price) * parseInt(quantity);
-    setOrderData({ ...orderData, quantity, amount });
-  }
 
   const handleRemoveFromCart = (productId) => {
     dispatch(removeFromCart(productId)); // Acción para eliminar un producto del carrito
@@ -44,10 +28,17 @@ function ShoppingCart({ onClick }) {
     dispatch(updateCartItemQuantity(productId, newQuantity)); // Acción para actualizar la cantidad de un producto
   };
 
+  const handleCheckout = () => {
+    dispatch(finishPurchase(cart));
+    // You might want to reset the cart or navigate to a different page after the purchase is finished
+    // You can add those actions here
+  };
+
+  const disabled = cart.length === 0;
   const uniqueCartItems = Array.from(new Set(cart.map((item) => item.id))); // Filtrar elementos únicos
 
   return (
-    <div className={styles['shopping-cart']}>
+    <div>
       <NavBar />
       <div>
         <h1 className={styles.title}>Carrito de compras</h1>
@@ -94,10 +85,12 @@ function ShoppingCart({ onClick }) {
       </div>
       <button 
         className={styles['checkout-button']}
-        onClick={onClick}
+
+        onClick={handleCheckout} // Use the new handleCheckout function
         id="checkout-btn"
         disabled={disabled}
-        >
+      >
+
         Finalizar compra
         </button>
     </div>
