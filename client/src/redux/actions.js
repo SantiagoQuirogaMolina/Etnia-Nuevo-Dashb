@@ -20,7 +20,6 @@ export const GET_ORDER_PRICE = "GET_ORDER_PRICE";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const GET_USERS_BY_NAME = "GET_USERS_BY_NAME";
 export const GET_PRODUCTS_BY_NAME = "GET_PRODUCTS_BY_NAME";
-export const ADD_FAVORITES = "ADD_FAVORITES";
 export const GET_BY_ID = "GET_BY_ID";
 export const GET_EMPRESA = "GET_EMPRESA";
 export const GET_CUENTAS = "GET_CUENTAS";
@@ -77,7 +76,6 @@ export const ERRORS = 'ERRORS';
 // export const ADD_SHIPPING = "ADD_SHIPPING";
 // export const REMOVE_SHIPPING = "REMOVE_SHIPPING";
 // carrito
-export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const UPDATE_CART_ITEM_QUANTITY = 'UPDATE_CART_ITEM_QUANTITY';
 // export const UPDATE_SHIPPING = "UPDATE_SHIPPING";
@@ -499,12 +497,6 @@ export function registerUser(payload) {
     }
   };
 }
-export function addToCart(product) {
-  return {
-    type: ADD_TO_CART,
-    payload: product,
-  };
-}
 
 export function removeFromCart(productId) {
   return {
@@ -607,7 +599,6 @@ export function getUsersByName(name) {
 }
 
 export function getAllUsers() {
-  console.log("hoalaa")
   return async function (dispatch) {
     const allUsers = await axios.get(`${URL}/users`);
     dispatch({
@@ -703,20 +694,6 @@ export function getAllSelects() {
       type: GET_ALL_SELECTS,
       payload: productsInfo,
     });
-  };
-}
-
-export function getAddFavorites(product) {
-  return async (dispatch) => {
-    try {
-      // const { data } = await axios.get(`${URL}/favorites`);
-      return dispatch({
-        type: ADD_FAVORITES,
-        payload: product,
-      });
-    } catch (error) {
-      console.log(error);
-    }
   };
 }
 

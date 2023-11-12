@@ -1,8 +1,10 @@
 /* eslint-disable prefer-const */
+import { useEffect } from 'react';
 /* eslint-disable react/button-has-type */
 import { useSelector, useDispatch } from 'react-redux';
 
-import { removeFromCart, finishPurchase, updateCartItemQuantity } from '../../redux/actions'; // Añadir las acciones necesarias
+import { getAllCarts, removeCartBack, finishPurchase, updateCartItemQuantity } from '../../redux/actions'; // Añadir las acciones necesarias
+
 import styles from './ShoppingCart.module.css';
 import NavBar from '../../components/navBar/NavBar';
 
@@ -15,14 +17,25 @@ function calculateTotalPrice(cart) {
 }
 
 function ShoppingCart() {
-  const cart = useSelector((state) => state.cartPersist);
+  const cart = useSelector((state) => state.allCartBack);
+  const user = useSelector((state)=> state.user);
 
-  const dispatch = useDispatch(); // Obtener el dispatcher
+  const dispatch = useDispatch();
   const totalPrice = calculateTotalPrice(cart);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const loadCarts = ()=>{
+    if(user.userId){
+      dispatch(getAllCarts(user.userId));
+    }
+  }
+
+  useEffect(()=>{
+    loadCarts()
+  },[loadCarts]);
 
   const handleRemoveFromCart = (productId) => {
-    dispatch(removeFromCart(productId)); // Acción para eliminar un producto del carrito
+    dispatch(removeCartBack({UserId: user.userId, ProductId: productId})); // Acción para eliminar un producto del carrito
   };
 
   const handleQuantityChange = (productId, newQuantity) => {
