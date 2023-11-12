@@ -5,13 +5,11 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './ShoppingCart.module.css';
 import NavBar from '../../components/navBar/NavBar';
-import { removeFromCart, finishPurchase} from '../../redux/actions';
-
+import { removeFromCart,finishPurchase} from '../../redux/actions';
 
 function ShoppingCart() {
 
   const cart = useSelector((state) => state.cart);
-  console.log(cart.length < 1)
   const dispatch = useDispatch(); 
 
   const [quantities, setQuantities] = useState({})
@@ -33,13 +31,8 @@ function ShoppingCart() {
      setTotalPrice(newTotalPrice);   
   }, [cart, quantities]);
 
-  // useEffect(()=>{
-  //   if(Object.entries(quantities).length === 0){
-  //     return setDisabledButton(true)
-  //   }
-  // },[])
-
   const handleRemoveFromCart = (productId) => {
+    console.log(productId)
     dispatch(removeFromCart(productId));
   };
 
@@ -97,6 +90,8 @@ function ShoppingCart() {
       <div>
         <h1 className={styles.title}>Carrito de compras</h1>
       </div>
+      {console.log(cart.length < 1)}
+        {cart.length > 0 ? 
       <div className={styles['product-list']}>
         {cart.map(carts => 
           (
@@ -125,8 +120,9 @@ function ShoppingCart() {
               </div>
             </div>
           )
-        )}
+        )} 
       </div>
+        : <h1> CARRITO VACIO</h1> }
       <div className={styles.totalPrice}>
         <p>Precio Total: ${totalPrice.toLocaleString()}</p>
       </div>
@@ -135,4 +131,4 @@ function ShoppingCart() {
   );
 }
 
-export default ShoppingCart;
+export default ShoppingCart; 
