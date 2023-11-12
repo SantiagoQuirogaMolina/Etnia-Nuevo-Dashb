@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Card.module.css';
-import { getAddFavorites, removeFav, getAllFavs, AddFavoriteBack, removeFavoriteBack } from '../../redux/actions';
+import { getAddFavorites, removeFav, AddFavoriteBack, removeFavoriteBack } from '../../redux/actions';
 
 // comentario de prueba
 
@@ -33,11 +33,13 @@ function Card({id, name, gender, sale, img, color, price}) {
   };
 
   useEffect(() => {
-    favorites?.forEach((fav) => {
-      if (fav.id === id) {
-        setIsFav(true);
-      }
-    });
+    if(favorites?.length){
+      favorites?.forEach((fav) => {
+        if (fav.id === id) {
+          setIsFav(true);
+        }
+      });
+    }
   }, [id, favorites]);
 
   function truncateText(text, maxCharacters) {

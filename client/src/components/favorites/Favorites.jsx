@@ -19,11 +19,16 @@ export default function Favorites(props){
     const user = useSelector((state)=> state.user);
     const dispatch = useDispatch();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps, no-undef
     const loadFavs = ()=>{
-        if(user.userId){
-          dispatch(getAllFavs(user.userId));
+         if(user.userId){
+            dispatch(getAllFavs(user.userId));
+         }
         }
-      }
+
+    useEffect(()=>{
+        loadFavs()
+    },[loadFavs])
 
     const handleFavorite = (id) => {
         dispatch(removeFavoriteBack({UserId: user.userId, ProductId: id}))

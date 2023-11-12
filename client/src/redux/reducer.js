@@ -33,6 +33,7 @@ import {
   DELETE_USER,
   FINISH_PURCHASE,
   GET_ALL_FAVS,
+  GET_ALL_CARTS,
   NEW_CART,
   NEW_FAVORITE,
   REMOVE_CART_BACK,
@@ -133,11 +134,11 @@ const reducer = (state = initialState, action) => {
         allFavoritesBack: action.payload
       }
     
-    // case GET_ALL_CARTS:
-    //   return{
-    //     ...state,
-    //     allCartBack: action.payload
-    //   }
+    case GET_ALL_CARTS:
+      return{
+        ...state,
+        allCartBack: action.payload
+      }
     
     case NEW_CART:
       return{
