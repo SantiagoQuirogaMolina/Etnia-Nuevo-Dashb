@@ -52,7 +52,6 @@ const FormEditProduct = () => {
     quantityL: 0,
     quantityXL: 0,
     quantityXXL: 0,
-
   });
   
   useEffect (() => {

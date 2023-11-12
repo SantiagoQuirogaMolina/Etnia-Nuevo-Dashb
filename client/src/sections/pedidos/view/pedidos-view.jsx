@@ -1,6 +1,5 @@
-/* eslint-disable perfectionist/sort-named-imports */
-/* eslint-disable perfectionist/sort-imports */
 /* eslint-disable import/no-unresolved */
+import { useState } from 'react';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -12,15 +11,11 @@ import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
-import { useNavigate } from 'react-router-dom';
-
-import { users } from 'src/_mock/user';
+import { product } from 'src/_mock/productsT';
 
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import TableNoData from '../table-no-data';
 import UserTableRow from '../user-table-row';
 import UserTableHead from '../user-table-head';
@@ -28,29 +23,21 @@ import TableEmptyRows from '../table-empty-rows';
 import UserTableToolbar from '../user-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
 
-import { getAllUsers } from '../../../redux/actions';
-
 // ----------------------------------------------------------------------
 
-export default function UserPage() {
-  const usersss = useSelector((state) => state.allUsers);
-  const navigate = useNavigate();
-
-  const dispatch = useDispatch();
-  // Utiliza useEffect para llamar automáticamente la función cuando el componente se monta
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
-
-
+export default function PedidosPage() {
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
 
   const [selected, setSelected] = useState([]);
+
   const [orderBy, setOrderBy] = useState('name');
+
   const [filterName, setFilterName] = useState('');
+
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === 'asc';
     if (id !== '') {
@@ -58,12 +45,11 @@ export default function UserPage() {
       setOrderBy(id);
     }
   };
-  if (!usersss) {
-    dispatch(getAllUsers());
-  }
+
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = users.map((n) => n.name);
+      const newSelecteds = product
+    .map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -103,22 +89,21 @@ export default function UserPage() {
   };
 
   const dataFiltered = applyFilter({
-    inputData: users,
+    inputData: product
+  ,
     comparator: getComparator(order, orderBy),
     filterName,
   });
 
   const notFound = !dataFiltered.length && !!filterName;
-  const handleRedireccion = () => {
-    navigate('/crearuser'); // Utiliza navigate para redirigir
-  };
+
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Users</Typography>
+        <Typography variant="h4">Pedidos</Typography>
 
-        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}  onClick={handleRedireccion}>
-          New User
+        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
+          Nuevo Pedido
         </Button>
       </Stack>
 
@@ -135,37 +120,40 @@ export default function UserPage() {
               <UserTableHead
                 order={order}
                 orderBy={orderBy}
-                rowCount={users.length}
+                rowCount={product
+                .length}
                 numSelected={selected.length}
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
                   { id: 'name', label: 'Nombre' },
-                  { id: 'admin', label: 'admin' },
-                  { id: 'employe', label: 'empleado' },
-                  { id: 'isVerified', label: 'Verificado', align: 'center' },
-                  { id: 'status', label: 'Estado' },
+                  { id: 'color', label: 'color' },
+               
+                  { id: 'cantidad', label: 'cantidad', align: 'center' },
+                  { id: 'precio', label: 'precio' },
                   { id: '' },
                 ]}
               />
               <TableBody>
-                {usersss.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                  <UserTableRow
-                    id={row.id}
-                    key={row.id}
-                    name={row.email}
-                    admin={row.admin}
-                    status={row.status}
-                    avatarUrl={row.avatarUrl}
-                    isVerified={row.isVerify}
-                    selected={selected.indexOf(row.id) !== -1}
-                    handleClick={(event) => handleClick(event, row.id)}
-                  />
-                ))}
+                {dataFiltered
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => (
+                    <UserTableRow
+                      key={row.id}
+                      name={row.name}
+                      role={row.role}
+                      status={row.status}
+                      avatarUrl={row.avatarUrl}
+                      cantidad={row.cantidad}
+                      selected={selected.indexOf(row.name) !== -1}
+                      handleClick={(event) => handleClick(event, row.name)}
+                    />
+                  ))}
 
                 <TableEmptyRows
                   height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, users.length)}
+                  emptyRows={emptyRows(page, rowsPerPage, product
+                  .length)}
                 />
 
                 {notFound && <TableNoData query={filterName} />}
@@ -177,7 +165,8 @@ export default function UserPage() {
         <TablePagination
           page={page}
           component="div"
-          count={users.length}
+          count={product
+          .length}
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           rowsPerPageOptions={[5, 10, 25]}

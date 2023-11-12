@@ -32,7 +32,7 @@ import { getAllUsers } from '../../../redux/actions';
 
 // ----------------------------------------------------------------------
 
-export default function UserPage() {
+export default function EnviosPage() {
   const usersss = useSelector((state) => state.allUsers);
   const navigate = useNavigate();
 
@@ -115,10 +115,10 @@ export default function UserPage() {
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Users</Typography>
+        <Typography variant="h4">Envios</Typography>
 
         <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}  onClick={handleRedireccion}>
-          New User
+          Nuevo Envio
         </Button>
       </Stack>
 

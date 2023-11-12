@@ -31,7 +31,13 @@ const IndexPage = lazy(() => import('../pages/app'));
 const UserPage = lazy(() => import('../pages/user'));
 const LoginPage = lazy(() => import('../pages/login'));
 const ProductsPage = lazy(() => import('../pages/products'));
-const ProductstPage = lazy(() => import('../pages/productst'));
+const PedidosPage = lazy(() => import('../pages/pedidos'));
+const EnviosPage = lazy(() => import('../pages/envios'));
+const VentasPage = lazy(() => import('../pages/ventas'));
+const PqrsPage = lazy(() => import('../pages/pqr'));
+
+
+
 
 function Router() {
   return (
@@ -39,7 +45,12 @@ function Router() {
       <Route path="/admin" element={<AdminRoutes />} />
       <Route path="/users-admin/" element={<AdminUser />} />
       <Route path="/products-admin/" element={<AdminProducts />} />
-      <Route path="/productsT/" element={<AdminProductst />} />
+      <Route path="/pedidos-admin/" element={<AdminPedidos />} />
+      <Route path="/envios-admin/" element={<AdminEnvios />} />
+      <Route path="/ventas-admin/" element={<AdminVentas />} />
+      <Route path="/pqrs-admin/" element={<AdminPqrs />} />
+
+
       <Route exact path="login-admin" element={<AdminLogin />} />
 
       <Route path="/" element={<PublicHome />} />
@@ -97,12 +108,45 @@ function AdminProducts() {
     </DashboardLayout>
   );
 }
-function AdminProductst() {
+function AdminEnvios() {
   return (
     <DashboardLayout>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route exact path="/" element={<ProductstPage />} />
+          <Route exact path="/" element={<EnviosPage />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+function AdminVentas() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<VentasPage />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+function AdminPqrs() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<PqrsPage />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+function AdminPedidos() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<PedidosPage />} />
         </Routes>
       </Suspense>
     </DashboardLayout>

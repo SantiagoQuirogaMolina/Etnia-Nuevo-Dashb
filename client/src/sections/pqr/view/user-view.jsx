@@ -1,3 +1,4 @@
+/* eslint-disable unused-imports/no-unused-imports */
 /* eslint-disable perfectionist/sort-named-imports */
 /* eslint-disable perfectionist/sort-imports */
 /* eslint-disable import/no-unresolved */
@@ -5,18 +6,18 @@
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
-import Button from '@mui/material/Button';
+
 import Container from '@mui/material/Container';
 import TableBody from '@mui/material/TableBody';
 import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
-import { useNavigate } from 'react-router-dom';
+
 
 import { users } from 'src/_mock/user';
 
-import Iconify from 'src/components/iconify';
+
 import Scrollbar from 'src/components/scrollbar';
 
 import React, { useEffect, useState } from 'react';
@@ -32,9 +33,9 @@ import { getAllUsers } from '../../../redux/actions';
 
 // ----------------------------------------------------------------------
 
-export default function UserPage() {
+export default function PqrsPage() {
   const usersss = useSelector((state) => state.allUsers);
-  const navigate = useNavigate();
+
 
   const dispatch = useDispatch();
   // Utiliza useEffect para llamar automáticamente la función cuando el componente se monta
@@ -109,17 +110,12 @@ export default function UserPage() {
   });
 
   const notFound = !dataFiltered.length && !!filterName;
-  const handleRedireccion = () => {
-    navigate('/crearuser'); // Utiliza navigate para redirigir
-  };
+
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Users</Typography>
+        <Typography variant="h4">Peticiones Quejas o Reclamos</Typography>
 
-        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}  onClick={handleRedireccion}>
-          New User
-        </Button>
       </Stack>
 
       <Card>

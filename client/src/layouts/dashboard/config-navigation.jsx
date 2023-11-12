@@ -14,26 +14,33 @@ const navConfig = [
     icon: icon('ic_analytics'),
   },
   {
-    title: 'user',
+    title: 'usuarios',
     path: '/users-admin',
     icon: icon('ic_user'),
   },
   {
-    title: 'product',
+    title: 'productos',
     path: '/products-admin',
     icon: icon('ic_cart'),
   },
-  
+
   {
-    title: 'login',
-    path: '/login-admin',
-    icon: icon('ic_lock'),
+    title: 'pedidos',
+    path: '/pedidos-admin',
+    icon: icon('ordenes'),
   },
   {
-    title: 'Not found',
-    path: '/404',
-    icon: icon('ic_disabled'),
+    title: 'envios',
+    path: '/envios-admin',
+    icon: icon('ventas'),
   },
+  {
+    title: 'ventas',
+    path: '/ventas-admin',
+    icon: icon('ventasSale'),
+  },
+
+  { title: 'PQR', path: '/pqrs-admin', icon: icon('pqrs') },
 ];
 
 export default navConfig;
