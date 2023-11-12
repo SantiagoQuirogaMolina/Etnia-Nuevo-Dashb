@@ -104,7 +104,7 @@ export default function ProductDetail({handleChange}) {
               {Product && (
                 <div className={styles.productinfo}>
                   <h2 className={styles.productname}>{Product.name}</h2>
-                  <p>${`${Product.price.toLocaleString()}  COP` } | {Product.sale}% OFF</p>
+                  <p>${`${Product.price?.toLocaleString()}  COP` } | {Product.sale}% OFF</p>
                   <p>Descripcion: {Product.description}</p>
                   <p className={isHovered ? styles.error : null }>Select talla:</p> 
                   <div className={styles.contentLabel}>

@@ -11,6 +11,7 @@ import { removeFromCart, finishPurchase} from '../../redux/actions';
 function ShoppingCart() {
 
   const cart = useSelector((state) => state.cart);
+  console.log(cart.length < 1)
   const dispatch = useDispatch(); 
 
   const [quantities, setQuantities] = useState({})
@@ -129,7 +130,7 @@ function ShoppingCart() {
       <div className={styles.totalPrice}>
         <p>Precio Total: ${totalPrice.toLocaleString()}</p>
       </div>
-      <button  onClick={mercadoPago} disabled={disabledButton || Object.entries(error).length > 0} className={styles['checkout-button']}>Finalizar compra</button>
+      <button  onClick={mercadoPago} disabled={disabledButton || Object.entries(error).length > 0 || cart.length < 1} className={styles['checkout-button']}>Finalizar compra</button>
     </div>
   );
 }
