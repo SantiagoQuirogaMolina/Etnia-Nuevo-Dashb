@@ -12,19 +12,18 @@ const placeOrder = async (req, res) => {
     const cart = req.body;
      console.log(cart)
 
+     let items = cart.map((product) => ({
+      title: product.title,
+      quantity: product.quantity,
+      unit_price: product.unit_price,
+      currency_id: product.currency_id,
+      image: product.image,
+      description: product.description,
+    }));
+
     let preference = {
       body: {
-        items: [
-          {
-            title: cart.title,
-            quantity: cart.quantity,
-            unit_price: cart.unit_price,
-            currency_id: cart.currency_id,
-            image: cart.image,
-            description: cart.description,
-          },
-        ],
-
+        items: items,
         back_urls: {
           failure: "www.google.com",
           pending: "http://localhost:3001/purchase/pending",
