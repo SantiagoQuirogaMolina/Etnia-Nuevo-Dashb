@@ -24,7 +24,7 @@ import styles from './ProductDetail.module.css';
 
 export default function ProductDetail({handleChange}) {
     const dispatch = useDispatch();
-    const Product = useSelector((state) => state.allCartBack);
+    const Product = useSelector((state) => state.productDetail);
     const user = useSelector((state)=> state.user);
     const { id } = useParams();
     const [productAdded, setProductAdded] = useState(false);
@@ -42,7 +42,7 @@ export default function ProductDetail({handleChange}) {
 
     const handleAddToCart = () => {
       if (Product) {
-        dispatch(AddCartBack({UserId: user.userId, ProductId: id}));
+        dispatch(AddCartBack({UserId: user.userId, ProductId: Product.id}));
         mostrarAlerta();
         setProductAdded(true);
       }
