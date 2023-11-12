@@ -50,7 +50,7 @@ function Router() {
       <Route exact path="/carrito" element={<PublicShoppingCart />} />
       <Route exact path="favorites" element={<PublicFavorites />} />
       <Route exact path="/Form" element={<PublicForm />} />
-      <Route exact path="/editproduct/*" element={<AdminFormUdateProducto />} />
+      <Route exact path="/editproduct/:id" element={<AdminFormUdateProducto />} />
       <Route exact path="/crearuser" element={<AdminFormCrearUser />} />
       <Route exact path="/crearempresa" element={<PublicFormEmpresa />} />
       <Route exact path="/mediopago" element={<PublicFormMedioPago />} />
