@@ -72,7 +72,7 @@ const reducer = (state = initialState, action) => {
     case FINISH_PURCHASE:
       return {
         ...state,
-        errors: {},
+        cartPersist: action.payload
       };
 
 
@@ -264,13 +264,6 @@ const reducer = (state = initialState, action) => {
         user: null,
       };
 
-    // case FINISH_PURCHASE:
-    //   return {
-    //     ...state,
-    //     errors: {},
-    //   };
-
-    
     case PERSIST_USER:
       return {
         ...state,

@@ -7,6 +7,7 @@ const client = new MercadoPagoConfig({
 });
 const payment = new Preference(client);
 const placeOrder = async (req, res) => {
+  console.log("si entre al placeOrder")
   try {
     //generar orden de compra a mercado pago con la info que llega por body
     const cart = req.body;
