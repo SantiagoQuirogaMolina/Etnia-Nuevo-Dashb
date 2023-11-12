@@ -26,21 +26,21 @@ const navConfig = [
 
   {
     title: 'pedidos',
-    path: '/login-admin',
+    path: '/pedidos-admin',
     icon: icon('ordenes'),
   },
   {
     title: 'envios',
-    path: '/404',
+    path: '/envios-admin',
     icon: icon('ventas'),
   },
   {
     title: 'ventas',
-    path: '/login-admin',
+    path: '/ventas-admin',
     icon: icon('ventasSale'),
   },
 
-  { title: 'PQR', path: '/login-admin', icon: icon('pqrs') },
+  { title: 'PQR', path: '/pqrs-admin', icon: icon('pqrs') },
 ];
 
 export default navConfig;
