@@ -7,7 +7,6 @@
 /* eslint-disable perfectionist/sort-imports */
 /* eslint-disable func-names */
 /* eslint-disable no-useless-catch */
-
 import axios from "axios";
 import getFindSelects from "../functions/getFindSelects";
 // import ProductDetail from "src/pages/productDetail/ProductDetail";
@@ -149,15 +148,20 @@ export function deleteReview(id) {
   }
 }
 
-
-export function finishPurchase(cart) {
-  return async function (dispatch) {
-    const purchase = await axios.post(`${URL}/purchase`, purchase);
-    dispatch({
-      type: FINISH_PURCHASE,
-      payload: purchase.data,
-    });
-  };
+export function finishPurchase(objectPago) {
+  
+  async function compra() {
+    try {
+      const purchase = await axios.post(`${URL}/purchase/order`, objectPago);
+      return ({
+        type: FINISH_PURCHASE,
+        payload: purchase.data,
+      });
+    } catch (error) {
+      console.error('Error in finishPurchase:', error);
+    }
+  }
+  compra(); 
 }
 
 export function getAllPurchases() {

@@ -54,6 +54,8 @@ const initialState = {
   productShow: [],
   indexProductShow: [],
   allUsers: [],
+  FavoritesPersist: [],
+  cart: [],
   allFavoritesBack:[],
   allCartBack:[],
   errors: {},
@@ -73,7 +75,7 @@ const reducer = (state = initialState, action) => {
     case FINISH_PURCHASE:
       return {
         ...state,
-        errors: {},
+        cartPersist: action.payload
       };
       case GET_ALL_REVIEWS:
         return{
@@ -158,12 +160,28 @@ const reducer = (state = initialState, action) => {
         ...state,
         allProducts: action.payload,
       };
+      
+    case ADD_TO_CART:
+      return {
+        ...state,
+        cart: [...state.cart, action.payload],
+      };
+
+      case REMOVE_FROM_CART:
+        const productIdToRemove = action.payload;
+        return {
+          ...state,
+          cart: state.cart.filter((item) => JSON.stringify(item.size) !== JSON.stringify(productIdToRemove)),
+        };
   
       case UPDATE_CART_ITEM_QUANTITY:
         const { productId, newQuantity } = action.payload;
         console.log(productId, newQuantity);
         return {
           ...state,
+          cart: state.cart.map((item) =>
+            item.id === productId ? { ...item, cantidad: newQuantity } : item
+          ),     
           allCartBack: state.allCartBack.map((item) =>
           item.id === productId ? { ...item, cantidad: newQuantity } : item
           )
@@ -256,13 +274,6 @@ const reducer = (state = initialState, action) => {
         user: {}
       }
 
-    // case FINISH_PURCHASE:
-    //   return {
-    //     ...state,
-    //     errors: {},
-    //   };
-
-    
     case PERSIST_USER:
       return {
         ...state,

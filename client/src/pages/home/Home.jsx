@@ -24,12 +24,7 @@ import resetView from '../home/clockwise.svg';
 function Home(props) {
   const Page = useSelector((state) => state.indexProductShow);
 
-
- 
-
-
   const user = useSelector((state)=> state.user);
-
   const selects = useSelector ((state) => state.selectFilter)
   const [initialPageSet, setInitialPageSet] = useState(1);
   const [initialFilters, setInitialFilters] = useLocalStorage('initialFilters', {});
@@ -46,6 +41,7 @@ function Home(props) {
   }
   
   const autoLogin = () => {
+
 
     console.log(user);
 

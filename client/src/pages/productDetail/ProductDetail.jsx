@@ -20,36 +20,57 @@ import { getByID, AddCartBack } from "../../redux/actions";
 import NavBar from '../../components/navBar/NavBar'
 import ReactImageMagnify from 'react-image-magnify';
 import Swal from 'sweetalert2';
+import { useLocalStorage } from "../../functions/useLocalStorage";
 import styles from './ProductDetail.module.css';
 
 export default function ProductDetail({handleChange}) {
+  
     const dispatch = useDispatch();
     const Product = useSelector((state) => state.productDetail);
     const user = useSelector((state)=> state.user);
     const { id } = useParams();
     const [productAdded, setProductAdded] = useState(false);
     const [inputCantidad, setInputCantidad] = useState('');
-    const [inputSelect, setInputSelect] = useState('');
+    const [productUp, setProductUp] = useState(Product);
 
     const loadIdProduct = () => {
-        if (id === Product.id) return;
-        else dispatch(getByID(id));
+     if (id === Product.id) return;
+     else dispatch(getByID(id));
     }
 
     useEffect(() => {
-        loadIdProduct()
+     loadIdProduct()
     }, [])
+    
+    const cart = useSelector((state) => state.cart)
 
     const handleAddToCart = () => {
-      if (Product) {
-        dispatch(AddCartBack({UserId: user.userId, ProductId: Product.id}));
-        mostrarAlerta();
-        setProductAdded(true);
-      }
+        const index = cart.find((product) => 
+        JSON.stringify(product.size) === JSON.stringify(productUp.size))
+
+        if(!index){
+          dispatch(addToCart(productUp));
+          mostrarAlerta();
+          setProductAdded(true);
+        }else{
+          return Swal.fire({
+            icon: 'info',
+            title: '',
+            text: 'ya esta en el carrito ',
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
     }
-     const handleInput = (event) => {
+    
+    const handleInput = (event) => {
+      const siz = JSON.parse(event.target.value)
       setInputCantidad(event.target.value)
-      setInputSelect(event.target.name)
+      setProductUp({
+        ...productUp,
+        size : siz
+      })
     }
 
     const [isHovered, setIsHovered] = useState(false);
@@ -69,12 +90,16 @@ export default function ProductDetail({handleChange}) {
    }
 
    const mostrarAlerta = () => {
-    Swal.fire({
-      icon: 'success',
-      title: '',
-      text: 'Añadido al Carrito'
-    })
-   }
+      Swal.fire({
+        icon: 'success',
+        title: '',
+        text: 'Añadido al Carrito',
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+  
 
     return (
       <div className={styles.centrardiv}>
@@ -96,7 +121,7 @@ export default function ProductDetail({handleChange}) {
                      src: `${Product.img}`,
                      width: 1426,
                      height: 2200
-                   },
+                    },
                  }}
             />
             </div>
@@ -111,7 +136,7 @@ export default function ProductDetail({handleChange}) {
                   <div className={styles.contentLabel}>
                        {Product.size?.map(siz => (
                          <label key={Object.keys(siz)} className={styles.label}>
-                         <input className={styles.inputSelect} onChange={handleInput} type="radio" name={"talla"} value={Object.values(siz)}/>
+                         <input className={styles.inputSelect} onChange={handleInput} type="radio" name={"talla"} value={JSON.stringify(siz)}/>
                            {Object.keys(siz)}
                          </label>  
                         ))}  
