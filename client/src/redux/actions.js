@@ -7,7 +7,6 @@
 /* eslint-disable perfectionist/sort-imports */
 /* eslint-disable func-names */
 /* eslint-disable no-useless-catch */
-
 import axios from "axios";
 import getFindSelects from "../functions/getFindSelects";
 // import ProductDetail from "src/pages/productDetail/ProductDetail";
@@ -100,16 +99,23 @@ export const FINISH_PURCHASE = "FINISH_PURCHASE";
 // const URL = "https://etniasoftcommerce.up.railway.app";
 
 
-
 export function finishPurchase(objectPago) {
-  async function compra(dispatch) {
-    const purchase = await axios.post(`${URL}/purchase/order`, objectPago);
-    dispatch({
-      type: FINISH_PURCHASE,
-      payload: purchase.data,
-    });
-  }; return compra();
+  
+  async function compra() {
+    try {
+      const purchase = await axios.post(`${URL}/purchase/order`, objectPago);
+      return ({
+        type: FINISH_PURCHASE,
+        payload: purchase.data,
+      });
+    } catch (error) {
+      console.error('Error in finishPurchase:', error);
+    }
+  }
+
+  compra(); 
 }
+
 export function getAllPurchases(){
   return async function(dispatch){
     const purchasesInfo= await axios.get(`${URL}/purchase`)
