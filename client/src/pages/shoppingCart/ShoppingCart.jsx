@@ -1,8 +1,8 @@
 /* eslint-disable prefer-const */
+import { useEffect } from 'react';
 /* eslint-disable react/button-has-type */
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import styles from './ShoppingCart.module.css';
 import NavBar from '../../components/navBar/NavBar';
 import { removeFromCart,finishPurchase} from '../../redux/actions';
@@ -32,8 +32,8 @@ function ShoppingCart() {
   }, [cart, quantities]);
 
   const handleRemoveFromCart = (productId) => {
-    console.log(productId)
     dispatch(removeFromCart(productId));
+
   };
 
   const handleQuantityChange = (productId, event, cantidad) => {

@@ -16,7 +16,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { getByID, addToCart } from "../../redux/actions";
+import { getByID, AddCartBack } from "../../redux/actions";
 import NavBar from '../../components/navBar/NavBar'
 import ReactImageMagnify from 'react-image-magnify';
 import Swal from 'sweetalert2';
@@ -27,6 +27,7 @@ export default function ProductDetail({handleChange}) {
   
     const dispatch = useDispatch();
     const Product = useSelector((state) => state.productDetail);
+    const user = useSelector((state)=> state.user);
     const { id } = useParams();
     const [productAdded, setProductAdded] = useState(false);
     const [inputCantidad, setInputCantidad] = useState('');
@@ -44,7 +45,6 @@ export default function ProductDetail({handleChange}) {
     const cart = useSelector((state) => state.cart)
 
     const handleAddToCart = () => {
-
         const index = cart.find((product) => 
         JSON.stringify(product.size) === JSON.stringify(productUp.size))
 
