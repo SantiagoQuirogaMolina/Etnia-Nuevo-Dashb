@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Card.module.css';
-import { getAddFavorites, removeFav, AddFavoriteBack, removeFavoriteBack } from '../../redux/actions';
+import { AddFavoriteBack, removeFavoriteBack } from '../../redux/actions';
 
 // comentario de prueba
 
@@ -48,10 +48,6 @@ function Card({id, name, gender, sale, img, color, price}) {
     }
     return text;
   }
-
-  useEffect(()=>{
-    console.log(favorites);
-  },[favorites])
   
   return (
     <div>

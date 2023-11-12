@@ -5,8 +5,6 @@
 /* eslint-disable no-case-declarations */
 import {
   GET_ALL_PRODUCTS,
-  ADD_FAVORITES,
-  REMOVE_FAVORITES,
   CREATE_PRODUCT,
   CREATE_USER,
   DELETE_PRODUCT,
@@ -22,13 +20,11 @@ import {
   USER_LOGOUT,
   GET_ALL_SELECTS,
   LOCALSTORAGE,
-  ADD_TO_CART,
   REMOVE_SHIPPING,
   UPDATE_SHIPPING,
   ADD_SHIPPING,
   REGISTER_USER,
   UPDATE_PRODUCT,
-  REMOVE_FROM_CART,
   UPDATE_CART_ITEM_QUANTITY,
   DELETE_USER,
   FINISH_PURCHASE,
@@ -58,8 +54,6 @@ const initialState = {
   productShow: [],
   indexProductShow: [],
   allUsers: [],
-  FavoritesPersist: [],
-  cartPersist: [],
   allFavoritesBack:[],
   allCartBack:[],
   errors: {},
@@ -164,27 +158,15 @@ const reducer = (state = initialState, action) => {
         ...state,
         allProducts: action.payload,
       };
-
-    case ADD_TO_CART:
-      return {
-        ...state,
-        cartPersist: [...state.cartPersist, action.payload],
-      };
-
-      case REMOVE_FROM_CART:
-        const productIdToRemove = action.payload;
-        return {
-          ...state,
-          cartPersist: state.cartPersist.filter((item) => item.id !== productIdToRemove),
-        };
   
       case UPDATE_CART_ITEM_QUANTITY:
         const { productId, newQuantity } = action.payload;
+        console.log(productId, newQuantity);
         return {
           ...state,
-          cartPersist: state.cartPersist.map((item) =>
-            item.id === productId ? { ...item, cantidad: newQuantity } : item
-          ),
+          allCartBack: state.allCartBack.map((item) =>
+          item.id === productId ? { ...item, cantidad: newQuantity } : item
+          )
         };
 
     case LOCALSTORAGE:
@@ -192,7 +174,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         localstorage: [action.payload],
       };
-   
 
     case GET_BY_ID:
       return {
@@ -231,22 +212,6 @@ const reducer = (state = initialState, action) => {
       return action.payload;
     case DELETE_USER:
       return action.payload;
-
-    case ADD_FAVORITES:
-      return {
-        ...state,
-        FavoritesPersist: [...state.FavoritesPersist, action.payload],
-      };
-
-    case REMOVE_FAVORITES:
-      // eslint-disable-next-line no-case-declarations
-      let productRemove = state.FavoritesPersist.filter(
-        (product) => product.id !== action.payload
-      );
-      return {
-        ...state,
-        FavoritesPersist: productRemove,
-      };
 
     case CREATE_PRODUCT:
       return {
