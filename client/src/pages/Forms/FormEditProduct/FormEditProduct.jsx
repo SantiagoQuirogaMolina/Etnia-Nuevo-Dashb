@@ -11,27 +11,29 @@
 /* eslint-disable perfectionist/sort-imports */
 /* eslint-disable eqeqeq */
 /* eslint-disable import/no-extraneous-dependencies */
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-//import { useParams } from "react-router";
+import { useParams } from "react-router";
 import Validation from './validation';
 import primeraMayuscula from '../../../functions/primeraMayuscula';
-import { updateProduct, clearErrors, getByID } from '../../../redux/actions';
+import { updateProduct, clearErrors } from '../../../redux/actions';
 import Swal from 'sweetalert2';
 import './formedit.css';
 
 const FormEditProduct = () => {
 
   const dispatch = useDispatch();
-  //const {id} = useParams();
-  const id = 6;
+  const {id} = useParams();
 
-  const inputReduce = useSelector((state) => state.productDetail);
-  console.log(inputReduce)
+
+  //const inputReduce = useSelector((state) => state.productDetail);
+  //console.log(inputReduce)
 
   const [errorSubmit, setErrorSubmit] = useState('');
   const gErrors = useSelector((state) => state.errors);
   const [errors, setErrors] = useState({});
+  //const [input, setInput] = useState(inputReduce)
   const [input, setInput] = useState({
     name: '',
     description: '',
@@ -53,59 +55,64 @@ const FormEditProduct = () => {
   });
   
   useEffect (() => {
-    dispatch(getByID(id))
-    setInput(inputReduce);
+    async function getByID() {
+    const { data } = await axios.get(`http://localhost:3001/products/${id}`);
+    setInput(data)
+    }
+
+    getByID();
     return () => dispatch(clearErrors());
-  }, [id, inputReduce, dispatch]);
+  }, [id, dispatch]);
 
   
   console.log(input)  
   //para armar el muñeco de entrada
+if (input.size) {
+  for (let option of input.size) {
+   if (Object.keys(option).includes("XS")) {
+      document.querySelector('#quantityXS').value = option.XS
+      document.querySelector('#quantityXS').disabled = false
+      document.getElementById('XS').checked = true
+      input.quantityXS = option.XS
+   };
 
-  //  const option = inputReduce.size 
-  //  if (Object.keys(option).includes("XS")) {
-  //     document.querySelector('#quantityXS').value = option.XS
-  //     document.querySelector('#quantityXS').disabled = false
-  //     document.getElementById('XS').checked = true
-  //     input.quantityXS = option.XS
-  //  };
+   if (Object.keys(option).includes("S")) {
+      document.querySelector('#quantityS').value = option.S
+      document.querySelector('#quantityS').disabled = false
+      document.getElementById('S').checked = true
+      
+    };
 
-  //  if (Object.keys(option).includes("S")) {
-  //     document.querySelector('#quantityS').value = option.S
-  //     document.querySelector('#quantityS').disabled = false
-  //     document.getElementById('S').checked = true
-  //     input.quantityXS = option.S
-  //   };
+   if (Object.keys(option).includes("M")) {
+      document.querySelector('#quantityM').value = option.M
+      document.querySelector('#quantityM').disabled = false
+      document.getElementById('M').checked = true
+      
+    };
 
-  //  if (Object.keys(option).includes("M")) {
-  //     document.querySelector('#quantityM').value = option.M
-  //     document.querySelector('#quantityM').disabled = false
-  //     document.getElementById('M').checked = true
-  //     input.quantityXS = option.M
-  //   };
+    if (Object.keys(option).includes("L")) {
+      document.querySelector('#quantityL').value = option.L
+      document.querySelector('#quantityL').disabled = false
+      document.getElementById('L').checked = true
+      
+    };
 
-  //   if (Object.keys(option).includes("L")) {
-  //     document.querySelector('#quantityL').value = option.L
-  //     document.querySelector('#quantityL').disabled = false
-  //     document.getElementById('L').checked = true
-  //     input.quantityXS = option.L
-  //   };
+    if (Object.keys(option).includes("XL")) {
+      document.querySelector('#quantityXL').value = option.XL
+      document.querySelector('#quantityXL').disabled = false
+      document.getElementById('XL').checked = true
+      
+    };
 
-  //   if (Object.keys(option).includes("XL")) {
-  //     document.querySelector('#quantityXL').value = option.XL
-  //     document.querySelector('#quantityXL').disabled = false
-  //     document.getElementById('XL').checked = true
-  //     input.quantityXS = option.XL
-  //   };
+    if (Object.keys(option).includes("XXL")) {
+      document.querySelector('#quantityXXL').value = option.XXL
+      document.querySelector('#quantityXXL').disabled = false
+      document.getElementById('XXL').checked = true
+      
+    };
+  }
+}
 
-  //   if (Object.keys(option).includes("XXL")) {
-  //     document.querySelector('#quantityXXL').value = option.XXL
-  //     document.querySelector('#quantityXXL').disabled = false
-  //     document.getElementById('XXL').checked = true
-  //     input.quantityXS = option.XXL
-  //   };
-
- 
   const mostrarAlertaExitosa = () => {
     Swal.fire({
       icon: 'success',
@@ -193,43 +200,9 @@ const FormEditProduct = () => {
       console.log (errorSubmit);
     }
     else {
-      dispatch(updateProduct(input));
-
-      // setInput({
-      //   name: '',
-      //   description: '',
-      //   brand: '',
-      //   sale: 0,
-      //   category: '',
-      //   size: [],
-      //   color: '',
-      //   price: 0,
-      //   gender: 'default',
-      //   image: '',
-      //   quantity: 0,
-      // });
       console.log(input);
-      // desmarca todo los checkbox
-      for (let i = 0; i < document.f1.elements.length; i++) {
-        if (document.f1.elements[i].type == 'checkbox') {
-          document.f1.elements[i].checked = false;
-        }
-      }
-      //deshabilita todos los inputs de cantidad
-      document.querySelector('#quantityXS').disabled = true;
-      document.querySelector('#quantityXS').value = null;
-      document.querySelector('#quantityS').disabled = true;
-      document.querySelector('#quantityS').value = null;
-      document.querySelector('#quantityM').disabled = true;
-      document.querySelector('#quantityM').value = null;
-      document.querySelector('#quantityL').disabled = true;
-      document.querySelector('#quantityL').value = null;
-      document.querySelector('#quantityXL').disabled = true;
-      document.querySelector('#quantityXL').value = null;
-      document.querySelector('#quantityXXL').disabled = true;
-      document.querySelector('#quantityXXL').value = null;
-
-      document.querySelector('#submit').disabled = true;
+      dispatch(updateProduct(input));
+     
       mostrarAlertaExitosa();
       dispatch(clearErrors());
     }
@@ -304,16 +277,16 @@ const FormEditProduct = () => {
       >
         <div className="globalCont">
           
-          <h3 className="formeditTitle">Actualizar producto</h3>
+          <h3 className="formeditTitle">Editar producto</h3>
           <br />
 
-          <div className="formedit-precio-descuento">
+          
             <div className="formedit-group">
               <label className="label-form" htmlFor="name">
                 Nombre
               </label>
               <input
-                className="input1"
+                className="input3"
                 type="text"
                 id="name"
                 name="name"
@@ -324,7 +297,7 @@ const FormEditProduct = () => {
                 {errors.name}
               </p>
             </div>
-
+            <div className="formedit-precio-descuento">
             <div className="formedit-group">
               <label className="label-form" htmlFor="brand">
                 Marca
@@ -485,6 +458,7 @@ const FormEditProduct = () => {
             min="0"
             id="quantityXS"
             name="quantityXS"
+            value={input.quantityXS}
             onChange={handleChange}
           />
           <input type="checkbox" name="s" id="S" value="S" onChange={habilitar} />
@@ -496,6 +470,7 @@ const FormEditProduct = () => {
             min="0"
             id="quantityS"
             name="quantityS"
+            value={input.quantityS}
             onChange={handleChange}
           />
 
@@ -508,6 +483,7 @@ const FormEditProduct = () => {
             min="0"
             id="quantityM"
             name="quantityM"
+            value={input.quantityM}
             onChange={handleChange}
           />
 
@@ -520,6 +496,7 @@ const FormEditProduct = () => {
             min="0"
             id="quantityL"
             name="quantityL"
+            value={input.quantityL}
             onChange={handleChange}
           />
 
@@ -532,6 +509,7 @@ const FormEditProduct = () => {
             min="0"
             id="quantityXL"
             name="quantityXL"
+            value={input.quantityXL}
             onChange={handleChange}
           />
 
@@ -544,6 +522,7 @@ const FormEditProduct = () => {
             min="0"
             id="quantityXXL"
             name="quantityXXL"
+            value={input.quantityXXL}
             onChange={handleChange}
           />
         </div>
@@ -554,7 +533,7 @@ const FormEditProduct = () => {
             className="btn"
             type="submit"
           >
-            Actualizar Producto
+            Editar Producto
           </button>
         </div>
 

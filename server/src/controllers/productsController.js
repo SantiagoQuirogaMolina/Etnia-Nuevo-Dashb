@@ -131,14 +131,23 @@ const createProducts = async (productData) => {
       quantity,
     } = productData;
 
+    console.log ('hola controller')
+    //verifica si ya existe
+    const productCreated = await Products.findOne ({where: {name:name, brand: brand, gender:gender,
+    color:color, category:category}})
+    if(productCreated) {
+      throw new Error ('Un producto ya existe con esas caracteristicas')
+    }
+
     const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
     const img = cloudinaryUpload.secure_url;
 
     const model = await Products.findAll();
-    const nextID = (model[model.length-1].id) + 1;
+    const nextID = (model.length) + 2;
     id = nextID
-    const newProduct = await Products.create({
+    console.log(id)
 
+    const newProduct = await Products.create({
       id,
       name,
       brand,
@@ -152,10 +161,9 @@ const createProducts = async (productData) => {
       price,
       quantity,
     });
-    console.log(newProduct)
+    
     return newProduct;
   } catch (error) {
-    console.log(error)
     throw error;
   }
 };

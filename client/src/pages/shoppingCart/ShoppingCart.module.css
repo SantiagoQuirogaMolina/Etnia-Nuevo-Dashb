@@ -73,6 +73,11 @@
   .checkout-button:hover {
     background-color: green;
   }
+
+  .checkout-button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
   
   .title {
     background-color: #71A611;

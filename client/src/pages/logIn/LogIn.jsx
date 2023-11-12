@@ -124,7 +124,7 @@ function LogIn(props) {
           </ul>
         </nav>
 
-        {isAuthenticated ? <LogoutButton /> : <LoginButton/>}
+        {User ? <LogoutButton /> : <LoginButton/>}
       </div>
   );
 }

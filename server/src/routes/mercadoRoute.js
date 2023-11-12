@@ -3,7 +3,7 @@ const {placeOrder, succesfulPurchase} = require('../controllers/mercadoControlle
 
 const mercadoRouter = Router();
 
-mercadoRouter.post("/", placeOrder);
+mercadoRouter.post("/order", placeOrder);
 
 mercadoRouter.get("/succes", succesfulPurchase);
 

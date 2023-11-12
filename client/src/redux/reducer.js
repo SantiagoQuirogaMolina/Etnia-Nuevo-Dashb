@@ -5,8 +5,6 @@
 /* eslint-disable no-case-declarations */
 import {
   GET_ALL_PRODUCTS,
-  ADD_FAVORITES,
-  REMOVE_FAVORITES,
   CREATE_PRODUCT,
   CREATE_USER,
   DELETE_PRODUCT,
@@ -22,17 +20,16 @@ import {
   USER_LOGOUT,
   GET_ALL_SELECTS,
   LOCALSTORAGE,
-  ADD_TO_CART,
   REMOVE_SHIPPING,
   UPDATE_SHIPPING,
   ADD_SHIPPING,
   REGISTER_USER,
   UPDATE_PRODUCT,
-  REMOVE_FROM_CART,
   UPDATE_CART_ITEM_QUANTITY,
   DELETE_USER,
   FINISH_PURCHASE,
   GET_ALL_FAVS,
+  GET_ALL_CARTS,
   NEW_CART,
   NEW_FAVORITE,
   REMOVE_CART_BACK,
@@ -40,6 +37,11 @@ import {
   GET_ALL_PURCHASES,
   GET_PURCHASE_DETAIL,
   PERSIST_USER,
+  GET_ALL_REVIEWS,
+  GET_REVIEW_BY_ID,
+  UPDATE_REVIEW,
+  DELETE_REVIEW,
+  CREATE_REVIEW,
 } from "./actions";
 
 const initialState = {
@@ -53,7 +55,7 @@ const initialState = {
   indexProductShow: [],
   allUsers: [],
   FavoritesPersist: [],
-  cartPersist: [],
+  cart: [],
   allFavoritesBack:[],
   allCartBack:[],
   errors: {},
@@ -61,6 +63,7 @@ const initialState = {
   page: null,
   localstorage: [],
   user: null,
+  reviews:[],
 };
 
 
@@ -72,8 +75,27 @@ const reducer = (state = initialState, action) => {
     case FINISH_PURCHASE:
       return {
         ...state,
-        errors: {},
+        cartPersist: action.payload
       };
+      case GET_ALL_REVIEWS:
+        return{
+          ...state,
+          reviews:action.payload
+        }
+        case GET_REVIEW_BY_ID:
+          return{
+            ...state,
+            reviews:action.payload
+          }
+          case CREATE_REVIEW:
+            return{
+              ...state,
+              errors:{},
+            }
+         case UPDATE_REVIEW:
+          return action.payload
+          case DELETE_REVIEW:
+            return action.payload 
 
 
     case GET_ALL_FAVS:
@@ -108,11 +130,11 @@ const reducer = (state = initialState, action) => {
         allFavoritesBack: action.payload
       }
     
-    // case GET_ALL_CARTS:
-    //   return{
-    //     ...state,
-    //     allCartBack: action.payload
-    //   }
+    case GET_ALL_CARTS:
+      return{
+        ...state,
+        allCartBack: action.payload
+      }
     
     case NEW_CART:
       return{
@@ -138,27 +160,31 @@ const reducer = (state = initialState, action) => {
         ...state,
         allProducts: action.payload,
       };
-
+      
     case ADD_TO_CART:
       return {
         ...state,
-        cartPersist: [...state.cartPersist, action.payload],
+        cart: [...state.cart, action.payload],
       };
 
       case REMOVE_FROM_CART:
         const productIdToRemove = action.payload;
         return {
           ...state,
-          cartPersist: state.cartPersist.filter((item) => item.id !== productIdToRemove),
+          cart: state.cart.filter((item) => JSON.stringify(item.size) !== JSON.stringify(productIdToRemove)),
         };
   
       case UPDATE_CART_ITEM_QUANTITY:
         const { productId, newQuantity } = action.payload;
+        console.log(productId, newQuantity);
         return {
           ...state,
-          cartPersist: state.cartPersist.map((item) =>
+          cart: state.cart.map((item) =>
             item.id === productId ? { ...item, cantidad: newQuantity } : item
-          ),
+          ),     
+          allCartBack: state.allCartBack.map((item) =>
+          item.id === productId ? { ...item, cantidad: newQuantity } : item
+          )
         };
 
     case LOCALSTORAGE:
@@ -166,7 +192,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         localstorage: [action.payload],
       };
-   
 
     case GET_BY_ID:
       return {
@@ -206,22 +231,6 @@ const reducer = (state = initialState, action) => {
     case DELETE_USER:
       return action.payload;
 
-    case ADD_FAVORITES:
-      return {
-        ...state,
-        FavoritesPersist: [...state.FavoritesPersist, action.payload],
-      };
-
-    case REMOVE_FAVORITES:
-      // eslint-disable-next-line no-case-declarations
-      let productRemove = state.FavoritesPersist.filter(
-        (product) => product.id !== action.payload
-      );
-      return {
-        ...state,
-        FavoritesPersist: productRemove,
-      };
-
     case CREATE_PRODUCT:
       return {
         ...state,
@@ -259,18 +268,12 @@ const reducer = (state = initialState, action) => {
       };
 
     case USER_LOGOUT:
+      console.log("toy aca");
       return {
         ...state,
-        user: null,
-      };
+        user: {}
+      }
 
-    // case FINISH_PURCHASE:
-    //   return {
-    //     ...state,
-    //     errors: {},
-    //   };
-
-    
     case PERSIST_USER:
       return {
         ...state,
@@ -279,7 +282,7 @@ const reducer = (state = initialState, action) => {
 
 
     default:
-      return { ...state };
+      return { ...state};
   }
 };
 
