@@ -284,10 +284,11 @@ const reducer = (state = initialState, action) => {
       };
 
     case USER_LOGOUT:
+      console.log("toy aca");
       return {
         ...state,
-        user: null,
-      };
+        user: {}
+      }
 
     // case FINISH_PURCHASE:
     //   return {
@@ -304,7 +305,7 @@ const reducer = (state = initialState, action) => {
 
 
     default:
-      return { ...state };
+      return { ...state};
   }
 };
 

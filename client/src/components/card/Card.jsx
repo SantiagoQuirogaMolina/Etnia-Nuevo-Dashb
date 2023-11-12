@@ -13,24 +13,23 @@ import { getAddFavorites, removeFav, getAllFavs, AddFavoriteBack, removeFavorite
 // comentario de prueba
 
 function Card({id, name, gender, sale, img, color, price}) {
-  const favorites = useSelector((state)=> state.FavoritesPersist)
-  const favoritesBACK = useSelector((state)=> state.allFavoritesBack)
+  const favorites = useSelector((state)=> state.allFavoritesBack)
   const user = useSelector((state)=> state.user);
 
   const dispatch = useDispatch();
-
   const [isFav, setIsFav] = useState(false);
-
-  const product = { id, name, gender, sale, img, color, price };
 
   const handleFavorite = () => {
     if (isFav) {
       setIsFav(false);
-      dispatch(removeFav(id));
+      // dispatch(removeFav(id));
+      dispatch(removeFavoriteBack({UserId: user.userId, ProductId: id}))
     } else {
       setIsFav(true);
-      dispatch(getAddFavorites(product));
+      // dispatch(getAddFavorites(product));
+      dispatch(AddFavoriteBack({UserId: user.userId, ProductId: id}))
     }
+    console.log(user);
   };
 
   useEffect(() => {
@@ -47,13 +46,16 @@ function Card({id, name, gender, sale, img, color, price}) {
     }
     return text;
   }
+
+  useEffect(()=>{
+    console.log(favorites);
+  },[favorites])
   
   return (
     <div>
       <div className={styles.card}>
-        <button className={styles.corazon} onClick={handleFavorite}>
-          {isFav ? '❤️' : '🤍'}
-        </button>
+        {user?.userEmail && 
+        <div> <button className={styles.corazon} onClick={handleFavorite}>{isFav ? '❤️' : '🤍'}</button> </div>}
         <Link to={`/product/${id}`}>
           <div>
             <img className={styles.imagen} src={img} alt={name} />
