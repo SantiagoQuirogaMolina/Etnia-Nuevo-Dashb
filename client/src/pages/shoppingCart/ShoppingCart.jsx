@@ -1,11 +1,11 @@
 /* eslint-disable prefer-const */
-import { useEffect } from 'react';
 /* eslint-disable react/button-has-type */
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import styles from './ShoppingCart.module.css';
 import NavBar from '../../components/navBar/NavBar';
-import { removeFromCart,finishPurchase} from '../../redux/actions';
+import { removeFromCart, finishPurchase} from '../../redux/actions';
 
 function ShoppingCart() {
 
