@@ -23,17 +23,24 @@ const navConfig = [
     path: '/products-admin',
     icon: icon('ic_cart'),
   },
-  
+
   {
-    title: 'pendientes',
+    title: 'pedidos',
     path: '/login-admin',
     icon: icon('ordenes'),
   },
   {
-    title: 'ventas',
+    title: 'envios',
     path: '/404',
     icon: icon('ventas'),
   },
+  {
+    title: 'ventas',
+    path: '/login-admin',
+    icon: icon('ventasSale'),
+  },
+
+  { title: 'PQR', path: '/login-admin', icon: icon('pqrs') },
 ];
 
 export default navConfig;
