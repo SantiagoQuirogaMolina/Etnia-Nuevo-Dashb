@@ -8,8 +8,10 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './NavBar.module.css';
 import Home from '../../assets/png/Home.png';
+import UserDetail from '../userDetail/UserDetail';
 import Carrito from '../../assets/png/Carrito.png';
 import Usuario from '../../assets/png/Usuario.png';
+import { isLoggedIn } from '../../functions/isLoggedIn';
 import Configuraciones from '../../assets/png/Configuraciones.png';
 import web_analysis_icon from '../../assets/png/web_analysis_icon.png';
 
@@ -17,21 +19,30 @@ import web_analysis_icon from '../../assets/png/web_analysis_icon.png';
 function NavBar(props) {
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth0();
+  const isUserLoggedIn = isLoggedIn();
 
   const handleUserClick = () => {
     if (isAuthenticated) {
-      navigate(`/user`); // User is logged in, redirect to user details page.
+      navigate(`/users/${user.sub}`); // User is logged in through Auth0, redirect to Auth0 user details page.
+    } else if (isUserLoggedIn) {
+      navigate(`/users/:id`); // User is logged in through your own authentication, redirect to your user details page.
     } else {
       navigate('/user'); // User is not logged in, redirect to login page.
     }
   };
-
-
+  const handleLoginClick = () => {
+    navigate('/user');
+  };
+  
   return (
     <div className={styles.navbar}>
-      <button onClick={handleUserClick}>
+      {isAuthenticated ? (
+      <p>{user.email}</p>
+    ) : (
+      <button onClick={handleLoginClick}>
         <img className={styles.Usuario} src={Usuario} alt="Usuario" />
       </button>
+    )}
 
       <button>
         <Link to="/"><img className={styles.Home} src={Home} alt="Home" /></Link>
@@ -42,8 +53,14 @@ function NavBar(props) {
       </button>
 
       <button>
-        <Link to="/home"><img className={styles.Configuraciones} src={Configuraciones} alt="Configuraciones" /></Link>
-      </button>
+        {isAuthenticated ? (
+        <Link to={`/users/${user.sub}`}>
+          <img className={styles.Configuraciones} src={Configuraciones} alt="Configuraciones" />
+        </Link>
+      ) : (
+        <UserDetail />
+      )}
+    </button>
       
       <button>
         <Link to="/admin"><img  src={web_analysis_icon} alt="web_analysis_icon" /></Link>
