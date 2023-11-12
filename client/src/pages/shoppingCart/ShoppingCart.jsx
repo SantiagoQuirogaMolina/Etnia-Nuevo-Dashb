@@ -80,7 +80,6 @@ function ShoppingCart() {
   
 
   const mercadoPago=()=>{
-    console.log(objectPago)
     finishPurchase(objectPago);
   }
  
