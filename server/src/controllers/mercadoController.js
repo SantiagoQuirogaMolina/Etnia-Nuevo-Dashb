@@ -9,18 +9,19 @@ const payment = new Preference(client);
 const placeOrder = async (req, res) => {
   try {
     //generar orden de compra a mercado pago con la info que llega por body
-    const {cart} = req.body;
+    const cart = req.body;
+     console.log(cart)
 
     let preference = {
       body: {
         items: [
           {
-            name: cart.product.name,
-            quantity: cart.product.quantity,
-            unit_price: cart.product.price,
-            currency_id: "ARG",
-            picture_url: cart.product.image,
-            description: cart.product.description,
+            title: cart.title,
+            quantity: cart.quantity,
+            unit_price: cart.unit_price,
+            currency_id: cart.currency_id,
+            image: cart.image,
+            description: cart.description,
           },
         ],
 
