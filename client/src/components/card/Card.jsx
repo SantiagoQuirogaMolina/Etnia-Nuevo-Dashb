@@ -59,7 +59,7 @@ function Card({id, name, gender, sale, img, color, price}) {
             <img className={styles.imagen} src={img} alt={name} />
             <div className={styles.descripcion}>
               <h2 className={styles.name}>{truncateText(name, 15)}</h2>
-              <h2 className={styles.price}>{`$${price}`}</h2>
+              <h2 className={styles.price}>{`$${price.toLocaleString()} COP`}</h2>
               {sale > 0 && <h2 className={styles.discount}>{`${sale}% OFF`}</h2>}
             </div>
           </div>
