@@ -12,6 +12,8 @@ import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
+import { useNavigate } from 'react-router-dom';
+
 import { users } from 'src/_mock/user';
 
 import Iconify from 'src/components/iconify';
@@ -32,7 +34,7 @@ import { getAllUsers } from '../../../redux/actions';
 
 export default function UserPage() {
   const usersss = useSelector((state) => state.allUsers);
-  
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   // Utiliza useEffect para llamar automáticamente la función cuando el componente se monta
@@ -107,13 +109,15 @@ export default function UserPage() {
   });
 
   const notFound = !dataFiltered.length && !!filterName;
-
+  const handleRedireccion = () => {
+    navigate('/crearuser'); // Utiliza navigate para redirigir
+  };
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4">Users</Typography>
 
-        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
+        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}  onClick={handleRedireccion}>
           New User
         </Button>
       </Stack>

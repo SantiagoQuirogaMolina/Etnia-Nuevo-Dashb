@@ -4,8 +4,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-case-declarations */
 import {
-  GET_ALL_PRODUCTS,
   ADD_FAVORITES,
+  GET_ALL_PRODUCTS,
   REMOVE_FAVORITES,
   CREATE_PRODUCT,
   CREATE_USER,
@@ -40,10 +40,6 @@ import {
   GET_ALL_PURCHASES,
   GET_PURCHASE_DETAIL,
   PERSIST_USER,
-  GET_ALL_REVIEWS,
-  GET_REVIEW_BY_ID,
-  UPDATE_REVIEW,
-  DELETE_REVIEW
 } from "./actions";
 
 const initialState = {
@@ -57,7 +53,7 @@ const initialState = {
   indexProductShow: [],
   allUsers: [],
   FavoritesPersist: [],
-  cartPersist: [],
+  cart: [],
   allFavoritesBack:[],
   allCartBack:[],
   errors: {},
@@ -65,7 +61,6 @@ const initialState = {
   page: null,
   localstorage: [],
   user: null,
-  reviews:[],
 };
 
 
@@ -77,22 +72,8 @@ const reducer = (state = initialState, action) => {
     case FINISH_PURCHASE:
       return {
         ...state,
-        errors: {},
+        cartPersist: action.payload
       };
-      case GET_ALL_REVIEWS:
-        return{
-          ...state,
-          reviews:action.payload
-        }
-        case GET_REVIEW_BY_ID:
-          return{
-            ...state,
-            reviews:action.payload
-          }
-         case UPDATE_REVIEW:
-          return action.payload
-          case DELETE_REVIEW:
-            return action.payload 
 
 
     case GET_ALL_FAVS:
@@ -161,21 +142,21 @@ const reducer = (state = initialState, action) => {
     case ADD_TO_CART:
       return {
         ...state,
-        cartPersist: [...state.cartPersist, action.payload],
+        cart: [...state.cart, action.payload],
       };
 
       case REMOVE_FROM_CART:
         const productIdToRemove = action.payload;
         return {
           ...state,
-          cartPersist: state.cartPersist.filter((item) => item.id !== productIdToRemove),
+          cart: state.cart.filter((item) => item.id !== productIdToRemove),
         };
   
       case UPDATE_CART_ITEM_QUANTITY:
         const { productId, newQuantity } = action.payload;
         return {
           ...state,
-          cartPersist: state.cartPersist.map((item) =>
+          cart: state.cartPersist.map((item) =>
             item.id === productId ? { ...item, cantidad: newQuantity } : item
           ),
         };
@@ -283,13 +264,6 @@ const reducer = (state = initialState, action) => {
         user: null,
       };
 
-    // case FINISH_PURCHASE:
-    //   return {
-    //     ...state,
-    //     errors: {},
-    //   };
-
-    
     case PERSIST_USER:
       return {
         ...state,

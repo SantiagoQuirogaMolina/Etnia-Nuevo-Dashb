@@ -38,18 +38,19 @@ app.post('/users', async (req, res) => {
   }
 });
 
+
 cloudinary.config({
   cloud_name: "dauvht6ky",
   api_key: "864773466771315",
   api_secret: "tDiz5YwUPgG1cWN15m96Qh-_0tg",
 });
 
-app.use('/api', reviewsRouter);
+
 app.use(express.json());
 const PORT = process.env.PORT || 3001;
 
 conn
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     prendas();
 

@@ -8,9 +8,10 @@ const cartRouter = require("./cartRouter");
 const mercadoRouter = require("./mercadoRoute");
 const reviewsRouter = require("./reviewsRouter");
 //const tablesRouter = require("./tablesRouter");
+const reviewsrouter=require("./reviewsRouter");
 
 
-
+indexRouter.use("/reviews",reviewsrouter);
 indexRouter.use("/products", productsRouter);
 indexRouter.use("/users", userRouter);
 indexRouter.use("/email", emailRouter);
