@@ -102,18 +102,14 @@ export const FINISH_PURCHASE = "FINISH_PURCHASE";
 
 
 export function finishPurchase(objectPago) {
-  console.log("si entro a la action")
   async function compra(dispatch) {
     const purchase = await axios.post(`${URL}/purchase/order`, objectPago);
-    console.log(purchase) 
-    console.log("aqui llego la purchase")
     dispatch({
       type: FINISH_PURCHASE,
       payload: purchase.data,
     });
   }; return compra();
 }
-
 export function getAllPurchases(){
   return async function(dispatch){
     const purchasesInfo= await axios.get(`${URL}/purchase`)

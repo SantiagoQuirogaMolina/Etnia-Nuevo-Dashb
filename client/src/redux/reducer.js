@@ -53,7 +53,7 @@ const initialState = {
   indexProductShow: [],
   allUsers: [],
   FavoritesPersist: [],
-  cartPersist: [],
+  cart: [],
   allFavoritesBack:[],
   allCartBack:[],
   errors: {},
@@ -142,21 +142,21 @@ const reducer = (state = initialState, action) => {
     case ADD_TO_CART:
       return {
         ...state,
-        cartPersist: [...state.cartPersist, action.payload],
+        cart: [...state.cart, action.payload],
       };
 
       case REMOVE_FROM_CART:
         const productIdToRemove = action.payload;
         return {
           ...state,
-          cartPersist: state.cartPersist.filter((item) => item.id !== productIdToRemove),
+          cart: state.cart.filter((item) => item.id !== productIdToRemove),
         };
   
       case UPDATE_CART_ITEM_QUANTITY:
         const { productId, newQuantity } = action.payload;
         return {
           ...state,
-          cartPersist: state.cartPersist.map((item) =>
+          cart: state.cart.map((item) =>
             item.id === productId ? { ...item, cantidad: newQuantity } : item
           ),
         };

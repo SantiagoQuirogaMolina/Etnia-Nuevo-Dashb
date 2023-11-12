@@ -4,12 +4,13 @@ import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './ShoppingCart.module.css';
-import { removeFromCart, finishPurchase} from '../../redux/actions';
 import NavBar from '../../components/navBar/NavBar';
+import { removeFromCart, finishPurchase} from '../../redux/actions';
+
 
 function ShoppingCart() {
 
-  const cart = useSelector((state) => state.cartPersist);
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch(); 
 
   const [quantities, setQuantities] = useState({})
@@ -86,7 +87,7 @@ function ShoppingCart() {
 
   const mercadoPago=()=>{
     console.log(objectPago)
-
+    finishPurchase(objectPago);
   }
  
   return (
