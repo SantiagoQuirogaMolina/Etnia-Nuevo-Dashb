@@ -40,11 +40,6 @@ function Home(props) {
        dispatch(getAllFavs(user.userId));
     }
    }
-  
-  const autoLogin = () => {
-    console.log(user);
-  };
-
 
   useEffect(() => {
     if (!initialPageSet) {
@@ -62,8 +57,8 @@ function Home(props) {
   useEffect(() => {
     loadProducts();
     dispatch(getAllSelects());
-    autoLogin();
     loadFavs();
+    console.log(user);
   }, [dispatch, initialFilters, initialPageSet]);
 
   const handleChange = (event) => {

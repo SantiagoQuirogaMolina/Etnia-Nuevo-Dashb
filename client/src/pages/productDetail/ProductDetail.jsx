@@ -16,11 +16,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { getByID, addToCart } from "../../redux/actions";
+import { getByID, AddCartBack  } from "../../redux/actions";
 import NavBar from '../../components/navBar/NavBar'
 import ReactImageMagnify from 'react-image-magnify';
 import Swal from 'sweetalert2';
-import { useLocalStorage } from "../../functions/useLocalStorage";
 import styles from './ProductDetail.module.css';
 
 export default function ProductDetail({handleChange}) {
@@ -42,14 +41,14 @@ export default function ProductDetail({handleChange}) {
      loadIdProduct()
     }, [])
     
-    const cart = useSelector((state) => state.cart)
+    const cart = useSelector((state) => state.allCartBack)
 
     const handleAddToCart = () => {
         const index = cart.find((product) => 
         JSON.stringify(product.size) === JSON.stringify(productUp.size))
 
         if(!index){
-          dispatch(addToCart(productUp));
+          dispatch(AddCartBack({UserId: user.userId, ProductId: Product.id}));
           mostrarAlerta();
           setProductAdded(true);
         }else{

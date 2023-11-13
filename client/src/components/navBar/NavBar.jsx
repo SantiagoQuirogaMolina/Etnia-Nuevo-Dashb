@@ -3,6 +3,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -20,6 +21,7 @@ function NavBar(props) {
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth0();
   const isUserLoggedIn = isLoggedIn();
+  const userLogeado = useSelector((state)=> state.user);
 
   const handleUserClick = () => {
     if (isAuthenticated) {
@@ -36,8 +38,10 @@ function NavBar(props) {
   
   return (
     <div className={styles.navbar}>
-      {isAuthenticated ? (
-      <p>{user.email}</p>
+      {userLogeado?.userEmail ? (
+        <button onClick={handleLoginClick}>
+          <p>{userLogeado.userEmail}</p>
+      </button>
     ) : (
       <button onClick={handleLoginClick}>
         <img className={styles.Usuario} src={Usuario} alt="Usuario" />
@@ -66,9 +70,12 @@ function NavBar(props) {
         <Link to="/admin"><img  src={web_analysis_icon} alt="web_analysis_icon" /></Link>
       </button>
 
+
       <button>
         <Link to="/favorites"><img src="https://www.emojiall.com/images/240/classic/1f5a4.png" /></Link>
       </button>
+      {/* {userLogeado?.userEmail && 
+        <div> <button> <Link to="/favorites"><img src="https://www.emojiall.com/images/240/classic/1f5a4.png" /></Link></button> </div>} */}
     </div>
   );
 }
