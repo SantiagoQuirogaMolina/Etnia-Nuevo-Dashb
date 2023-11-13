@@ -49,8 +49,13 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         is: [/\d/],
+      },
+      auth0UserId: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
       },
     },
     {timestamps: false},

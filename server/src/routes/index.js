@@ -7,6 +7,7 @@ const favsRouter = require("./favoritesRoute");
 const cartRouter = require("./cartRouter");
 const mercadoRouter = require("./mercadoRoute");
 const tablesRouter = require("./tablesRouter");
+const reviewsRouter = require("./reviewsRouter");
 const reviewsrouter=require("./reviewsRouter");
 
 
@@ -18,5 +19,7 @@ indexRouter.use("/favs", favsRouter);
 indexRouter.use("/cart", cartRouter);
 indexRouter.use("/purchase", mercadoRouter);
 indexRouter.use("/tables", tablesRouter);
+indexRouter.use("/reviews", reviewsRouter);
+
 
 module.exports = indexRouter;

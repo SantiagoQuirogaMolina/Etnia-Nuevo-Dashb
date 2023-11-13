@@ -13,7 +13,7 @@ const getAllReviews = async (req, res) => {
 
 //  para crear una nueva revisión
 const createReview = async (req, res) => {
-  const { review, calification } = req.body;
+  const { review, calification} = req.body;
 
   try {
     const newReview = await Reviews.create({ review, calification });

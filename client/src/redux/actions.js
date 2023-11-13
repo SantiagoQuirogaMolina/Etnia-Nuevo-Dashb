@@ -7,7 +7,6 @@
 /* eslint-disable perfectionist/sort-imports */
 /* eslint-disable func-names */
 /* eslint-disable no-useless-catch */
-
 import axios from "axios";
 import getFindSelects from "../functions/getFindSelects";
 // import ProductDetail from "src/pages/productDetail/ProductDetail";
@@ -151,15 +150,22 @@ export function deleteReview(id) {
   }
 }
 
-
-export function finishPurchase(cart) {
-  return async function (dispatch) {
-    const purchase = await axios.post(`${URL}/purchase`, purchase);
-    dispatch({
-      type: FINISH_PURCHASE,
-      payload: purchase.data,
-    });
-  };
+export function finishPurchase(objectPago) {
+  console.log(objectPago)
+  
+  async function compra() {
+    try {
+      const purchase = await axios.post(`${URL}/purchase/order`, objectPago);
+      console.log(purchase);
+      return ({
+        type: FINISH_PURCHASE,
+        payload: purchase.data,
+      });
+    } catch (error) {
+      console.error('Error in finishPurchase:', error);
+    }
+  }
+  compra(); 
 }
 
 export function getAllPurchases() {
@@ -192,7 +198,6 @@ export function getPurchaseDetail(payload) {
 }
 
 export function getAllFavs(id) {
-  console.log("me despacharon");
   return async function (dispatch) {
     const response = await axios.get(`${URL}/favs/${id}`);
     dispatch({
@@ -230,6 +235,13 @@ export function getAllCarts(id) {
       payload: response.data,
     })
   }
+}
+
+export function addToCart(product) {
+  return {
+    type: ADD_TO_CART,
+    payload: product,
+  };
 }
 
 export function AddCartBack(objectId) {
@@ -505,12 +517,6 @@ export function registerUser(payload) {
     }
   };
 }
-export function addToCart(product) {
-  return {
-    type: ADD_TO_CART,
-    payload: product,
-  };
-}
 
 export function removeFromCart(productId) {
   return {
@@ -613,7 +619,6 @@ export function getUsersByName(name) {
 }
 
 export function getAllUsers() {
-  console.log("hoalaa")
   return async function (dispatch) {
     const allUsers = await axios.get(`${URL}/users`);
     dispatch({
@@ -648,6 +653,21 @@ export function deleteProduct(id) {
     });
   };
 }
+
+export function getAddFavorites(product) {
+  return async (dispatch) => {
+    try {
+      // const { data } = await axios.get(`${URL}/favorites`);
+      return dispatch({
+        type: ADD_FAVORITES,
+        payload: product,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
 export function deleteUser(id) {
   return async function (dispatch) {
     try {
@@ -710,20 +730,6 @@ export function getAllSelects() {
       type: GET_ALL_SELECTS,
       payload: productsInfo,
     });
-  };
-}
-
-export function getAddFavorites(product) {
-  return async (dispatch) => {
-    try {
-      // const { data } = await axios.get(`${URL}/favorites`);
-      return dispatch({
-        type: ADD_FAVORITES,
-        payload: product,
-      });
-    } catch (error) {
-      console.log(error);
-    }
   };
 }
 

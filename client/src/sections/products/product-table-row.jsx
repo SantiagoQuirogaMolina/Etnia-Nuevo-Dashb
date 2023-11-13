@@ -3,6 +3,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch} from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -35,7 +36,7 @@ export default function ProductTableRow({
   handleClick,
 }) {
  
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   
   useEffect(() => {}, [dispatch]);
@@ -52,6 +53,7 @@ export default function ProductTableRow({
 
   const handleEditClick = () => {
     console.log('Editar', id);
+    navigate('/editproduct');
     handleCloseMenu();
   };
 
@@ -60,6 +62,7 @@ export default function ProductTableRow({
     console.log('Eliminar', id);
     handleCloseMenu();
   };
+
 
   return (
     <>
