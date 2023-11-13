@@ -8,11 +8,11 @@ const {
   updateUserById,
   loginUser,
   confirmEmailControll,
-  userEmail
+  userEmail,
+  postRegsiterTercerosController
 } = require("../controllers/userControllers");
 
 const confirmEmail = async (req, res) => {
-  
   try {
     const response = await confirmEmailControll(req, res);
     res.status(200);
@@ -31,7 +31,6 @@ const postUsersRegsiter = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
 
 const getUsersByName = async (req, res) => {
   const name = req.params.name;
@@ -76,7 +75,7 @@ const deleteUserHandler = async (req, res) => {
     const user = await deleteUserById(id);
     res.status(201).json(user);
   } catch (error) {
-    res.status(400).send({error: error.message});
+    res.status(400).send({ error: error.message });
   }
 };
 const updateUserHandler = async (req, res) => {
@@ -94,11 +93,18 @@ const loginUserHandler = async (req, res) => {
     // loginUser ya se encarga de enviar la respuesta, por lo que no es necesario enviarla de nuevo aquí
   } catch (error) {
     // Si ocurriera un error inesperado, podrías manejarlo aquí
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
 };
-;
 
+const postRegsiterTercerosHandler = async (req, res) => {
+  try {
+    const response = await postRegsiterTercerosController(req, res);
+    res.status(200).send(response);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 // /:id = params si modifica
 // query === ? name&raza, no modifica la ruta
 
@@ -110,6 +116,7 @@ module.exports = {
   deleteUserHandler: deleteUserHandler,
   updateUserHandler: updateUserHandler,
   loginUserHandler: loginUserHandler,
-  postUsersRegsiter:postUsersRegsiter,
-  confirmEmail:confirmEmail,
+  postUsersRegsiter: postUsersRegsiter,
+  confirmEmail: confirmEmail,
+  postRegsiterTercerosHandler: postRegsiterTercerosHandler,
 };

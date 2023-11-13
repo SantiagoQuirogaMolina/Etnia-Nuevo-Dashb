@@ -195,6 +195,39 @@ const updateUserById = async (id, newData) => {
   }
 };
 
+const postRegsiterTercerosController = async (req, res) => {
+  console.log("hola desde postRegsiterTercerosController antes del req.body ");
+  console.log(req.body);
+  console.log(req.body.sub);
+  console.log(req.body.email);
+  try {
+    console.log("hola desde postRegsiterTercerosController");
+    const auth0UserId = req.body.sub;
+    const emailauth0 = req.body.email;
+    // Verifica si auth0UserId está presente antes de realizar la consulta
+    if (auth0UserId) {
+      let user = await User.findOne({ where: { auth0UserId } });
+      if (!user) {
+        user = await User.create({ auth0UserId, email: emailauth0 });
+      }
+      console.log(user); // Imprime el usuario después de definirlo
+      res.send(user);
+      console.log("hola desde el indexdOS");
+    } else {
+      // Si auth0UserId está vacío, responde con un mensaje indicando el problema.
+      res.status(400).send({ error: "auth0UserId no presente en la solicitud." });
+    }
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .send({ error: "Hubo un problema al intentar autenticar al usuario." });
+  }
+};
+
+
+
+
 const loginUser = async (req, res) => {
   const { password, email } = req.body;
 
@@ -239,4 +272,5 @@ module.exports = {
   updateUserById,
   loginUser,
   confirmEmailControll,
+  postRegsiterTercerosController
 };

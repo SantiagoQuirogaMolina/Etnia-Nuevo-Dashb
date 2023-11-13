@@ -40,6 +40,7 @@ import {
   GET_ALL_PURCHASES,
   GET_PURCHASE_DETAIL,
   PERSIST_USER,
+  REGISTRO_TERCEROS
 } from "./actions";
 
 const initialState = {

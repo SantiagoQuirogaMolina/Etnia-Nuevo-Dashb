@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable arrow-body-style */
 /* eslint-disable consistent-return */
 /* eslint-disable no-else-return */
@@ -7,60 +8,61 @@
 /* eslint-disable perfectionist/sort-imports */
 /* eslint-disable func-names */
 /* eslint-disable no-useless-catch */
-import axios from "axios";
-import getFindSelects from "../functions/getFindSelects";
+import axios from 'axios';
+import getFindSelects from '../functions/getFindSelects';
 // import ProductDetail from "src/pages/productDetail/ProductDetail";
 
 // Routes Get
-export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
-export const GET_ALL_SELECTS = "GET_ALL_SELECTS";
-export const GET_DETAIL_SIZE_COLOR = "GET_DETAIL_SIZE_COLOR";
-export const GET_ORDER_PRICE = "GET_ORDER_PRICE";
-export const GET_ALL_USERS = "GET_ALL_USERS";
-export const GET_USERS_BY_NAME = "GET_USERS_BY_NAME";
-export const GET_PRODUCTS_BY_NAME = "GET_PRODUCTS_BY_NAME";
-export const ADD_FAVORITES = "ADD_FAVORITES";
-export const GET_BY_ID = "GET_BY_ID";
-export const GET_EMPRESA = "GET_EMPRESA";
-export const GET_CUENTAS = "GET_CUENTAS";
-export const GET_MEDIOPAGO = "GET_MEDIOPAGO";
-export const GET_LOGISTICA = "GET_LOGISTICA";
-export const GET_ALL_FAVS = "GET_ALL_FAVS";
-export const GET_ALL_CARTS = "GET_ALL_CARTS";
-export const GET_PURCHASE_DETAIL = "GET_PURCHASE_DETAIL";
-export const GET_ALL_PURCHASES = "GET_ALL_PURCHASES";
-export const GET_USER_PURCHASES = "GET_USER_PURCHASES";
+export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
+export const GET_ALL_SELECTS = 'GET_ALL_SELECTS';
+export const GET_DETAIL_SIZE_COLOR = 'GET_DETAIL_SIZE_COLOR';
+export const GET_ORDER_PRICE = 'GET_ORDER_PRICE';
+export const GET_ALL_USERS = 'GET_ALL_USERS';
+export const GET_USERS_BY_NAME = 'GET_USERS_BY_NAME';
+export const GET_PRODUCTS_BY_NAME = 'GET_PRODUCTS_BY_NAME';
+export const ADD_FAVORITES = 'ADD_FAVORITES';
+export const GET_BY_ID = 'GET_BY_ID';
+export const GET_EMPRESA = 'GET_EMPRESA';
+export const GET_CUENTAS = 'GET_CUENTAS';
+export const GET_MEDIOPAGO = 'GET_MEDIOPAGO';
+export const GET_LOGISTICA = 'GET_LOGISTICA';
+export const GET_ALL_FAVS = 'GET_ALL_FAVS';
+export const GET_ALL_CARTS = 'GET_ALL_CARTS';
+export const GET_PURCHASE_DETAIL = 'GET_PURCHASE_DETAIL';
+export const GET_ALL_PURCHASES = 'GET_ALL_PURCHASES';
+export const GET_USER_PURCHASES = 'GET_USER_PURCHASES';
 // routes Delete
-export const DELETE_COMMENT = "DELETE_COMMENT";
-export const DELETE_PRODUCT = "DELETE_PRODUCT";
-export const DELETE_USER = "DELETE_USER";
-export const DELETE_EMPRESA = "DELETE_EMPRESA";
-export const DELETE_CUENTAS = "DELETE_CUENTAS";
-export const DELETE_MEDIOPAGO = "DELETE_MEDIOPAGO";
-export const DELETE_LOGISTICA = "DELETE_LOGISTICA";
-export const REMOVE_FAV_BACK = "REMOVE_FAV_BACK";
-export const REMOVE_CART_BACK = "REMOVE_CART_BACK";
+export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+export const DELETE_USER = 'DELETE_USER';
+export const DELETE_EMPRESA = 'DELETE_EMPRESA';
+export const DELETE_CUENTAS = 'DELETE_CUENTAS';
+export const DELETE_MEDIOPAGO = 'DELETE_MEDIOPAGO';
+export const DELETE_LOGISTICA = 'DELETE_LOGISTICA';
+export const REMOVE_FAV_BACK = 'REMOVE_FAV_BACK';
+export const REMOVE_CART_BACK = 'REMOVE_CART_BACK';
 // Routes Post
-export const CREATE_COMMENT = "CREATE_COMMENT";
-export const CREATE_PRODUCT = "CREATE_PRODUCT";
-export const CREATE_USER = "CREATE_USER";
-export const RESTORE_PRODUCT = "RESTORE_PRODUCT";
-export const CREATE_EMPRESA = "CREATE_EMPRESA";
-export const CREATE_CUENTAS = "CREATE_CUENTAS";
-export const CREATE_MEDIOPAGO = "CREATE_MEDIOPAGO";
-export const CREATE_LOGISTICA = "CREATE_LOGISTICA";
-export const NEW_FAVORITE = "NEW_FAVORITE";
-export const NEW_CART = "NEW_CART";
-export const CREATE_PURCHASE = "CREATE_PURCHASE";
+export const REGISTRO_TERCEROS = 'REGISTRO_TERCEROS';
+export const CREATE_COMMENT = 'CREATE_COMMENT';
+export const CREATE_PRODUCT = 'CREATE_PRODUCT';
+export const CREATE_USER = 'CREATE_USER';
+export const RESTORE_PRODUCT = 'RESTORE_PRODUCT';
+export const CREATE_EMPRESA = 'CREATE_EMPRESA';
+export const CREATE_CUENTAS = 'CREATE_CUENTAS';
+export const CREATE_MEDIOPAGO = 'CREATE_MEDIOPAGO';
+export const CREATE_LOGISTICA = 'CREATE_LOGISTICA';
+export const NEW_FAVORITE = 'NEW_FAVORITE';
+export const NEW_CART = 'NEW_CART';
+export const CREATE_PURCHASE = 'CREATE_PURCHASE';
 
 // routes Put
-export const UPDATE_COMMENT = "UPDATE_COMMENT";
-export const UPDATE_USER = "UPDATE_USER";
-export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
-export const UPDATE_EMPRESA = "UPDATE_EMPRESA";
-export const UPDATE_CUENTAS = "UPDATE_CUENTAS";
-export const UPDATE_MEDIOPAGO = "UPDATE_MEDIOPAGO";
-export const UPDATE_LOGISTICA = "UPDATE_LOGISTICA";
+export const UPDATE_COMMENT = 'UPDATE_COMMENT';
+export const UPDATE_USER = 'UPDATE_USER';
+export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
+export const UPDATE_EMPRESA = 'UPDATE_EMPRESA';
+export const UPDATE_CUENTAS = 'UPDATE_CUENTAS';
+export const UPDATE_MEDIOPAGO = 'UPDATE_MEDIOPAGO';
+export const UPDATE_LOGISTICA = 'UPDATE_LOGISTICA';
 // Filters
 export const GET_FILTER_GENDER = 'GET_FILTER_GENDER';
 export const GET_FILTER_CATEGORY = 'GET_FILTER_CATEGORY';
@@ -81,37 +83,62 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const UPDATE_CART_ITEM_QUANTITY = 'UPDATE_CART_ITEM_QUANTITY';
 // export const UPDATE_SHIPPING = "UPDATE_SHIPPING";
 // LocalStorage
-export const LOCALSTORAGE = "LOCALSTORAGE";
-export const PERSIST_USER = "PERSIST_USER";
-export const USER_LOGIN = "USER_LOGIN";
-export const USER_LOGOUT = "USER_LOGOUT";
-export const REGISTER_USER = "REGISTER_USER";
-export const ADD_SHIPPING = "ADD_SHIPPING";
-export const UPDATE_SHIPPING = "UPDATE_SHIPPING";
-export const REMOVE_SHIPPING = "REMOVE_SHIPPING";
-export const REGISTER_USER_ERROR = "REGISTER_USER_ERROR";
-export const CONFITRM_TOKEN = "CONFITRM_TOKEN";
-export const FINISH_PURCHASE = "FINISH_PURCHASE";
+export const LOCALSTORAGE = 'LOCALSTORAGE';
+export const PERSIST_USER = 'PERSIST_USER';
+export const USER_LOGIN = 'USER_LOGIN';
+export const USER_LOGOUT = 'USER_LOGOUT';
+export const REGISTER_USER = 'REGISTER_USER';
+export const ADD_SHIPPING = 'ADD_SHIPPING';
+export const UPDATE_SHIPPING = 'UPDATE_SHIPPING';
+export const REMOVE_SHIPPING = 'REMOVE_SHIPPING';
+export const REGISTER_USER_ERROR = 'REGISTER_USER_ERROR';
+export const CONFITRM_TOKEN = 'CONFITRM_TOKEN';
+export const FINISH_PURCHASE = 'FINISH_PURCHASE';
 
 // Reviews
-export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
-export const CREATE_REVIEW = "CREATE_REVIEW";
-export const GET_REVIEW_BY_ID = "GET_REVIEW_BY_ID";
-export const UPDATE_REVIEW = "UPDATE_REVIEW";
-export const DELETE_REVIEW = "DELETE_REVIEW";
+export const GET_ALL_REVIEWS = 'GET_ALL_REVIEWS';
+export const CREATE_REVIEW = 'CREATE_REVIEW';
+export const GET_REVIEW_BY_ID = 'GET_REVIEW_BY_ID';
+export const UPDATE_REVIEW = 'UPDATE_REVIEW';
+export const DELETE_REVIEW = 'DELETE_REVIEW';
 
-
-const URL = "http://localhost:3001";
+const URL = 'http://localhost:3001';
 // const URL = "https://etniasoftcommerce.up.railway.app";
+
+export const registroTerceros = (payload) => async (dispatch) => {
+  console.log("holaaa desde la accion apenas entra");
+  console.log(payload);
+  try {
+    const info = await axios.post(`${URL}/users/registerTerceros`, payload, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    // Verificar si la respuesta es exitosa (estado 2xx)
+    if (info.status >= 200 && info.status < 300) {
+      dispatch({
+        type: REGISTRO_TERCEROS,
+        payload: info.data,
+      });
+    } else {
+      // Manejar error de respuesta no exitosa
+      console.error('Error en accion registro terceros - Respuesta no exitosa:', info.status, info.statusText);
+    }
+  } catch (error) {
+    // Manejar error de la solicitud
+    console.error('Error en accion registro terceros:', error);
+  }
+  
+}
 
 export function getAllReviews() {
   return async function (dispatch) {
-    const reviewsInfo = await axios.get(`${URL}/reviews`)
+    const reviewsInfo = await axios.get(`${URL}/reviews`);
     dispatch({
       type: GET_ALL_REVIEWS,
-      payload: reviewsInfo.data
-    })
-  }
+      payload: reviewsInfo.data,
+    });
+  };
 }
 export function createReview(newReview) {
   return async function (dispatch) {
@@ -119,91 +146,90 @@ export function createReview(newReview) {
     dispatch({
       type: CREATE_REVIEW,
       payload: reviews.data,
-    })
-  }
+    });
+  };
 }
 export function getReviewById(id) {
   return async function (dispatch) {
-    const reviewsInfo = await axios.get(`${URL}/reviews/${id}`)
+    const reviewsInfo = await axios.get(`${URL}/reviews/${id}`);
     dispatch({
       type: GET_REVIEW_BY_ID,
       payload: reviewsInfo.data,
-    })
-  }
+    });
+  };
 }
 export function updateReview(payload) {
   return async function (dispatch) {
-    const info = await axios.put(`${URL}/${payload.id}`, payload)
+    const info = await axios.put(`${URL}/${payload.id}`, payload);
     dispatch({
       type: UPDATE_REVIEW,
-      payload: info.data
-    })
-  }
+      payload: info.data,
+    });
+  };
 }
 export function deleteReview(id) {
   return async function (dispatch) {
     const deletedReviews = await axios.delete(`${URL}/reviews/${id}`);
     dispatch({
       type: DELETE_REVIEW,
-      payload: deletedReviews.data
-    })
-  }
+      payload: deletedReviews.data,
+    });
+  };
 }
 
 export function finishPurchase(objectPago) {
-  
   async function compra() {
     try {
       const purchase = await axios.post(`${URL}/purchase/order`, objectPago);
-      return ({
+      return {
         type: FINISH_PURCHASE,
         payload: purchase.data,
-      });
+      };
     } catch (error) {
       console.error('Error in finishPurchase:', error);
     }
   }
-  compra(); 
+  compra();
 }
 
 export function getAllPurchases() {
   return async function (dispatch) {
-    const purchasesInfo = await axios.get(`${URL}/purchase`)
+    const purchasesInfo = await axios.get(`${URL}/purchase`);
     dispatch({
       type: GET_ALL_PURCHASES,
-      payload: purchasesInfo.data
-    })
-  }
+      payload: purchasesInfo.data,
+    });
+  };
 }
 
 export function getUserPurchases(id) {
   return async function (dispatch) {
-    const purchasesInfo = await axios.get(`${URL}/purchase/${id}`)
+    const purchasesInfo = await axios.get(`${URL}/purchase/${id}`);
     dispatch({
       type: GET_USER_PURCHASES,
-      payload: purchasesInfo.data
-    })
-  }
+      payload: purchasesInfo.data,
+    });
+  };
 }
 export function getPurchaseDetail(payload) {
   return async function (dispatch) {
-    const productDetail = await axios.get(`${URL}/buyings/acceptpayment${payload}`)
+    const productDetail = await axios.get(`${URL}/buyings/acceptpayment${payload}`);
     dispatch({
       type: GET_PURCHASE_DETAIL,
-      payload: productDetail
-    })
-  }
+      payload: productDetail,
+    });
+  };
 }
 
 export function getAllFavs(id) {
-  console.log("me despacharon");
+  console.log('me despacharon');
   return async function (dispatch) {
     const response = await axios.get(`${URL}/favs/${id}`);
     dispatch({
       type: GET_ALL_FAVS,
       payload: response.data,
-    })
-  }
+    });
+  };
 }
 
 export function AddFavoriteBack(objectId) {
@@ -212,8 +238,8 @@ export function AddFavoriteBack(objectId) {
     dispatch({
       type: NEW_FAVORITE,
       payload: response.data,
-    })
-  }
+    });
+  };
 }
 
 export function removeFavoriteBack(objectId) {
@@ -222,8 +248,8 @@ export function removeFavoriteBack(objectId) {
     dispatch({
       type: REMOVE_FAV_BACK,
       payload: response.data,
-    })
-  }
+    });
+  };
 }
 
 export function getAllCarts(id) {
@@ -232,8 +258,8 @@ export function getAllCarts(id) {
     dispatch({
       type: GET_ALL_CARTS,
       payload: response.data,
-    })
-  }
+    });
+  };
 }
 
 export function addToCart(product) {
@@ -249,8 +275,8 @@ export function AddCartBack(objectId) {
     dispatch({
       type: NEW_CART,
       payload: response.data,
-    })
-  }
+    });
+  };
 }
 
 export function removeCartBack(objectId) {
@@ -259,9 +285,8 @@ export function removeCartBack(objectId) {
     dispatch({
       type: REMOVE_CART_BACK,
       payload: response.data,
-    })
-  }
-
+    });
+  };
 }
 
 export function getCuentas() {
@@ -350,17 +375,16 @@ export function createMediopago(newMediopago) {
 export function createProduct(newproduct) {
   return async function (dispatch) {
     try {
-      console.log(newproduct)
-      const {data}= await axios.post(`${URL}/products`, newproduct);
+      console.log(newproduct);
+      const { data } = await axios.post(`${URL}/products`, newproduct);
       dispatch({
         type: CREATE_PRODUCT,
         payload: data,
       });
     } catch (error) {
-      
-        throw (error.response.data)
+      throw error.response.data;
     }
-  }
+  };
 }
 
 export function deleteEmpresa(id) {
@@ -593,7 +617,7 @@ export function getProductsname(name) {
 export function getByID(id) {
   return async function (dispatch) {
     const { data } = await axios.get(`${URL}/products/${id}`);
-    console.log(data)
+    console.log(data);
     dispatch({
       type: GET_BY_ID,
       payload: data,
@@ -623,19 +647,17 @@ export function getAllUsers() {
 export function updateProduct(payload) {
   return async function (dispatch) {
     try {
-      console.log(payload.id)
+      console.log(payload.id);
       const info = await axios.put(`${URL}/products/put/${payload.id}`, payload);
       dispatch({
         type: UPDATE_PRODUCT,
         payload: info.data,
       });
     } catch (error) {
-      throw (error)
+      throw error;
     }
-
-  }
-};
-
+  };
+}
 
 export function deleteProduct(id) {
   return async function (dispatch) {
@@ -699,20 +721,17 @@ export function updateUser(payload) {
 }
 
 export function createUser(payload) {
-
   return async function (dispatch) {
     try {
-
       const { data } = await axios.post(`${URL}/users`, payload);
       dispatch({
         type: CREATE_USER,
         payload: data,
       });
     } catch (error) {
-
-      throw (error.response.data)
+      throw error.response.data;
     }
-  }
+  };
 }
 
 export function getAllSelects() {
@@ -805,10 +824,10 @@ export function userLogeado(user) {
     try {
       dispatch({
         type: PERSIST_USER,
-        payload: user
+        payload: user,
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 }

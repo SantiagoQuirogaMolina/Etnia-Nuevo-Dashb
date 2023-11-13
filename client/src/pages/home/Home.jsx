@@ -1,3 +1,4 @@
+/* eslint-disable unused-imports/no-unused-imports */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/alt-text */
@@ -15,7 +16,7 @@ import Header from '../../components/header/Header';
 import CardContainer from '../../components/cardsContainer/CardsContainer';
 import NavBar from '../../components/navBar/NavBar';
 import Filters from '../../components/filters/Filters';
-import { getAllFavs, getAllSelects, getFiltersAndPagination } from '../../redux/actions';
+import { getAllSelects, getFiltersAndPagination } from '../../redux/actions';
 
 import styles from './Home.module.css';
 import { useLocalStorage } from '../../functions/useLocalStorage';
