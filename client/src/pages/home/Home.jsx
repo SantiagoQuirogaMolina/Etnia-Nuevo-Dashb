@@ -15,7 +15,7 @@ import Header from '../../components/header/Header';
 import CardContainer from '../../components/cardsContainer/CardsContainer';
 import NavBar from '../../components/navBar/NavBar';
 import Filters from '../../components/filters/Filters';
-import { getAllSelects, getFiltersAndPagination } from '../../redux/actions';
+import {getAllFavs, getAllSelects, getFiltersAndPagination } from '../../redux/actions';
 
 import styles from './Home.module.css';
 import { useLocalStorage } from '../../functions/useLocalStorage';
