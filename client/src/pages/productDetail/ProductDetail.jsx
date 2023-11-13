@@ -49,6 +49,7 @@ export default function ProductDetail({handleChange}) {
         JSON.stringify(product.size) === JSON.stringify(productUp.size))
 
         if(!index){
+          // Cambios en esta linea
           dispatch(addToCart(productUp));
           mostrarAlerta();
           setProductAdded(true);
