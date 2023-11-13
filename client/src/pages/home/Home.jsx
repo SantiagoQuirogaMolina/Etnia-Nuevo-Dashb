@@ -15,7 +15,7 @@ import Header from '../../components/header/Header';
 import CardContainer from '../../components/cardsContainer/CardsContainer';
 import NavBar from '../../components/navBar/NavBar';
 import Filters from '../../components/filters/Filters';
-import { getAllFavs, getAllSelects, getFiltersAndPagination } from '../../redux/actions';
+import {getAllFavs, getAllSelects, getFiltersAndPagination } from '../../redux/actions';
 
 import styles from './Home.module.css';
 import { useLocalStorage } from '../../functions/useLocalStorage';
@@ -23,6 +23,7 @@ import resetView from '../home/clockwise.svg';
 
 function Home(props) {
   const Page = useSelector((state) => state.indexProductShow);
+  const user = useSelector((state)=> state.user);
   const userState = useSelector((state) => state.user) || {};
   const { token, userEmail, userId } = userState;
   const selects = useSelector ((state) => state.selectFilter)
@@ -35,15 +36,10 @@ function Home(props) {
   
   // eslint-disable-next-line react-hooks/exhaustive-deps, no-undef
   const loadFavs = ()=>{
-    if(user.userId){
-      dispatch(getAllFavs(user.userId));
+    if(user?.userId){
+       dispatch(getAllFavs(user.userId));
     }
-  }
-  
-  const autoLogin = () => {
-    console.log(user);
-  };
-
+   }
 
   useEffect(() => {
     if (!initialPageSet) {
@@ -61,8 +57,8 @@ function Home(props) {
   useEffect(() => {
     loadProducts();
     dispatch(getAllSelects());
-    autoLogin();
     loadFavs();
+    console.log(user);
   }, [dispatch, initialFilters, initialPageSet]);
 
   const handleChange = (event) => {

@@ -77,6 +77,9 @@ Invoice.belongsTo(Purchases, { foreignKey: "purchaseId", targetKey: "id" });
 PaymentMethod.hasOne(Invoice, { foreignKey: "paymentMethodId", sourceKey: "id" });
 Invoice.belongsTo(PaymentMethod, { foreignKey: "paymentMethodId", targetKey: "id" });
 
+Reviews.hasOne(Purchases, {foreignKey: "purchaseId", targetKey: "id"});
+Purchases.belongsToMany(Reviews, {through: "reviews_purchases"});
+
 Products.hasOne(Purchases, { foreignKey: "productsId", sourceKey: "id" });
 Purchases.belongsToMany(Products, { through: "product_purchases"});
 

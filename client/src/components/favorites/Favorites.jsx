@@ -21,7 +21,7 @@ export default function Favorites(props){
 
     // eslint-disable-next-line react-hooks/exhaustive-deps, no-undef
     const loadFavs = ()=>{
-         if(user.userId){
+         if(user?.userId){
             dispatch(getAllFavs(user.userId));
          }
         }

@@ -151,10 +151,12 @@ export function deleteReview(id) {
 }
 
 export function finishPurchase(objectPago) {
+  console.log(objectPago)
   
   async function compra() {
     try {
       const purchase = await axios.post(`${URL}/purchase/order`, objectPago);
+      console.log(purchase);
       return ({
         type: FINISH_PURCHASE,
         payload: purchase.data,
@@ -196,7 +198,6 @@ export function getPurchaseDetail(payload) {
 }
 
 export function getAllFavs(id) {
-  console.log("me despacharon");
   return async function (dispatch) {
     const response = await axios.get(`${URL}/favs/${id}`);
     dispatch({
