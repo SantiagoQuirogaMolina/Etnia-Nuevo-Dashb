@@ -149,7 +149,7 @@ const reducer = (state = initialState, action) => {
         const productIdToRemove = action.payload;
         return {
           ...state,
-          cart: state.cart.filter((item) => item.id !== productIdToRemove),
+          cart: state.cart.filter((item) => JSON.stringify(item.size) !== JSON.stringify(productIdToRemove)),
         };
   
       case UPDATE_CART_ITEM_QUANTITY:

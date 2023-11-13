@@ -34,15 +34,15 @@ function Home(props) {
   const dispatch = useDispatch();
   
   // eslint-disable-next-line react-hooks/exhaustive-deps, no-undef
-  const loadFavs = ()=>{
-    if(user.userId){
-      dispatch(getAllFavs(user.userId));
-    }
-  }
+  // const loadFavs = ()=>{
+  //   if(user.userId){
+  //     dispatch(getAllFavs(user.userId));
+  //   }
+  // }
   
-  const autoLogin = () => {
-    console.log(user);
-  };
+  // const autoLogin = () => {
+  //   console.log(user);
+  // };
 
 
   useEffect(() => {
@@ -61,8 +61,8 @@ function Home(props) {
   useEffect(() => {
     loadProducts();
     dispatch(getAllSelects());
-    autoLogin();
-    loadFavs();
+    // autoLogin();
+    // loadFavs();
   }, [dispatch, initialFilters, initialPageSet]);
 
   const handleChange = (event) => {

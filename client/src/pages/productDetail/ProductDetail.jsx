@@ -16,7 +16,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { getByID, AddCartBack } from "../../redux/actions";
+import { getByID, addToCart } from "../../redux/actions";
 import NavBar from '../../components/navBar/NavBar'
 import ReactImageMagnify from 'react-image-magnify';
 import Swal from 'sweetalert2';
@@ -49,7 +49,7 @@ export default function ProductDetail({handleChange}) {
         JSON.stringify(product.size) === JSON.stringify(productUp.size))
 
         if(!index){
-          dispatch(AddCartBack(productUp));
+          dispatch(addToCart(productUp));
           mostrarAlerta();
           setProductAdded(true);
         }else{
@@ -130,7 +130,7 @@ export default function ProductDetail({handleChange}) {
               {Product && (
                 <div className={styles.productinfo}>
                   <h2 className={styles.productname}>{Product.name}</h2>
-                  <p>${Product.price} | {Product.sale}% OFF</p>
+                  <p>${`${Product.price?.toLocaleString()} COP`} | {Product.sale}% OFF</p>
                   <p>Descripcion: {Product.description}</p>
                   <p className={isHovered ? styles.error : null }>Select talla:</p> 
                   <div className={styles.contentLabel}>

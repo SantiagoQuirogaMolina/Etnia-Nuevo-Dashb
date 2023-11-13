@@ -1,6 +1,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable react/button-has-type */
 import {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom/dist';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './ShoppingCart.module.css';
@@ -10,7 +11,8 @@ import { removeFromCart, finishPurchase} from '../../redux/actions';
 function ShoppingCart() {
 
   const cart = useSelector((state) => state.cart);
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [quantities, setQuantities] = useState({})
   const [totalPrice, setTotalPrice] = useState(0);
@@ -89,7 +91,6 @@ function ShoppingCart() {
       <div>
         <h1 className={styles.title}>Carrito de compras</h1>
       </div>
-      {console.log(cart.length < 1)}
         {cart.length > 0 ? 
       <div className={styles['product-list']}>
         {cart.map(carts => 
@@ -121,7 +122,10 @@ function ShoppingCart() {
           )
         )} 
       </div>
-        : <h1> CARRITO VACIO</h1> }
+        : <div>
+          <h1> CARRITO VACIO</h1> 
+           <button onClick={()=>navigate('/')}>SEGUIR COMPRANDO</button>
+        </div>}
       <div className={styles.totalPrice}>
         <p>Precio Total: ${totalPrice.toLocaleString()}</p>
       </div>
