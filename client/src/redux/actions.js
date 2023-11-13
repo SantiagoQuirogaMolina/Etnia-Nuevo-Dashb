@@ -671,7 +671,8 @@ export function deleteUser(id) {
 
 export function updateUser(payload) {
   return async function (dispatch) {
-    const info = await axios.put(`${URL}/${payload.id}`, payload);
+    
+    const info = await axios.put(`${URL}/users/put/${payload.id}`, payload);
     dispatch({
       type: UPDATE_USER,
       payload: info.data,
