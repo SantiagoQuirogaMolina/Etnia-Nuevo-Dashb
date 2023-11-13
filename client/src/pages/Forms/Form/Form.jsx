@@ -77,7 +77,7 @@ const Form = () => {
 
 
   const handleChangeImage = (event) => {
-    console.log(event.target.name)
+    console.log(event.target.files[0])
     console.log(event.target.value);
 
     const file = event.target.files[0];
@@ -86,13 +86,13 @@ const Form = () => {
       reader.onload = function charge () {
         setInput({
           ...input,
-          [event.target.name]:event.target.value,
+          [event.target.name]:event.target.result,
         }) 
       }     
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(event.target.files[0])
       console.log(file);
       console.log(reader);
-      console.log(reader.FileReader.result);
+      
       
     }
   }

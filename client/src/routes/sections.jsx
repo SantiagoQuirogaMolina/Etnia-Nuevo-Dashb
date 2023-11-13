@@ -25,6 +25,7 @@ import ConfirmTokenForm from '../pages/logIn/ConfirmTokenForm';
 import RegisterForm from '../pages/logIn/registerForm';
 import UpdateProducto from '../pages/Forms/FormEditProduct/FormEditProduct'
 import CrearUser from '../pages/Forms/FormCreateUsers/CreateUsers'
+import EditUser from '../pages/Forms/FormEditUsers/EditUsers'
 
 
 const IndexPage = lazy(() => import('../pages/app'));
@@ -63,6 +64,7 @@ function Router() {
       <Route exact path="/Form" element={<PublicForm />} />
       <Route exact path="/editproduct/:id" element={<AdminFormUdateProducto />} />
       <Route exact path="/crearuser" element={<AdminFormCrearUser />} />
+      <Route exact path="/edituser/:id" element={<AdminFormEditUser />} />
       <Route exact path="/crearempresa" element={<PublicFormEmpresa />} />
       <Route exact path="/mediopago" element={<PublicFormMedioPago />} />
       <Route exact path="/transporte" element={<PublicFormTransportadora />} />
@@ -258,6 +260,19 @@ function AdminFormCrearUser() {
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route exact path="/" element={<CrearUser />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+
+
+function AdminFormEditUser() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<EditUser />} />
         </Routes>
       </Suspense>
     </DashboardLayout>

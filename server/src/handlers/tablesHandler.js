@@ -155,6 +155,7 @@ const {
    
   const createTransportHandler = async (req, res) => {
     try {
+      console.log('transportadora')
       const logistica = await createTransportadora(req.body);
       res.status(201).json(logistica);
     } catch (error) {

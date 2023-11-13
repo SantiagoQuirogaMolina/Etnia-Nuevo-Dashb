@@ -310,11 +310,17 @@ export function getLogistica() {
 
 export function createLogistica(newLogistica) {
   return async function (dispatch) {
-    const info = await axios.post(`${URL}/logistica`, newLogistica);
-    dispatch({
-      type: CREATE_LOGISTICA,
-      payload: info.data,
-    });
+    try{
+      console.log ('logistica')
+      const info = await axios.post(`${URL}/tables/postlogistica`, newLogistica);
+      dispatch({
+        type: CREATE_LOGISTICA,
+        payload: info.data,
+      });
+    }catch(error){
+      throw error
+    }
+    
   };
 }
 
@@ -691,7 +697,8 @@ export function deleteUser(id) {
 
 export function updateUser(payload) {
   return async function (dispatch) {
-    const info = await axios.put(`${URL}/${payload.id}`, payload);
+    
+    const info = await axios.put(`${URL}/users/put/${payload.id}`, payload);
     dispatch({
       type: UPDATE_USER,
       payload: info.data,
