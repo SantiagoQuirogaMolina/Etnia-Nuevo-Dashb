@@ -1,36 +1,34 @@
 require("dotenv").config();
-const {Purchase, User } = require("../db") 
-const {MercadoPagoConfig, Preference} = require("mercadopago");
-const {ACCESS_TOKEN} = process.env;
+const { Purchase, User } = require("../db");
+const { MercadoPagoConfig, Preference } = require("mercadopago");
+const { ACCESS_TOKEN } = process.env;
 
 const client = new MercadoPagoConfig({
   accessToken: ACCESS_TOKEN,
 });
 const payment = new Preference(client);
-const placeOrder = async (req, res) => {
-  console.log("si entre al placeOrder")
-  try {
-    //generar orden de compra a mercado pago con la info que llega por body
-    const cart = req.body;
-     console.log(cart)
 
-     let items = cart.map((product) => ({
-      title: product.title,
-      quantity: product.quantity,
-      unit_price: product.unit_price,
-      currency_id: product.currency_id,
-      image: product.image,
-      description: product.description,
-    }));
+const placeOrder = async (req, res) => {
+  console.log("Entre a placeOrder");
+  try {
+    const cart = req.body;
+console.log(cart);
+
+let items = cart.map((product) => ({
+  title: product.title,
+  quantity: product.quantity,
+  unit_price: product.unit_price,
+  currency_id: product.currency_id,
+  image: product.image,
+  description: product.description,
+}));
 
     let preference = {
-      body: {
-        items: items,
-        back_urls: {
-          failure: "www.google.com",
-          pending: "http://localhost:3001/purchase/pending",
-          success: "http://localhost:3001/purchase/success",
-        },
+      items: items,
+      back_urls: {
+        failure: "www.google.com",
+        pending: "http://localhost:3001/purchase/pending",
+        success: "http://localhost:3001/purchase/success",
       },
     };
 
@@ -38,14 +36,15 @@ const placeOrder = async (req, res) => {
 
     res.status(200).send(response);
   } catch (error) {
-    res.status(400).json({error: error.message});
+    console.error("Error in placeOrder:", error);
+    res.status(400).json({ error: error.message });
   }
 };
 
 const succesfulPurchase = async (req, res) => {
   try {
-    const {payment_id} = req.query;
-    
+    const { payment_id } = req.query;
+
     const userId = req.user.id;
     const user = await User.findByPk(userId);
     if (!user) {
@@ -53,7 +52,7 @@ const succesfulPurchase = async (req, res) => {
     }
 
     await Purchase.update(
-      { userId: null }, 
+      { userId: null },
       { where: { payment_id: payment_id } }
     );
 
@@ -64,8 +63,9 @@ const succesfulPurchase = async (req, res) => {
 
     res.status(200).send("Compra realizada con exito");
   } catch (error) {
-    res.status(400).json({error: error.message});
+    console.error("Error in succesfulPurchase:", error);
+    res.status(400).json({ error: error.message });
   }
 };
 
-module.exports = {placeOrder, succesfulPurchase};
+module.exports = { placeOrder, succesfulPurchase };
