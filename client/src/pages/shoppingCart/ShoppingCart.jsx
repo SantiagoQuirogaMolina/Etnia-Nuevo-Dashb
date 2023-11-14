@@ -38,19 +38,10 @@ function ShoppingCart() {
   const handleRemoveFromCart = (productId) => {
     dispatch(removeFromCart(productId));
   };
-  // const numberMore = (event, productId)=>{
-  //   const newValue = parseInt(event.target.value, 10) +1
-
-  //   setQuantities(prevQuantities => ({
-  //     ...prevQuantities,
-  //     [productId]: newValue
-  //   }));
-
-  // }
 
   const handleQuantityChange = (productId, event, cantidad) => {
       
-    const newValue = parseInt(event.target.value, 10);
+    const newValue = parseInt(event.target.value, 10) || 1;
 
     setQuantities(prevQuantities => ({
       ...prevQuantities,
@@ -79,16 +70,18 @@ function ShoppingCart() {
         ]);
       }
     }
-    if (Number(event.target.value) > cantidad || Number(event.target.value) <= 0) {
-      setError({
-        ...error,
-        [productId]: true
-      })
-      setDisabledButton(true)
-      
-    }else{
-      setError({})
-      setDisabledButton(false)
+    if (newValue > cantidad || newValue <= 0) {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        [productId]: true,
+      }));
+      setDisabledButton(true);
+    } else {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        [productId]: false,
+      }));
+      setDisabledButton(false);
     }
   };
   
@@ -97,10 +90,6 @@ function ShoppingCart() {
     console.log("entre al finishPurchase")
     dispatch(finishPurchase(objectPago));
   }
-  useEffect(()=>{
-    console.log(cart);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
  
   return (
     <div className={styles['shopping-cart']}>
@@ -123,7 +112,7 @@ function ShoppingCart() {
                   <div className={styles.quantity} >
                     <b>Cantidad: </b>
                     <div className={styles.numberControl}>
-                      <buttom className={styles.numberLeft}/>
+                    <buttom className={styles.numberLeft} onClick={() => handleQuantityChange(JSON.stringify(carts.size), { target: { value: quantities[JSON.stringify(carts.size)] - 1 } }, Object.values(carts.size))}/>
                         <input
                          type='number'
                          className={styles.numberQuantity}
@@ -131,7 +120,7 @@ function ShoppingCart() {
                          value={quantities[JSON.stringify(carts.size)] }
                          onChange={(e) => handleQuantityChange(JSON.stringify(carts.size), e, Object.values(carts.size))}
                          />
-                      <buttom className={styles.numberRight}/>
+                    <buttom className={styles.numberRight}  onClick={() => handleQuantityChange(JSON.stringify(carts.size), { target: { value: quantities[JSON.stringify(carts.size)] + 1 } }, Object.values(carts.size))} />
                      </div>
                    <p className={error[JSON.stringify(carts.size)] === true ? styles.avisoRed : styles.aviso}> {error[JSON.stringify(carts.size)] === true ? 'Cantidad inválida' : `Cantidad máxima: ${Object.values(carts.size)}` }</p>
                      </div>
@@ -156,7 +145,7 @@ function ShoppingCart() {
       <div className={styles.totalPrice}>
         <p>Precio Total: ${totalPrice.toLocaleString()}</p>
       </div>
-      <button  onClick={mercadoPago} disabled={disabledButton || Object.entries(error).length > 0 || cart.length < 1} className={styles['checkout-button']}>Finalizar compra</button>
+      <button  onClick={mercadoPago} disabled={disabledButton || Object.values(error).some((errors) => errors) || cart.length < 1} className={styles['checkout-button']}>Finalizar compra</button>
     </div>
   );
 }
