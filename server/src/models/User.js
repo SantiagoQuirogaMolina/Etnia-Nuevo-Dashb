@@ -56,11 +56,7 @@ module.exports = (sequelize) => {
         allowNull: true,
         is: [/\d/],
       },
-      auth0UserId: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        unique: true
-      },
+      
     },
     {timestamps: false},
     {paranoid: true}

@@ -41,6 +41,9 @@ import {
   GET_ALL_PURCHASES,
   GET_PURCHASE_DETAIL,
   PERSIST_USER,
+
+  REGISTRO_TERCEROS,
+  GET_USER_DETAILS,
   GET_ALL_REVIEWS,
   DELETE_REVIEW,
   CREATE_REVIEW,
@@ -227,6 +230,11 @@ const reducer = (state = initialState, action) => {
       };
     case UPDATE_USER:
       return action.payload;
+    case GET_USER_DETAILS:
+      return {
+        ...state,
+        userDetail: action.payload,
+      };
 
     case DELETE_PRODUCT:
       return action.payload;

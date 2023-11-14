@@ -2,31 +2,31 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
+
+import React, { useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector,useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './NavBar.module.css';
 import Home from '../../assets/png/Home.png';
 import {userLogout} from "../../redux/actions";
 import Carrito from '../../assets/png/Carrito.png';
 import Usuario from '../../assets/png/Usuario.png';
-import { isLoggedIn } from '../../functions/isLoggedIn';
+import Configuraciones from '../../assets/png/Configuraciones.png';
 import web_analysis_icon from '../../assets/png/web_analysis_icon.png';
 
 
 function NavBar(props) {
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth0();
-  const isUserLoggedIn = isLoggedIn();
   const userLogeado = useSelector((state)=> state.user);
   const dispatch = useDispatch();
 
   const handleUserClick = () => {
     if (isAuthenticated) {
       navigate(`/users/${user.sub}`); // User is logged in through Auth0, redirect to Auth0 user details page.
-    } else if (isUserLoggedIn) {
+    } else if (userLogeado) {
       navigate(`/users/:id`); // User is logged in through your own authentication, redirect to your user details page.
     } else {
       navigate('/user'); // User is not logged in, redirect to login page.
@@ -63,7 +63,20 @@ function NavBar(props) {
       </button>
       
       <button>
-        <Link to="/admin"><img  src={web_analysis_icon} alt="web_analysis_icon" /></Link>
+      
+      {console.log('Usuario:', user)}
+  {user && (
+    <Link to={`/users/${user.id}`}>Detalles del usuario
+      <img className={styles.Configuraciones} src={Configuraciones} alt="Configuraciones" />
+    </Link>
+  )}
+  
+      </button>
+
+      <button>
+        <Link to="/admin">
+          <img src={web_analysis_icon} alt="web_analysis_icon" />
+        </Link>
       </button>
 
 

@@ -12,24 +12,25 @@ import getFindSelects from "../functions/getFindSelects";
 // import ProductDetail from "src/pages/productDetail/ProductDetail";
 
 // Routes Get
-export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
-export const GET_ALL_SELECTS = "GET_ALL_SELECTS";
-export const GET_DETAIL_SIZE_COLOR = "GET_DETAIL_SIZE_COLOR";
-export const GET_ORDER_PRICE = "GET_ORDER_PRICE";
-export const GET_ALL_USERS = "GET_ALL_USERS";
-export const GET_USERS_BY_NAME = "GET_USERS_BY_NAME";
-export const GET_PRODUCTS_BY_NAME = "GET_PRODUCTS_BY_NAME";
-export const ADD_FAVORITES = "ADD_FAVORITES";
-export const GET_BY_ID = "GET_BY_ID";
-export const GET_EMPRESA = "GET_EMPRESA";
-export const GET_CUENTAS = "GET_CUENTAS";
-export const GET_MEDIOPAGO = "GET_MEDIOPAGO";
-export const GET_LOGISTICA = "GET_LOGISTICA";
-export const GET_ALL_FAVS = "GET_ALL_FAVS";
-export const GET_ALL_CARTS = "GET_ALL_CARTS";
-export const GET_PURCHASE_DETAIL = "GET_PURCHASE_DETAIL";
-export const GET_ALL_PURCHASES = "GET_ALL_PURCHASES";
-export const GET_USER_PURCHASES = "GET_USER_PURCHASES";
+export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
+export const GET_ALL_SELECTS = 'GET_ALL_SELECTS';
+export const GET_DETAIL_SIZE_COLOR = 'GET_DETAIL_SIZE_COLOR';
+export const GET_ORDER_PRICE = 'GET_ORDER_PRICE';
+export const GET_ALL_USERS = 'GET_ALL_USERS';
+export const GET_USERS_BY_NAME = 'GET_USERS_BY_NAME';
+export const GET_PRODUCTS_BY_NAME = 'GET_PRODUCTS_BY_NAME';
+export const GET_USER_DETAILS = 'GET_USER_DETAILS';
+export const ADD_FAVORITES = 'ADD_FAVORITES';
+export const GET_BY_ID = 'GET_BY_ID';
+export const GET_EMPRESA = 'GET_EMPRESA';
+export const GET_CUENTAS = 'GET_CUENTAS';
+export const GET_MEDIOPAGO = 'GET_MEDIOPAGO';
+export const GET_LOGISTICA = 'GET_LOGISTICA';
+export const GET_ALL_FAVS = 'GET_ALL_FAVS';
+export const GET_ALL_CARTS = 'GET_ALL_CARTS';
+export const GET_PURCHASE_DETAIL = 'GET_PURCHASE_DETAIL';
+export const GET_ALL_PURCHASES = 'GET_ALL_PURCHASES';
+export const GET_USER_PURCHASES = 'GET_USER_PURCHASES';
 // routes Delete
 export const DELETE_COMMENT = "DELETE_COMMENT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
@@ -618,7 +619,17 @@ export function getUsersByName(name) {
     });
   };
 }
-
+export function getUserDetails(id) {
+  return async (dispatch) => {
+    try {
+      const response = (await axios.get(`${URL}/users/${id}`)).data;
+      
+      dispatch({ type: 'GET_USER_DETAILS', payload: response, });
+    } catch (error) {
+      console.error('Error obteniendo los detalles del usuario:', error);
+    }
+  };
+}
 export function getAllUsers() {
   return async function (dispatch) {
     const allUsers = await axios.get(`${URL}/users`);
