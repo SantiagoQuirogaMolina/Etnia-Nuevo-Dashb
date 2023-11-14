@@ -76,19 +76,20 @@ function ShoppingCart() {
         ]);
       }
     }
-    if (Number(event.target.value) > cantidad || Number(event.target.value) <= 0) {
-      setError({
-        ...error,
-        [productId]: true
-      })
-      setDisabledButton(true)
-      
-    }else{
-      setError({})
-      setDisabledButton(false)
+    if (newValue > cantidad || newValue <= 0) {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        [productId]: true,
+      }));
+      setDisabledButton(true);
+    } else {
+      setError((prevErrors) => ({
+        ...prevErrors,
+        [productId]: false,
+      }));
+      setDisabledButton(false);
     }
-  };
-  
+  }
 
   const mercadoPago=()=>{
     finishPurchase(objectPago);
@@ -98,7 +99,7 @@ function ShoppingCart() {
     <div className={styles['shopping-cart']}>
       <NavBar />
       <div>
-        <h1 className={styles.title}>Carrito de compras</h1>
+        <h2 className={styles.title}>Carrito de compras</h2>
       </div>
         {cart.length > 0 ? 
       <div className={styles['product-list']}>
@@ -148,7 +149,7 @@ function ShoppingCart() {
       <div className={styles.totalPrice}>
         <p>Precio Total: ${totalPrice.toLocaleString()}</p>
       </div>
-      <button  onClick={mercadoPago} disabled={disabledButton || Object.entries(error).length > 0 || cart.length < 1} className={styles['checkout-button']}>Finalizar compra</button>
+      <button  onClick={mercadoPago} disabled={disabledButton || Object.values(error).some((errors) => errors) || cart.length < 1} className={styles['checkout-button']}>Finalizar compra</button>
     </div>
   );
 }
