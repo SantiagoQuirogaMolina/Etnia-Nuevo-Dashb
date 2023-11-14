@@ -3,12 +3,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector,useDispatch } from 'react-redux';
 
 import styles from './NavBar.module.css';
 import Home from '../../assets/png/Home.png';
+import {userLogout} from "../../redux/actions";
 import Carrito from '../../assets/png/Carrito.png';
 import Usuario from '../../assets/png/Usuario.png';
 import { isLoggedIn } from '../../functions/isLoggedIn';
@@ -20,6 +21,7 @@ function NavBar(props) {
   const { isAuthenticated, user } = useAuth0();
   const isUserLoggedIn = isLoggedIn();
   const userLogeado = useSelector((state)=> state.user);
+  const dispatch = useDispatch();
 
   const handleUserClick = () => {
     if (isAuthenticated) {
@@ -33,13 +35,19 @@ function NavBar(props) {
   const handleLoginClick = () => {
     navigate('/user');
   };
+  const handleLogOut = ()=>{
+    dispatch(userLogout());
+    localStorage.setItem('initialFilters', {});
+    navigate("/");
+  }
   
   return (
     <div className={styles.navbar}>
       {userLogeado?.userEmail ? (
-        <button onClick={handleLoginClick}>
-          <p>{userLogeado.userEmail}</p>
-      </button>
+        <section className={styles.section}>
+        <button onClick={()=>handleLogOut()} >🔓</button>
+        <button onClick={handleLoginClick}>{userLogeado.userEmail}</button>
+        </section>
     ) : (
       <button onClick={handleLoginClick}>
         <img className={styles.Usuario} src={Usuario} alt="Usuario" />

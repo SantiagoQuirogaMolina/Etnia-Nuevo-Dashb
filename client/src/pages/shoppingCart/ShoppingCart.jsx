@@ -1,5 +1,6 @@
 /* eslint-disable prefer-const */
 /* eslint-disable react/button-has-type */
+import Swal from 'sweetalert2';
 import {useState, useEffect} from 'react';
 import { useNavigate} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,11 +12,10 @@ import { removeFromCart , finishPurchase} from '../../redux/actions';
 function ShoppingCart() {
 
   const cart = useSelector((state) => state.cart);
-  // const user = useSelector((state)=> state.user);
+  const user = useSelector((state)=> state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const user = useSelector((state)=> state.user);
   const [quantities, setQuantities] = useState({})
   const [totalPrice, setTotalPrice] = useState(0);
   const [error, setError] = useState({});
@@ -88,7 +88,30 @@ function ShoppingCart() {
 
   const mercadoPago=()=>{
     console.log("entre al finishPurchase")
-    dispatch(finishPurchase(objectPago));
+    if(user===null){
+
+      const Toast = Swal.mixin({
+        toast: "true",
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Primero debes iniciar sesion"
+      });
+
+      navigate('/user')
+    }
+    else{
+
+      dispatch(finishPurchase(objectPago));
+    }
   }
  
   return (
