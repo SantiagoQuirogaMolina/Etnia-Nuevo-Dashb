@@ -45,7 +45,7 @@ const succesfulPurchase = async (req, res) => {
   try {
     const { payment_id } = req.query;
   
-   const userId = req.user.id; 
+    const { userId }= req.body.id; 
 
    const user = await User.findById(userId);
 

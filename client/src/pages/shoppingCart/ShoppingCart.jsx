@@ -15,6 +15,7 @@ function ShoppingCart() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const user = useSelector((state)=> state.user);
   const [quantities, setQuantities] = useState({})
   const [totalPrice, setTotalPrice] = useState(0);
   const [error, setError] = useState({});
@@ -72,6 +73,7 @@ function ShoppingCart() {
             unit_price: index.price,
             currency_id: 'ARG',
             image: index.img,
+            userId: user.userId
           }
         ]);
       }
