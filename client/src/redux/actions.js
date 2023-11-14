@@ -157,7 +157,7 @@ export function finishPurchase(objectPago) {
     try {
       const response = await axios.post(`${URL}/purchase/order`, objectPago);
       window.location.href = response.data.response.body.init_point;
-
+      
       console.log(response);
 
       dispatch({
