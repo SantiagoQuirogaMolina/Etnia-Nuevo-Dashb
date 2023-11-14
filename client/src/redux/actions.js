@@ -152,13 +152,12 @@ export function deleteReview(id) {
 
 export function finishPurchase(objectPago) {
   console.log(objectPago);
-
+  
   return async function compra(dispatch) {
+    console.log("entre a la compra")
     try {
-      const response = await axios.post(`${URL}/purchase/order`, objectPago);
-      window.location.href = response.data.response.body.init_point;
-      
-      console.log(response);
+      const response = await axios.post(`${URL}/purchase/order`, objectPago);    
+      window.location.href= response.data.init_point;
 
       dispatch({
         type: FINISH_PURCHASE,

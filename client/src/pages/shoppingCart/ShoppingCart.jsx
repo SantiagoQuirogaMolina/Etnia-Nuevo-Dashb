@@ -91,7 +91,8 @@ function ShoppingCart() {
   
 
   const mercadoPago=()=>{
-    finishPurchase(objectPago);
+    console.log("entre al finishPurchase")
+    dispatch(finishPurchase(objectPago));
   }
   useEffect(()=>{
     console.log(cart);
