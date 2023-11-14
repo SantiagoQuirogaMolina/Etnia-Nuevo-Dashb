@@ -26,7 +26,6 @@ export default function ProductDetail({handleChange}) {
   
     const dispatch = useDispatch();
     const Product = useSelector((state) => state.productDetail);
-    const user = useSelector((state)=> state.user);
     const { id } = useParams();
     const [productAdded, setProductAdded] = useState(false);
     const [inputCantidad, setInputCantidad] = useState('');
