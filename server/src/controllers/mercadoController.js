@@ -1,4 +1,5 @@
 require("dotenv").config();
+const {Purchase, User } = require("../db") 
 const {MercadoPagoConfig, Preference} = require("mercadopago");
 const {ACCESS_TOKEN} = process.env;
 
@@ -41,10 +42,25 @@ const placeOrder = async (req, res) => {
   }
 };
 
-const succesfulPurchase = (req, res) => {
+const succesfulPurchase = async (req, res) => {
   try {
     const {payment_id} = req.query;
-    //comunicarme a la DB buscar al usuario y asociarle el id de pago
+    
+    const userId = req.user.id;
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    await Purchase.update(
+      { userId: null }, 
+      { where: { payment_id: payment_id } }
+    );
+
+    await Purchase.update(
+      { userId: user.id },
+      { where: { payment_id: payment_id } }
+    );
 
     res.status(200).send("Compra realizada con exito");
   } catch (error) {
