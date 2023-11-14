@@ -33,6 +33,7 @@ import {
   DELETE_USER,
   FINISH_PURCHASE,
   GET_ALL_FAVS,
+  GET_ALL_CARTS,
   NEW_CART,
   NEW_FAVORITE,
   REMOVE_CART_BACK,
@@ -40,7 +41,15 @@ import {
   GET_ALL_PURCHASES,
   GET_PURCHASE_DETAIL,
   PERSIST_USER,
+
   REGISTRO_TERCEROS
+
+  GET_ALL_REVIEWS,
+  DELETE_REVIEW,
+  CREATE_REVIEW,
+  UPDATE_REVIEW,
+  GET_REVIEW_BY_ID,
+
 } from "./actions";
 
 const initialState = {
@@ -62,6 +71,7 @@ const initialState = {
   page: null,
   localstorage: [],
   user: null,
+  review:[],
 };
 
 
@@ -75,6 +85,26 @@ const reducer = (state = initialState, action) => {
         ...state,
         cartPersist: action.payload
       };
+
+      case GET_ALL_REVIEWS:
+        return{
+          ...state,
+          review:action.payload
+        }
+        case UPDATE_REVIEW:
+          return action.payload
+          case CREATE_REVIEW:
+            return {
+              ...state,
+              errors: {},
+            };
+            case DELETE_REVIEW:
+              return action.payload
+              case GET_REVIEW_BY_ID:
+                return{
+                  ...state,
+                  review:action.payload
+                }
 
 
     case GET_ALL_FAVS:
@@ -109,11 +139,11 @@ const reducer = (state = initialState, action) => {
         allFavoritesBack: action.payload
       }
     
-    // case GET_ALL_CARTS:
-    //   return{
-    //     ...state,
-    //     allCartBack: action.payload
-    //   }
+    case GET_ALL_CARTS:
+      return{
+        ...state,
+        allCartBack: action.payload
+      }
     
     case NEW_CART:
       return{

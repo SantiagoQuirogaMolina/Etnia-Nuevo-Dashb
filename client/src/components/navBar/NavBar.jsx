@@ -5,8 +5,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAuth0 } from '@auth0/auth0-react';
+
 import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './NavBar.module.css';
@@ -22,7 +23,6 @@ import web_analysis_icon from '../../assets/png/web_analysis_icon.png';
 function NavBar(props) {
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth0();
-  const isUserLoggedIn = isLoggedIn;
   const tokenTerceros = user?.sub;
   const emailTerceros = user?.email;
 
@@ -41,6 +41,8 @@ function NavBar(props) {
     }
   }, [dispatch, isAuthenticated, tokenTerceros, tokenTerceros, user]);
 
+  const userLogeado = useSelector((state)=> state.user);
+
   const handleUserClick = () => {
     if (isAuthenticated) {
       navigate(`/users/${user.sub}`); // User is logged in through Auth0, redirect to Auth0 user details page.
@@ -56,13 +58,16 @@ function NavBar(props) {
 
   return (
     <div className={styles.navbar}>
-      {isAuthenticated ? (
-        <p>{user.email}</p>
-      ) : (
+
+      {userLogeado?.userEmail ? (
         <button onClick={handleLoginClick}>
-          <img className={styles.Usuario} src={Usuario} alt="Usuario" />
-        </button>
-      )}
+          <p>{userLogeado.userEmail}</p>
+      </button>
+    ) : (
+      <button onClick={handleLoginClick}>
+        <img className={styles.Usuario} src={Usuario} alt="Usuario" />
+      </button>
+    )}
 
       <button>
         <Link to="/">
@@ -92,11 +97,14 @@ function NavBar(props) {
         </Link>
       </button>
 
+
       <button>
         <Link to="/favorites">
           <img src="https://www.emojiall.com/images/240/classic/1f5a4.png" />
         </Link>
       </button>
+      {/* {userLogeado?.userEmail && 
+        <div> <button> <Link to="/favorites"><img src="https://www.emojiall.com/images/240/classic/1f5a4.png" /></Link></button> </div>} */}
     </div>
   );
 }
