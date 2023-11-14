@@ -11,18 +11,20 @@ const getAllReviews = async (req, res) => {
   }
 };
 
-//  para crear una nueva revisión
+// para crear una nueva revisión
 const createReview = async (req, res) => {
   const { review, calification } = req.body;
 
   try {
     const newReview = await Reviews.create({ review, calification });
-    res.status(201).json(newReview);
+    res.status(201).json({ message: 'Revisión creada exitosamente.' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error al crear la revisión.' });
   }
 };
+
+
 
 // para obtener una revisión por su ID
 const getReviewById = async (req, res) => {

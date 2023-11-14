@@ -20,7 +20,7 @@ app.use(jwt({
   audience: 'https://dev-8ttgsrczpuh61vza.us.auth0.com/api/v2/',
   issuer: 'https://dev-8ttgsrczpuh61vza.us.auth0.com/',
   algorithms: ['RS256']
-}).unless({path: ['/api/public']}));//alguna ruta publica a la que no se le aplique el middleware
+}).unless({ path: ['/api/public'] }));//alguna ruta publica a la que no se le aplique el middleware
 app.post('/users', async (req, res) => {
   
   try {

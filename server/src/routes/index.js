@@ -1,4 +1,4 @@
-indexRouter= require("express").Router();
+const indexRouter = require("express").Router();
 
 const productsRouter = require("./productsRoute");
 const userRouter = require("./usersRouter");
@@ -7,18 +7,15 @@ const favsRouter = require("./favoritesRoute");
 const cartRouter = require("./cartRouter");
 const mercadoRouter = require("./mercadoRoute");
 const reviewsRouter = require("./reviewsRouter");
-//const tablesRouter = require("./tablesRouter");
-const reviewsrouter=require("./reviewsRouter");
+// const tablesRouter = require("./tablesRouter");
 
-
-indexRouter.use("/reviews",reviewsrouter);
+indexRouter.use("/api/reviews", reviewsRouter);
 indexRouter.use("/products", productsRouter);
 indexRouter.use("/users", userRouter);
 indexRouter.use("/email", emailRouter);
 indexRouter.use("/favs", favsRouter);
 indexRouter.use("/cart", cartRouter);
 indexRouter.use("/purchase", mercadoRouter);
-indexRouter.use("/reviews", reviewsRouter);
-//indexRouter.use("/tables", tablesRouter);
+// indexRouter.use("/tables", tablesRouter);
 
 module.exports = indexRouter;

@@ -21,6 +21,6 @@
      );
      next();
   });
- server.use(router);
+  server.use("/api", router);
 
  module.exports = server;
