@@ -151,21 +151,23 @@ export function deleteReview(id) {
 }
 
 export function finishPurchase(objectPago) {
-  console.log(objectPago)
-  
-  async function compra() {
+  console.log(objectPago);
+
+  return async function compra(dispatch) {
     try {
-      const purchase = await axios.post(`${URL}/purchase/order`, objectPago);
-      console.log(purchase);
-      return ({
+      const response = await axios.post(`${URL}/purchase/order`, objectPago);
+      window.location.href = response.data.response.body.init_point;
+
+      console.log(response);
+
+      dispatch({
         type: FINISH_PURCHASE,
-        payload: purchase.data,
+        payload: response.data,
       });
     } catch (error) {
       console.error('Error in finishPurchase:', error);
     }
-  }
-  compra(); 
+  };
 }
 
 export function getAllPurchases() {
