@@ -1,5 +1,5 @@
 require("dotenv").config();
-const {User, Purchase} = require("../db")
+const {User, Purchase, Products} = require("../db")
 const { MercadoPagoConfig, Preference } = require("mercadopago");
 const { ACCESS_TOKEN } = process.env;
 
@@ -44,21 +44,24 @@ const placeOrder = async (req, res) => {
 const succesfulPurchase = async (req, res) => {
   try {
     const { payment_id } = req.query;
-  
-    const { userId }= req.body.id; 
+    const { userId, productId } = req.body;
 
-   const user = await User.findById(userId);
+    const user = await User.findByPk(userId);
+    const product = await Product.findByPk(productId);
 
-   if (!user) {
-     return res.status(404).json({ error: "User not found" });
-   }
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
-   
-   await Purchase.findOneAndUpdate(
-     { payment_id: payment_id },
-     { $set: { user: user._id } },
-     { new: true }
-   );
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    
+    const purchase = await Purchase.create({
+      payment_id: payment_id,
+      userId: user.id,
+      productId: product.id,
+    });
 
     res.status(200).send("Compra realizada con exito");
   } catch (error) {
