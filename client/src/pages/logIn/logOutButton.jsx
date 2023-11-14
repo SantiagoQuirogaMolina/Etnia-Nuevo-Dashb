@@ -12,9 +12,9 @@ const LogoutButton = () => {
   const navigate = useNavigate();
   // const { logout } = useAuth0();
 
-
   const handleLogOut = ()=>{
     dispatch(userLogout());
+    localStorage.setItem('initialFilters', {});
     navigate("/");
   }
 
