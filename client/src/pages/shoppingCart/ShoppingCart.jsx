@@ -73,8 +73,8 @@ function ShoppingCart() {
             unit_price: index.price,
             currency_id: 'ARG',
             image: index.img,
-            userId: user.userId,
-            productId: index.productId,
+            userId: user?.userId,
+            productId: index.productId
           }
         ]);
       }
