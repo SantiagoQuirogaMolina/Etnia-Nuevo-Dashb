@@ -16,7 +16,6 @@ import Google from "../../assets/png/Google.png";
 import styles from "./LogIn.module.css";
 import LoginButton from "./logInButton.jsx";
 import LogoutButton from "./logOutButton.jsx";
-import { useLocalStorage } from "../../functions/useLocalStorage";
 // eslint-disable-next-line import/order
 import { useAuth0 } from "@auth0/auth0-react";
 import { userLogin, userLogeado } from "../../redux/actions";

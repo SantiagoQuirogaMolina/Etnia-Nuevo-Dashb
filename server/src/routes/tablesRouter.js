@@ -7,29 +7,30 @@ const {getEmpresaHandler,createEmpresaHandler, updateEmpresaHandler, deleteEmpre
       } = require("../handlers/tablesHandler")
 
 //Empresa
-productsRouter.get("/getempresa", getEmpresaHandler);
-productsRouter.post("/postempresa",createEmpresaHandler);
-productsRouter.delete("/deleteempresa/:id", deleteEmpresaHandler);
-productsRouter.put("/putempresa/:id", updateEmpresaHandler);
+tablesRouter.get("/getempresa", getEmpresaHandler);
+tablesRouter.post("/postempresa",createEmpresaHandler);
+tablesRouter.delete("/deleteempresa/:id", deleteEmpresaHandler);
+tablesRouter.put("/putempresa/:id", updateEmpresaHandler);
 
 //Cuentas
-productsRouter.get("/getcuentas", getCuentasHandler);
-productsRouter.post("/postcuentas",createCuentasHandler);
-productsRouter.delete("/deletecuentas/:id", deleteCuentasHandler);
-productsRouter.put("/putcuentas/:id", updateCuentasHandler);
+tablesRouter.get("/getcuentas", getCuentasHandler);
+tablesRouter.post("/postcuentas",createCuentasHandler);
+tablesRouter.delete("/deletecuentas/:id", deleteCuentasHandler);
+tablesRouter.put("/putcuentas/:id", updateCuentasHandler);
 
 //Medio Pago
 
-productsRouter.get("/getmediopago", getMedioHandler);
-productsRouter.post("/postmediopago",createMedioHandler);
-productsRouter.delete("/deletemediopago/:id", deleteMedioHandler);
-productsRouter.put("/putmediopago/:id", updateMedioHandler);
+tablesRouter.get("/getmediopago", getMedioHandler);
+tablesRouter.post("/postmediopago",createMedioHandler);
+tablesRouter.delete("/deletemediopago/:id", deleteMedioHandler);
+tablesRouter.put("/putmediopago/:id", updateMedioHandler);
 
 //Transportadora
-productsRouter.get("/getlogistica", getTransportHandler);
-productsRouter.post("/postlogistica",createTransportHandler);
-productsRouter.delete("/deletelogistica/:id", deleteTransportHandler);
-productsRouter.put("/putlogistica/:id", updateTransportHandler);
+
+tablesRouter.get("/getlogistica", getTransportHandler);
+tablesRouter.post("/postlogistica",createTransportHandler);
+tablesRouter.delete("/deletelogistica/:id", deleteTransportHandler);
+tablesRouter.put("/putlogistica/:id", updateTransportHandler);
 
 
-module.exports = productsRouter;
+module.exports = tablesRouter;

@@ -6,8 +6,8 @@ const emailRouter = require("./emailRouter");
 const favsRouter = require("./favoritesRoute");
 const cartRouter = require("./cartRouter");
 const mercadoRouter = require("./mercadoRoute");
+const tablesRouter = require("./tablesRouter");
 const reviewsRouter = require("./reviewsRouter");
-//const tablesRouter = require("./tablesRouter");
 const reviewsrouter=require("./reviewsRouter");
 
 
@@ -18,7 +18,8 @@ indexRouter.use("/email", emailRouter);
 indexRouter.use("/favs", favsRouter);
 indexRouter.use("/cart", cartRouter);
 indexRouter.use("/purchase", mercadoRouter);
+indexRouter.use("/tables", tablesRouter);
 indexRouter.use("/reviews", reviewsRouter);
-//indexRouter.use("/tables", tablesRouter);
+
 
 module.exports = indexRouter;

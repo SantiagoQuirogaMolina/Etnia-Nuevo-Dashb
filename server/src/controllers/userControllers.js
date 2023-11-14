@@ -104,7 +104,9 @@ const getAllUser = async () => {
   return usuariotDB;
 };
 const getUsuarById = async (id) => {
+  console.log(id)
   const userDB = await User.findByPk(id);
+  console.log(userDB)
   return userDB;
 };
 
@@ -181,7 +183,7 @@ const deleteUserById = async (id) => {
 const updateUserById = async (id, newData) => {
   try {
     const userToUpdate = await User.findByPk(id);
-
+   
     if (!userToUpdate) {
       throw new Error(`Usuario con ID ${id} no encontrado.`);
     }
