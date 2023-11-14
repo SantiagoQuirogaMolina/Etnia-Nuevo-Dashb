@@ -12,6 +12,7 @@ const placeOrder = async (req, res) => {
   console.log("Entre a placeOrder");
   try {
     const cart = req.body;
+    
 console.log(cart);
 
 let items = cart.map((product) => ({
@@ -33,8 +34,9 @@ let items = cart.map((product) => ({
     };
 
     const response = await payment.create(preference);
+    const initPoint = response.body.init_point;
 
-    res.status(200).send(response);
+    res.status(200).json({ initPoint: initPoint });
   } catch (error) {
     console.error("Error in placeOrder:", error);
     res.status(400).json({ error: error.message });
