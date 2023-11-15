@@ -10,6 +10,16 @@ const cloudinary = require("cloudinary").v2;
 const reviewsRouter = require("./src/routes/reviewsRouter.js");
 const app = express();
 
+const bodyParser = require('body-parser');
+// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({
+  maxFileSize: 1073741824
+}));
+app.post('/upload', (req, res) => {
+  // ...
+});
+
 app.use(
   jwt({
     secret: jwksRsa.expressJwtSecret({
@@ -42,6 +52,7 @@ app.use(
 //       .send({ error: "Hubo un problema al intentar autenticar al usuario." });
 //   }
 // });
+
 
 cloudinary.config({
   cloud_name: "dauvht6ky",

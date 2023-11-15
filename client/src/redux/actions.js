@@ -13,6 +13,8 @@ import getFindSelects from '../functions/getFindSelects';
 // import ProductDetail from "src/pages/productDetail/ProductDetail";
 
 // Routes Get
+
+export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 export const GET_ALL_SELECTS = 'GET_ALL_SELECTS';
 export const GET_DETAIL_SIZE_COLOR = 'GET_DETAIL_SIZE_COLOR';
@@ -385,10 +387,14 @@ export function createMediopago(newMediopago) {
 }
 
 export function createProduct(newproduct) {
+  console.log(newproduct)
   return async function (dispatch) {
     try {
+
+      const {data}= await axios.post(`${URL}/products`, newproduct);
+      console.log(data)
       console.log(newproduct);
-      const { data } = await axios.post(`${URL}/products`, newproduct);
+    
       dispatch({
         type: CREATE_PRODUCT,
         payload: data,
@@ -646,6 +652,22 @@ export function getByID(id) {
       type: GET_BY_ID,
       payload: data,
     });
+  };
+}
+
+
+export function getUserByID(id) {
+  return async function (dispatch) {
+    try{
+      const { data } = await axios.get(`${URL}/users/${id}`);
+      console.log(data)
+      dispatch({
+      type: GET_USER_BY_ID,
+      payload: data,
+    });
+    }catch(error){
+      throw error
+    }  
   };
 }
 
