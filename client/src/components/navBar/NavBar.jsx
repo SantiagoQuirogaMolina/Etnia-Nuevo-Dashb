@@ -70,7 +70,7 @@ function NavBar(props) {
 </button>
       <button>
   {user && (
-    <Link to={`/users/${user.id}`}>Detalles del usuario
+    <Link to={`/users/${user.id}`}>
       <img className={styles.Configuraciones} src={Configuraciones} alt="Configuraciones" />
     </Link>
   )}
