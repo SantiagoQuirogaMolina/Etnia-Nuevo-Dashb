@@ -16,7 +16,8 @@ import Carrito from '../../assets/png/Carrito.png';
 import Usuario from '../../assets/png/Usuario.png';
 import Configuraciones from '../../assets/png/Configuraciones.png';
 import web_analysis_icon from '../../assets/png/web_analysis_icon.png';
-import { userLogout, getUserByID, registroTerceros } from '../../redux/actions';
+import {saveCart, clearCart, userLogout, getUserByID, registroTerceros} from "../../redux/actions";
+
 
 function NavBar(props) {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ function NavBar(props) {
   const dispatch = useDispatch();
   const tokenTerceros = user?.sub;
   const emailTerceros = user?.email;
+  const cart = useSelector((state) => state.cart);
 
   const handleUserClick = () => {
     if (isAuthenticated) {
@@ -54,11 +56,8 @@ function NavBar(props) {
     navigate('/user');
   };
 
-  const handleLogOut = () => {
-    dispatch(userLogout());
-    localStorage.setItem('initialFilters', {});
-    navigate('/');
-  };
+
+
   const handleLogOutTerceros = () => {
     logout();
     localStorage.setItem('initialFilters', {});
@@ -66,10 +65,31 @@ function NavBar(props) {
   };
 
   const UserEmail = userLogeado?.userEmail;
+  const save = ()=>{
+    const objectPayload = {
+      cart,
+      user: userLogeado?.userEmail
+    }
+    if(userLogeado.userEmail){
+      dispatch(saveCart(objectPayload))
+    }
+  }
+
+  const handleLogOut = ()=>{
+    dispatch(userLogout());
+    localStorage.setItem('initialFilters', {});
+    save();
+    dispatch(clearCart());
+    navigate("/");
+  }
+  
+  const UserId = userLogeado?.userId;
+
   return (
     <div className={styles.navbar}>
       {isAuthenticated || userLogeado ? (
         <section className={styles.section}>
+
           {userLogeado && userLogeado.userEmail && (
             <>
               <button onClick={() => handleLogOut()}>🔓</button>
@@ -82,6 +102,8 @@ function NavBar(props) {
               <button>{emailTerceros}</button>
             </>
           )}
+        <button >{userLogeado.userEmail}</button>
+
         </section>
       ) : (
         <button onClick={handleLoginClick}>
