@@ -18,7 +18,7 @@ import LoginButton from "./logInButton.jsx";
 import LogoutButton from "./logOutButton.jsx";
 // eslint-disable-next-line import/order
 import { useAuth0 } from "@auth0/auth0-react";
-import { userLogin, userLogeado } from "../../redux/actions";
+import { userLogin, userLogeado, loadCart } from "../../redux/actions";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -28,6 +28,7 @@ function LogIn(props) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const User = useSelector((state) => state.user);
+  const cartLocalStorage = useSelector((state)=> state.cartLocalStorage);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -60,6 +61,23 @@ function LogIn(props) {
     // Send the `id_token` to the server using an AJAX request or similar method
   }
 
+  const cargarCarrito = (email)=>{
+    console.log("cargarCarrito")
+    // eslint-disable-next-line no-shadow, array-callback-return
+    cartLocalStorage.forEach(cartPersist => {
+      const keys = Object.keys(cartPersist);
+    
+      keys.forEach(key => {
+        console.log("Clave:", key);
+        if (key === email) {
+          
+          console.log(cartPersist[key])
+          dispatch(loadCart(cartPersist[key]));
+        }
+      });
+    });
+  }
+
   const handleLogin = (event) => {
     event.preventDefault();
 
@@ -68,6 +86,7 @@ function LogIn(props) {
         dispatch(userLogeado(response));
         // Aquí puedes continuar con el código después de iniciar sesión con éxito
         localStorage.setItem('initialFilters', {});
+        cargarCarrito(email);
         navigate("/");
       })
       .catch((error) => {

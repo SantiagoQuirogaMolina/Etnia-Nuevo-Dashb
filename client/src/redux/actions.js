@@ -95,6 +95,9 @@ export const REMOVE_SHIPPING = 'REMOVE_SHIPPING';
 export const REGISTER_USER_ERROR = 'REGISTER_USER_ERROR';
 export const CONFITRM_TOKEN = 'CONFITRM_TOKEN';
 export const FINISH_PURCHASE = 'FINISH_PURCHASE';
+export const CLEAR_CART = "CLEAR_CART";
+export const SAVE_CART = "SAVE_CART";
+export const LOAD_CART = "LOAD_CART";
 
 // Reviews
 export const GET_ALL_REVIEWS = 'GET_ALL_REVIEWS';
@@ -130,6 +133,20 @@ export const registroTerceros = (payload) => async (dispatch) => {
     console.error('Error en accion registro terceros:', error);
   }
   
+}
+
+export function saveCart(object) {
+  return {
+    type: SAVE_CART,
+    payload: object,
+  };
+}
+
+export function loadCart(newCart) {
+  return {
+    type: LOAD_CART,
+    payload: newCart,
+  };
 }
 
 export function getAllReviews() {
@@ -568,6 +585,12 @@ export function removeFromCart(productId) {
   return {
     type: REMOVE_FROM_CART,
     payload: productId,
+  };
+}
+
+export function clearCart() {
+  return {
+    type: CLEAR_CART,
   };
 }
 
