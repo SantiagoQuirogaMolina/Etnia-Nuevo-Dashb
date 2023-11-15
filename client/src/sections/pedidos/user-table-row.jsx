@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -16,9 +17,13 @@ import Iconify from 'src/components/iconify';
 
 export default function UserTableRow({
   selected,
-  name,
-  avatarUrl,
-  role,
+  prenda,
+  imagen,
+  usuario,
+  fecha,
+  metodo,
+  estado,
+  precio,
   cantidad,
   status,
   handleClick,
@@ -34,12 +39,12 @@ export default function UserTableRow({
   };
 
   const handleEditClick = () => {
-    console.log('Editar', name);
+    console.log('Editar', prenda);
     handleCloseMenu();
   };
 
   const handleDeleteClick = () => {
-    console.log('Eliminar', name);
+    console.log('Eliminar', prenda);
     handleCloseMenu();
   };
 
@@ -52,16 +57,22 @@ export default function UserTableRow({
 
         <TableCell component="th" scope="row" padding="none">
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={name} src={avatarUrl} />
+            <Avatar alt={prenda} src={imagen} />
             <Typography variant="subtitle2" noWrap>
-              {name}
+              {prenda}
             </Typography>
           </Stack>
         </TableCell>
 
-        <TableCell>{role}</TableCell>
+        <TableCell>{usuario}</TableCell>
+        <TableCell>{fecha}</TableCell>
+        <TableCell>{metodo}</TableCell>
+
+        <TableCell>{estado}</TableCell>
 
         <TableCell align="center">{cantidad}</TableCell>
+
+        <TableCell>{precio}</TableCell>
 
         <TableCell>
           <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
@@ -99,11 +110,15 @@ export default function UserTableRow({
 }
 
 UserTableRow.propTypes = {
-  avatarUrl: PropTypes.any,
-  handleClick: PropTypes.func,
+  prenda: PropTypes.any,
+  usuario: PropTypes.any,
+  fecha: PropTypes.any,
+  metodo: PropTypes.any,
+  estado: PropTypes.any,
+  precio: PropTypes.any, // Agrega esta línea
   cantidad: PropTypes.any,
-  name: PropTypes.any,
-  role: PropTypes.any,
   selected: PropTypes.any,
   status: PropTypes.string,
+  handleClick: PropTypes.func,
+  imagen: PropTypes.func,
 };
