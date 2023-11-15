@@ -28,7 +28,8 @@ export default function Favorites(props){
 
     useEffect(()=>{
         loadFavs()
-    },[loadFavs])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
     const handleFavorite = (id) => {
         dispatch(removeFavoriteBack({UserId: user.userId, ProductId: id}))
