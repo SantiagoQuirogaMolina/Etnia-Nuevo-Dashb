@@ -1,18 +1,18 @@
 import { Helmet } from 'react-helmet-async';
 
 // eslint-disable-next-line import/no-unresolved
-import { UserView } from 'src/sections/user copy/view'
+import { VentasView } from 'src/sections/ventas/view'
 
 // ----------------------------------------------------------------------
 
-export default function ProductstPage() {
+export default function VentasPage() {
   return (
     <>
       <Helmet>
-        <title> Productst | tabla productos </title>
+        <title> Ventas | tabla Ventas </title>
       </Helmet>
 
-      <UserView />
+      <VentasView />
     </>
   );
 }

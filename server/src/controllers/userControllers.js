@@ -104,7 +104,9 @@ const getAllUser = async () => {
   return usuariotDB;
 };
 const getUsuarById = async (id) => {
+  console.log(id)
   const userDB = await User.findByPk(id);
+  console.log(userDB)
   return userDB;
 };
 
@@ -137,6 +139,11 @@ const createusers = async (userData) => {
       confirmationToken,
     } = userData;
 
+       //verifica si ya existe
+       const userCreated = await User.findOne ({where: {email: email}});
+       if(userCreated){
+           throw new Error (`Un usuario con ese email ya existe`)
+       }
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newuser = await User.create({
@@ -158,6 +165,7 @@ const createusers = async (userData) => {
 };
 
 const deleteUserById = async (id) => {
+  console.log("Deleting user")
   try {
     const userToDelete = await User.findByPk(id);
 
@@ -167,7 +175,7 @@ const deleteUserById = async (id) => {
 
     await userToDelete.destroy();
 
-    return `usero con ID ${id} eliminado exitosamente.`;
+    return `user con ID ${id} eliminado exitosamente.`;
   } catch (error) {
     throw error;
   }
@@ -175,7 +183,7 @@ const deleteUserById = async (id) => {
 const updateUserById = async (id, newData) => {
   try {
     const userToUpdate = await User.findByPk(id);
-
+   
     if (!userToUpdate) {
       throw new Error(`Usuario con ID ${id} no encontrado.`);
     }
@@ -189,6 +197,39 @@ const updateUserById = async (id, newData) => {
   }
 };
 
+const postRegsiterTercerosController = async (req, res) => {
+  console.log("hola desde postRegsiterTercerosController antes del req.body ");
+  console.log(req.body);
+  console.log(req.body.sub);
+  console.log(req.body.email);
+  try {
+    console.log("hola desde postRegsiterTercerosController");
+    const auth0UserId = req.body.sub;
+    const emailauth0 = req.body.email;
+    // Verifica si auth0UserId está presente antes de realizar la consulta
+    if (auth0UserId) {
+      let user = await User.findOne({ where: { auth0UserId } });
+      if (!user) {
+        user = await User.create({ auth0UserId, email: emailauth0 });
+      }
+      console.log(user); // Imprime el usuario después de definirlo
+      res.send(user);
+      console.log("hola desde el indexdOS");
+    } else {
+      // Si auth0UserId está vacío, responde con un mensaje indicando el problema.
+      res.status(400).send({ error: "auth0UserId no presente en la solicitud." });
+    }
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .send({ error: "Hubo un problema al intentar autenticar al usuario." });
+  }
+};
+
+
+
+
 const loginUser = async (req, res) => {
   const { password, email } = req.body;
 
@@ -200,7 +241,9 @@ const loginUser = async (req, res) => {
         .status(400)
         .json({ error: "Correo electrónico o contraseña inválidos" });
     }
-
+    const userId = user.id;
+    const userEmail = user.email;
+    
     const passwordMatch = await bcrypt.compare(
       password,
       user.dataValues.password
@@ -209,7 +252,7 @@ const loginUser = async (req, res) => {
     if (passwordMatch) {
       // La contraseña proporcionada coincide con la contraseña almacenada en la base de datos
       const token = jwt.sign({ userId: user.dataValues.id }, "your_jwt_secret"); // Reemplaza 'your_jwt_secret' por tu clave JWT real
-      res.json({ token });
+      res.json({ token, userId, userEmail });
     } else {
       // Las contraseñas no coinciden
       return res
@@ -221,7 +264,6 @@ const loginUser = async (req, res) => {
     return res.status(500).json({ error: "Error interno del servidor" });
   }
 };
-
 module.exports = {
   registerUser,
   getAllUser,
@@ -232,4 +274,5 @@ module.exports = {
   updateUserById,
   loginUser,
   confirmEmailControll,
+  postRegsiterTercerosController
 };

@@ -1,13 +1,26 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+// import { useAuth0 } from "@auth0/auth0-react";
+
+import {clearCart, userLogout} from "../../redux/actions";
 
 const LogoutButton = () => {
-  const { logout } = useAuth0();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const { logout } = useAuth0();
+
+  const handleLogOut = ()=>{
+    dispatch(userLogout());
+    localStorage.setItem('initialFilters', {});
+    dispatch(clearCart());
+    navigate("/");
+  }
 
   return (
-    <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+    <button onClick={handleLogOut}>
       Log Out
     </button>
   );

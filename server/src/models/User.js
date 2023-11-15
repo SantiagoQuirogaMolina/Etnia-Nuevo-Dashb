@@ -10,6 +10,10 @@ module.exports = (sequelize) => {
         allowNull: false,
         primaryKey: true,
       },
+      auth0UserId: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
       name:{
         type: DataTypes.STRING,
         allowNull: true,
@@ -49,9 +53,10 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         is: [/\d/],
       },
+      
     },
     {timestamps: false},
     {paranoid: true}

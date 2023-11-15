@@ -5,7 +5,8 @@ const {
   getAllProducts,
   createProducts,
   deleteProductById,
-  restoreProductById
+  restoreProductById,
+  updateProductById
 } = require("../controllers/productsController");
 
 
@@ -51,10 +52,11 @@ const getIdHandler = async (req, res) => {
 
 const createProductsHandler = async (req, res) => {
   try {
+  
     const product = await createProducts(req.body);
     res.status(201).json(product);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json(error.message);
   }
 };
 const restoreProductHandler = async (req, res) => {
@@ -71,6 +73,7 @@ const restoreProductHandler = async (req, res) => {
   }
 };
 const deleteProductsHandler = async (req, res) => {
+  console.log("hanlde delee")
   const id = req.params.id;
   try {
     const product = await deleteProductById(id);
@@ -83,6 +86,7 @@ const deleteProductsHandler = async (req, res) => {
 const updateProductsHandler = async (req, res) => {
   const id = req.params.id;
   try {
+    console.log('hola handler')
     const product = await updateProductById(id, req.body);
     res.status(201).json(product);
   } catch (error) {

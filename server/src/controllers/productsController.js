@@ -86,7 +86,7 @@ const paginateAllProducts = async (req, res, next) => {
 module.exports = paginateAllProducts;
 
 const getAllProducts = async () => {
-  console.log("hola desde geAllProducts");
+  
   const productsDB = await Products.findAll({
     limit: 100, // Limita los resultados a 100 productos
   });
@@ -117,7 +117,7 @@ const createProducts = async (productData) => {
   console.log (productData)
   try {
     const {
-      
+
       name,
       brand,
       gender,
@@ -131,14 +131,27 @@ const createProducts = async (productData) => {
       quantity,
     } = productData;
 
-    const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
-    const img = cloudinaryUpload.secure_url;
+    console.log ('hola controller')
+    //verifica si ya existe
+    const productCreated = await Products.findOne ({where: {name:name, brand: brand, gender:gender,
+    color:color, category:category}})
+    if(productCreated) {
+      throw new Error ('Un producto ya existe con esas caracteristicas')
+    }
+    
+      console.log('entro a imagen')
+      const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
+      const img = cloudinaryUpload.secure_url;
+      console.log(img)
+    
+
 
     const model = await Products.findAll();
-    const nextID = (model[model.length-1].id) + 1;
+    const nextID = (model.length) + 1;
     id = nextID
-    const newProduct = await Products.create({
+    console.log(id)
 
+    const newProduct = await Products.create({
       id,
       name,
       brand,
@@ -152,7 +165,7 @@ const createProducts = async (productData) => {
       price,
       quantity,
     });
-    console.log(newProduct)
+    
     return newProduct;
   } catch (error) {
     console.log(error)
