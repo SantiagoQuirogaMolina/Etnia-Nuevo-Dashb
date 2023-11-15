@@ -20,18 +20,26 @@ import Form from '../pages/Forms/Form/Form';
 import FormEmpresa from '../pages/Forms/FormEmpresa/CreateEmpresa';
 import FormMedioPago from '../pages/Forms/FormMedioPago/CreateMedioPago';
 import FormTransportadora from '../pages/Forms/FormTransport/CreateTransport';
+import EditTransport from '../pages/Forms/FormEditTransport/EditTransport';
 import FormCtaBanco from '../pages/Forms/FormCuentaBanco/CreateCtaBanco';
 import ConfirmTokenForm from '../pages/logIn/ConfirmTokenForm';
 import RegisterForm from '../pages/logIn/registerForm';
 import UpdateProducto from '../pages/Forms/FormEditProduct/FormEditProduct'
 import CrearUser from '../pages/Forms/FormCreateUsers/CreateUsers'
+import EditUser from '../pages/Forms/FormEditUsers/EditUsers'
 
 
 const IndexPage = lazy(() => import('../pages/app'));
 const UserPage = lazy(() => import('../pages/user'));
 const LoginPage = lazy(() => import('../pages/login'));
 const ProductsPage = lazy(() => import('../pages/products'));
-const ProductstPage = lazy(() => import('../pages/productst'));
+const PedidosPage = lazy(() => import('../pages/pedidos'));
+const EnviosPage = lazy(() => import('../pages/envios'));
+const VentasPage = lazy(() => import('../pages/ventas'));
+const PqrsPage = lazy(() => import('../pages/pqr'));
+
+
+
 
 function Router() {
   return (
@@ -39,7 +47,12 @@ function Router() {
       <Route path="/admin" element={<AdminRoutes />} />
       <Route path="/users-admin/" element={<AdminUser />} />
       <Route path="/products-admin/" element={<AdminProducts />} />
-      <Route path="/productsT/" element={<AdminProductst />} />
+      <Route path="/pedidos-admin/" element={<AdminPedidos />} />
+      <Route path="/envios-admin/" element={<AdminEnvios />} />
+      <Route path="/ventas-admin/" element={<AdminVentas />} />
+      <Route path="/pqrs-admin/" element={<AdminPqrs />} />
+
+
       <Route exact path="login-admin" element={<AdminLogin />} />
 
       <Route path="/" element={<PublicHome />} />
@@ -50,11 +63,13 @@ function Router() {
       <Route exact path="/carrito" element={<PublicShoppingCart />} />
       <Route exact path="favorites" element={<PublicFavorites />} />
       <Route exact path="/Form" element={<PublicForm />} />
-      <Route exact path="/editproduct/*" element={<AdminFormUdateProducto />} />
+      <Route exact path="/editproduct/:id" element={<AdminFormUdateProducto />} />
       <Route exact path="/crearuser" element={<AdminFormCrearUser />} />
+      <Route exact path="/edituser/:id" element={<AdminFormEditUser />} />
       <Route exact path="/crearempresa" element={<PublicFormEmpresa />} />
       <Route exact path="/mediopago" element={<PublicFormMedioPago />} />
       <Route exact path="/transporte" element={<PublicFormTransportadora />} />
+      <Route exact path="/edittransporte/:id" element={<AdminEditTransportadora />} />
       <Route exact path="/cuentabanco" element={<PublicFormCtaBanco />} />
       <Route exact path="/RegisterForm" element={<PublicRegisterForm />} />
       <Route exact path="/ConfirmTokenForm" element={<PublicConfirmTokenForm />} />
@@ -97,12 +112,45 @@ function AdminProducts() {
     </DashboardLayout>
   );
 }
-function AdminProductst() {
+function AdminEnvios() {
   return (
     <DashboardLayout>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route exact path="/" element={<ProductstPage />} />
+          <Route exact path="/" element={<EnviosPage />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+function AdminVentas() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<VentasPage />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+function AdminPqrs() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<PqrsPage />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+function AdminPedidos() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<PedidosPage />} />
         </Routes>
       </Suspense>
     </DashboardLayout>
@@ -154,11 +202,22 @@ function PublicFormCtaBanco() {
     </Suspense>
   );
 }
+
 function PublicFormTransportadora() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route exact path="/" element={<FormTransportadora />} />
+      </Routes>
+    </Suspense>
+  );
+}
+
+function AdminEditTransportadora() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<EditTransport />} />
       </Routes>
     </Suspense>
   );
@@ -220,6 +279,19 @@ function AdminFormCrearUser() {
   );
 }
 
+
+function AdminFormEditUser() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<EditUser />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+
 function PublicFavorites() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -273,7 +345,7 @@ function PublicUserDetail() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
-        <Route exact path="/" element={<UserDetail />} />
+        <Route exact path="/users/:id" element={<UserDetail />} />
       </Routes>
     </Suspense>
   );

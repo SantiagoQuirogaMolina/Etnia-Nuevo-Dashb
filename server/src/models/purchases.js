@@ -14,6 +14,10 @@ module.exports = (sequelize) => {
         type: DataTypes.DATEONLY,
         allowNull: false,
       },
+      payment_id:{
+        type: DataTypes.STRING,
+        allowNull: true
+      }
     },
     {paranoid: true}
   );

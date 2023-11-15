@@ -4,8 +4,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-case-declarations */
 import {
-  GET_ALL_PRODUCTS,
   ADD_FAVORITES,
+  GET_ALL_PRODUCTS,
   REMOVE_FAVORITES,
   CREATE_PRODUCT,
   CREATE_USER,
@@ -29,10 +29,12 @@ import {
   REGISTER_USER,
   UPDATE_PRODUCT,
   REMOVE_FROM_CART,
+  CLEAR_CART,
   UPDATE_CART_ITEM_QUANTITY,
   DELETE_USER,
   FINISH_PURCHASE,
   GET_ALL_FAVS,
+  GET_ALL_CARTS,
   NEW_CART,
   NEW_FAVORITE,
   REMOVE_CART_BACK,
@@ -40,6 +42,18 @@ import {
   GET_ALL_PURCHASES,
   GET_PURCHASE_DETAIL,
   PERSIST_USER,
+
+
+  REGISTRO_TERCEROS,
+
+  GET_ALL_REVIEWS,
+  DELETE_REVIEW,
+  CREATE_REVIEW,
+  UPDATE_REVIEW,
+  GET_REVIEW_BY_ID,
+  SAVE_CART,
+  LOAD_CART
+
 } from "./actions";
 
 const initialState = {
@@ -53,7 +67,8 @@ const initialState = {
   indexProductShow: [],
   allUsers: [],
   FavoritesPersist: [],
-  cartPersist: [],
+  cart: [],
+  cartLocalStorage: [],
   allFavoritesBack:[],
   allCartBack:[],
   errors: {},
@@ -61,6 +76,7 @@ const initialState = {
   page: null,
   localstorage: [],
   user: null,
+  review:[],
 };
 
 
@@ -68,12 +84,67 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
 
 
-
     case FINISH_PURCHASE:
       return {
         ...state,
-        errors: {},
+        cartPersist: action.payload
       };
+
+    case CLEAR_CART:
+      return {
+        ...state,
+        cart: []
+      }
+    
+    case SAVE_CART:
+      const { cart, user } = action.payload;
+  console.log(cart, user);
+
+  // Verificar si ya existe un objeto con la misma clave en cartLocalStorage
+  const existingCartIndex = state.cartLocalStorage.findIndex(item => Object.keys(item)[0] === user);
+
+  if (existingCartIndex !== -1) {
+    // Si ya existe, actualiza el objeto existente
+    const updatedCartLocalStorage = [...state.cartLocalStorage];
+    updatedCartLocalStorage[existingCartIndex] = { [user]: cart };
+
+    return {
+      ...state,
+      cartLocalStorage: updatedCartLocalStorage,
+    };
+  } 
+    // Si no existe, agrega un nuevo objeto al array
+    return {
+      ...state,
+      cartLocalStorage: [...state.cartLocalStorage, { [user]: cart }],
+    };
+  
+
+    case LOAD_CART:
+      return {
+        ...state,
+        cart: action.payload
+      }
+
+      case GET_ALL_REVIEWS:
+        return{
+          ...state,
+          review:action.payload
+        }
+        case UPDATE_REVIEW:
+          return action.payload
+          case CREATE_REVIEW:
+            return {
+              ...state,
+              errors: {},
+            };
+            case DELETE_REVIEW:
+              return action.payload
+              case GET_REVIEW_BY_ID:
+                return{
+                  ...state,
+                  review:action.payload
+                }
 
 
     case GET_ALL_FAVS:
@@ -108,11 +179,11 @@ const reducer = (state = initialState, action) => {
         allFavoritesBack: action.payload
       }
     
-    // case GET_ALL_CARTS:
-    //   return{
-    //     ...state,
-    //     allCartBack: action.payload
-    //   }
+    case GET_ALL_CARTS:
+      return{
+        ...state,
+        allCartBack: action.payload
+      }
     
     case NEW_CART:
       return{
@@ -142,21 +213,21 @@ const reducer = (state = initialState, action) => {
     case ADD_TO_CART:
       return {
         ...state,
-        cartPersist: [...state.cartPersist, action.payload],
+        cart: [...state.cart, action.payload],
       };
 
       case REMOVE_FROM_CART:
         const productIdToRemove = action.payload;
         return {
           ...state,
-          cartPersist: state.cartPersist.filter((item) => item.id !== productIdToRemove),
+          cart: state.cart.filter((item) => JSON.stringify(item.size) !== JSON.stringify(productIdToRemove)),
         };
   
       case UPDATE_CART_ITEM_QUANTITY:
         const { productId, newQuantity } = action.payload;
         return {
           ...state,
-          cartPersist: state.cartPersist.map((item) =>
+          cart: state.cartPersist.map((item) =>
             item.id === productId ? { ...item, cantidad: newQuantity } : item
           ),
         };
@@ -200,7 +271,7 @@ const reducer = (state = initialState, action) => {
       };
     case UPDATE_USER:
       return action.payload;
-
+  
     case DELETE_PRODUCT:
       return action.payload;
     case DELETE_USER:
@@ -264,13 +335,6 @@ const reducer = (state = initialState, action) => {
         user: null,
       };
 
-    // case FINISH_PURCHASE:
-    //   return {
-    //     ...state,
-    //     errors: {},
-    //   };
-
-    
     case PERSIST_USER:
       return {
         ...state,

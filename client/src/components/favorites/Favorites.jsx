@@ -10,16 +10,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import NavBar from '../navBar/NavBar';
 import styles from "../card/Card.module.css"
 import stylesb from "./Favorites.module.css"
-import { removeFav } from '../../redux/actions';
+import { getAllFavs, removeFavoriteBack } from '../../redux/actions';
 import stylesContainer from "../cardsContainer/CardsContainer.module.css"
 
 
 export default function Favorites(props){
-    const favorites = useSelector((state)=> state.FavoritesPersist);
+    const favorites = useSelector((state)=> state.allFavoritesBack);
+    const user = useSelector((state)=> state.user);
     const dispatch = useDispatch();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps, no-undef
+    const loadFavs = ()=>{
+         if(user?.userId){
+            dispatch(getAllFavs(user.userId));
+         }
+        }
+
+    useEffect(()=>{
+        loadFavs()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+
     const handleFavorite = (id) => {
-        dispatch(removeFav(id))
+        dispatch(removeFavoriteBack({UserId: user.userId, ProductId: id}))
      };
 
     return (

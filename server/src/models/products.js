@@ -4,8 +4,8 @@ module.exports = (sequelize) => {
   sequelize.define("Products",{
       id: {
         type: DataTypes.INTEGER,
-        allowNull:false,
         autoIncrement: true,
+        allowNull:false,
         primaryKey: true,
        
       },
@@ -34,8 +34,8 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       img:{
-        type: DataTypes.TEXT,
-        defaultValue: "https://www.latercera.com/resizer/DQq-BF-ulL7eY2IK1V9CdfW4SJI=/arc-anglerfish-arc2-prod-copesa/public/JRVRFF65PNAJ5PU4JCRHYFJRP4.jpeg"
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       description: {
         type: DataTypes.STRING,

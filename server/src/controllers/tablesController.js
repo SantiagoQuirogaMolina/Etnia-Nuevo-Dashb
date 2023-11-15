@@ -207,10 +207,20 @@ const updateCuentaById = async (id, newData) => {
     const shipmentsDB = await Logistics.findAll();
     return shipmentsDB;
   };
+
+  const getTransportById = async (id) => {
+    try{
+      const transportDB = await Logistics.findByPk(id);
+      return transportDB;
+    }catch (error){
+      throw error
+    }  
+  };
   
   const createTransportadora = async (logisticData) => {
     try {
       const {
+        
         email,
         name,
         location,
@@ -218,11 +228,11 @@ const updateCuentaById = async (id, newData) => {
         shippingPrice
       } = logisticData;
   
-      const model = await Logistics.findAll();
-      const nextID = (model[model.length-1].id) + 1;
-      id = nextID
+      // const model = await Logistics.findAll();
+      // const nextID = (model[model.length-1].id) + 1;
+      // id = nextID
       const newCuenta = await Logistics.create({
-        id,
+        
         email,
         name,
         location,
@@ -282,6 +292,7 @@ module.exports = {
     createMedioPago,
     deleteMedioPagoById,
     updateMedioPagoById,
+    getTransportById,
     getTransportadora,
     createTransportadora,
     deleteTransportadoraById,

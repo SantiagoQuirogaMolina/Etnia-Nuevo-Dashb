@@ -2,9 +2,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/button-has-type */
 /* eslint-disable perfectionist/sort-imports */
+import Swal from 'sweetalert2';
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-// import { createEmpresa } from "../../../redux/actions";
+import { createLogistica } from "../../../redux/actions";
 import validate from "./validate"
 import './formTransport.css'
 import primeraMayuscula from "../../../functions/primeraMayuscula";
@@ -36,8 +37,16 @@ const CreateTransport = () => {
     })
     
       useEffect(() => {
-       // dispatch(getAllTeams())
+       
       }, [dispatch])
+
+      const mostrarAlertaExitosa = () => {
+        Swal.fire({
+          icon: 'success',
+          title: '',
+          text: 'La transportadora ha sido creada',
+        });
+      };
     
       const handleChange = (evento) => {
         setInput({
@@ -60,8 +69,8 @@ const CreateTransport = () => {
           let long = Object.values(errors);
           if (long.length === 0) {
           input.name = primeraMayuscula(input.name)
-         // await dispatch(createEmpresa(input))
-          setErrorSubmit(`La Transportadora ha sido creada`)
+          await dispatch(createLogistica(input))
+          mostrarAlertaExitosa ()
           setInput({name:'', location: 'default', email:'', phone: '', shippingPrice: 0})
           setErrors({name:'', location: '', email:'', phone: '', shippingPrice: 0})
           
@@ -76,10 +85,11 @@ const CreateTransport = () => {
         
       }
     
-      return <div>
+      return <div className="Formtransport-container">
       <form  onSubmit={handleSubmit} name ='form'>
-        <div className="form">
-            <h3 className="empresaTitle"> + Crear Transportadora</h3>
+      <h3 className="transportTitle"> Crear Transportadora</h3>
+        <div className="formtransport">
+           
         
             <div>
                 <label>Nombre de la empresa:</label>
@@ -108,25 +118,17 @@ const CreateTransport = () => {
                     <option value="nacional" >Nacional</option>
                 </select>
             </div>
-        </div>
-        
-        <div className="globalLocation">
-       
-        
             <div >
                 <label >Tarifa:</label>
-                <input type="number" min="0" name="shippingPrice" value={input.shippingPrice} onChange = {handleChange}/>
-                
+                <input  type="number" min="0" name="shippingPrice" value={input.shippingPrice} onChange = {handleChange}/>
+                <p className ='danger'>{errorSubmit}</p>
             </div>
        
-            <span className ='danger'>{errorSubmit}</span>
-            <button id="submit">Crear Transportadora</button>
+            
+            
         </div>
-        
-        
-        
-      
-        
+        <button className = 'button' id="submit">Crear Transportadora</button>
+              
       </form>
       </div>
     }

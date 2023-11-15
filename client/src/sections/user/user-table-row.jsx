@@ -5,6 +5,7 @@
 /* eslint-disable import/no-unresolved */
 
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -34,7 +35,7 @@ export default function UserTableRow({
   status,
   handleClick,
 }) {
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   // Utiliza useEffect para llamar automáticamente la función cuando el componente se monta
   useEffect(() => {}, [dispatch]);
@@ -51,6 +52,7 @@ export default function UserTableRow({
 
   const handleEditClick = () => {
     console.log('Editar', id);
+    navigate(`/edituser/${id}`);
     handleCloseMenu();
   };
 
