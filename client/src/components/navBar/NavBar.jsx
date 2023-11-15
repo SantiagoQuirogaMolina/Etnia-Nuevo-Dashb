@@ -14,10 +14,9 @@ import styles from './NavBar.module.css';
 import Home from '../../assets/png/Home.png';
 import Carrito from '../../assets/png/Carrito.png';
 import Usuario from '../../assets/png/Usuario.png';
-import {userLogout, getUserByID, registroTerceros} from "../../redux/actions";
 import Configuraciones from '../../assets/png/Configuraciones.png';
-import {userLogout, } from "../../redux/actions";
 import web_analysis_icon from '../../assets/png/web_analysis_icon.png';
+import {userLogout, getUserByID, registroTerceros} from "../../redux/actions";
 
 function NavBar(props) {
   const navigate = useNavigate();
@@ -53,7 +52,7 @@ function NavBar(props) {
     }
   }, [dispatch, isAuthenticated, tokenTerceros, tokenTerceros, user]);
 
-  const userLogeado = useSelector((state)=> state.user);
+
 
   const handleLoginClick = () => {
     navigate('/user');

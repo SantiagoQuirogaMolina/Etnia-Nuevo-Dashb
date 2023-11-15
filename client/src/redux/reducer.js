@@ -232,12 +232,7 @@ const reducer = (state = initialState, action) => {
       };
     case UPDATE_USER:
       return action.payload;
-    case GET_USER_DETAILS:
-      return {
-        ...state,
-        userDetail: action.payload,
-      };
-
+  
     case DELETE_PRODUCT:
       return action.payload;
     case DELETE_USER:
