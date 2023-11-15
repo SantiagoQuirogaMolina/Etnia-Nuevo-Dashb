@@ -86,7 +86,7 @@ const paginateAllProducts = async (req, res, next) => {
 module.exports = paginateAllProducts;
 
 const getAllProducts = async () => {
-  console.log("hola desde geAllProducts");
+  
   const productsDB = await Products.findAll({
     limit: 100, // Limita los resultados a 100 productos
   });

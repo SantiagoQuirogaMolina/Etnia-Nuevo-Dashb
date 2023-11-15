@@ -7,6 +7,10 @@
   padding: 1rem; /* Ajusta el espaciado interno según tus necesidades */
 }
 
+.section{
+  display: flex;
+}
+
 .navbar button {
   background: none;
   border: none;

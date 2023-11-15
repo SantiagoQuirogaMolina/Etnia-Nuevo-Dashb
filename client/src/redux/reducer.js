@@ -41,11 +41,15 @@ import {
   GET_ALL_PURCHASES,
   GET_PURCHASE_DETAIL,
   PERSIST_USER,
+
+  REGISTRO_TERCEROS,
+
   GET_ALL_REVIEWS,
   DELETE_REVIEW,
   CREATE_REVIEW,
   UPDATE_REVIEW,
   GET_REVIEW_BY_ID,
+
 } from "./actions";
 
 const initialState = {
