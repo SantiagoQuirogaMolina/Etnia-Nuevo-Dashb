@@ -20,6 +20,7 @@ import Form from '../pages/Forms/Form/Form';
 import FormEmpresa from '../pages/Forms/FormEmpresa/CreateEmpresa';
 import FormMedioPago from '../pages/Forms/FormMedioPago/CreateMedioPago';
 import FormTransportadora from '../pages/Forms/FormTransport/CreateTransport';
+import EditTransport from '../pages/Forms/FormEditTransport/EditTransport';
 import FormCtaBanco from '../pages/Forms/FormCuentaBanco/CreateCtaBanco';
 import ConfirmTokenForm from '../pages/logIn/ConfirmTokenForm';
 import RegisterForm from '../pages/logIn/registerForm';
@@ -68,6 +69,7 @@ function Router() {
       <Route exact path="/crearempresa" element={<PublicFormEmpresa />} />
       <Route exact path="/mediopago" element={<PublicFormMedioPago />} />
       <Route exact path="/transporte" element={<PublicFormTransportadora />} />
+      <Route exact path="/edittransporte/:id" element={<AdminEditTransportadora />} />
       <Route exact path="/cuentabanco" element={<PublicFormCtaBanco />} />
       <Route exact path="/RegisterForm" element={<PublicRegisterForm />} />
       <Route exact path="/ConfirmTokenForm" element={<PublicConfirmTokenForm />} />
@@ -200,11 +202,22 @@ function PublicFormCtaBanco() {
     </Suspense>
   );
 }
+
 function PublicFormTransportadora() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route exact path="/" element={<FormTransportadora />} />
+      </Routes>
+    </Suspense>
+  );
+}
+
+function AdminEditTransportadora() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<EditTransport />} />
       </Routes>
     </Suspense>
   );

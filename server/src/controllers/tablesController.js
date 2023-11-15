@@ -207,6 +207,15 @@ const updateCuentaById = async (id, newData) => {
     const shipmentsDB = await Logistics.findAll();
     return shipmentsDB;
   };
+
+  const getTransportById = async (id) => {
+    try{
+      const transportDB = await Logistics.findByPk(id);
+      return transportDB;
+    }catch (error){
+      throw error
+    }  
+  };
   
   const createTransportadora = async (logisticData) => {
     try {
@@ -283,6 +292,7 @@ module.exports = {
     createMedioPago,
     deleteMedioPagoById,
     updateMedioPagoById,
+    getTransportById,
     getTransportadora,
     createTransportadora,
     deleteTransportadoraById,

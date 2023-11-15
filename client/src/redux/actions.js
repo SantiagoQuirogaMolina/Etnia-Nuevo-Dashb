@@ -433,21 +433,33 @@ export function updateCuentas(payload) {
 
 export function updateMediopago(payload) {
   return async function (dispatch) {
-    const info = await axios.put(`${URL}/${payload.id}`, payload);
-    dispatch({
-      type: UPDATE_MEDIOPAGO,
-      payload: info.data,
-    });
+    try{
+      const info = await axios.put(`${URL}/${payload.id}`, payload);
+      dispatch({
+        type: UPDATE_MEDIOPAGO,
+        payload: info.data,
+      });
+
+    }catch(error) {
+      throw error
+    }
+    
   };
 }
 
 export function updateLogistica(payload) {
   return async function (dispatch) {
-    const info = await axios.put(`${URL}/${payload.id}`, payload);
-    dispatch({
-      type: UPDATE_LOGISTICA,
-      payload: info.data,
-    });
+    try {
+      const info = await axios.put(`${URL}/tables/putlogistica/${payload.id}`, payload);
+      dispatch({
+        type: UPDATE_LOGISTICA,
+        payload: info.data,
+      });
+
+    }catch (error){
+      throw error
+    }
+   
   };
 }
 

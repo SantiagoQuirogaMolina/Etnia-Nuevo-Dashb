@@ -2,7 +2,7 @@ tablesRouter = require("express").Router();
 
 const {getEmpresaHandler,createEmpresaHandler, updateEmpresaHandler, deleteEmpresaHandler,   
         getCuentasHandler, createCuentasHandler, updateCuentasHandler, deleteCuentasHandler,
-        getMedioHandler, createMedioHandler, updateMedioHandler, deleteMedioHandler,
+        getMedioHandler, createMedioHandler, updateMedioHandler, deleteMedioHandler, getTranByIdHandler,
         getTransportHandler, createTransportHandler, updateTransportHandler, deleteTransportHandler
       } = require("../handlers/tablesHandler")
 
@@ -26,7 +26,7 @@ tablesRouter.delete("/deletemediopago/:id", deleteMedioHandler);
 tablesRouter.put("/putmediopago/:id", updateMedioHandler);
 
 //Transportadora
-
+tablesRouter.get("/logistica/:id", getTranByIdHandler);
 tablesRouter.get("/getlogistica", getTransportHandler);
 tablesRouter.post("/postlogistica",createTransportHandler);
 tablesRouter.delete("/deletelogistica/:id", deleteTransportHandler);
