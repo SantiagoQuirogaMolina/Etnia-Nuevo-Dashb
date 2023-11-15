@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getAllReviews,
-  createReview,
-  updateReview,
-  deleteReview,
-  getReviewById,
-} from '../../redux/actions';
+import { getAllReviews,createReview,updateReview,deleteReview,} from '../../redux/actions';
 
-const Reviews= () => {
+import styles from './reviews.module.css';
+
+const Reviews = () => {
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews.reviews);
 
   const [newReview, setNewReview] = useState({
-    // Define la estructura  aquí
+    calification: 1,
+    review: '', 
   });
 
   useEffect(() => {
@@ -21,16 +18,23 @@ const Reviews= () => {
   }, [dispatch]);
 
   const handleCreateReview = () => {
-    dispatch(createReview(newReview));
-    // Puedes reiniciar los campos del formulario o realizar otras acciones después de la creación
-    setNewReview({
-      // Reinicia los campos del formulario.
-    });
+    // Verificar que la calificación esté entre 1 y 5
+    if (newReview.calification >= 1 && newReview.calification <= 5) {
+      dispatch(createReview(newReview));
+      setNewReview({
+        calification: 1,
+        review: '',
+      });
+    } else {
+      alert('La calificación debe estar entre 1 y 5');
+    }
   };
 
   const handleUpdateReview = (id) => {
     const updatedReview = {
-      
+      id,
+      calification: 3, // se puede obtener el valor del input o usar otro método para obtener la nueva calificación
+      review: 'Nuevo texto de revisión', // se puede obtener el valor del input o usar otro método para obtener la nueva revisión
     };
     dispatch(updateReview(updatedReview));
   };
@@ -40,37 +44,42 @@ const Reviews= () => {
   };
 
   return (
-    <div>
-      <h1>Lista de Revisiones</h1>
-      <ul>
-        {reviews.map((review) => (
-          <li key={review.id}>
-            {review.title}{' '}
-            <button onClick={() => handleUpdateReview(review.id)}>Actualizar</button>{' '}
-            <button onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
-          </li>
-        ))}
-      </ul>
+    <div className={styles.container}>
+    <h1>Lista de Revisiones</h1>
+    <ul>
+      {reviews.map((review) => (
+        <li key={review.id}>
+          Calificación: {review.calification}, Revisión: {review.review}{' '}
+          <button onClick={() => handleUpdateReview(review.id)}>Actualizar</button>{' '}
+          <button onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
+        </li>
+      ))}
+    </ul>
 
-      <h2>Crear Nueva Revisión</h2>
-      <div>
-        {/* ajustar los campos según tu estructura de revisión */}
+    <h2>Crear Nueva Revisión</h2>
+    <div className={styles.form-container}>
+      <label>
+        Calificación:
         <input
-          type="text"
-          placeholder="Título"
-          value={newReview.title}
-          onChange={(e) => setNewReview({ ...newReview, title: e.target.value })}
+          type="number"
+          min="1"
+          max="5"
+          value={newReview.calification}
+          onChange={(e) => setNewReview({ ...newReview, calification: parseInt(e.target.value, 10) })}
         />
-        <input
-          type="text"
-          placeholder="Contenido"
-          value={newReview.content}
-          onChange={(e) => setNewReview({ ...newReview, content: e.target.value })}
+      </label>
+      <label>
+        Revisión:
+        <textarea
+          value={newReview.review}
+          onChange={(e) => setNewReview({ ...newReview, review: e.target.value })}
         />
-        <button onClick={handleCreateReview}>Crear Revisión</button>
-      </div>
+      </label>
+      <button onClick={handleCreateReview}>Crear Revisión</button>
     </div>
-  );
+  </div>
+);
 };
 
 export default Reviews;
+
