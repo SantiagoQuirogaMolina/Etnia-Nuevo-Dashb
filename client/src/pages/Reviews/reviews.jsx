@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllReviews,createReview,updateReview,deleteReview,} from '../../redux/actions';
 
 import styles from './reviews.module.css';
+import { createReview, updateReview, deleteReview, getAllReviews } from '../../redux/actions';
+
+
 
 const Reviews = () => {
   const dispatch = useDispatch();
@@ -50,15 +52,15 @@ const Reviews = () => {
       {reviews.map((review) => (
         <li key={review.id}>
           Calificación: {review.calification}, Revisión: {review.review}{' '}
-          <button onClick={() => handleUpdateReview(review.id)}>Actualizar</button>{' '}
-          <button onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
+          <button type="button" onClick={() => handleUpdateReview(review.id)}>Actualizar</button>{' '}
+          <button type="button" onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
         </li>
       ))}
     </ul>
 
     <h2>Crear Nueva Revisión</h2>
-    <div className={styles.form-container}>
-      <label>
+    <div className={styles.formContainer}>
+      <label htmlFor="calificationInput">
         Calificación:
         <input
           type="number"
@@ -68,14 +70,14 @@ const Reviews = () => {
           onChange={(e) => setNewReview({ ...newReview, calification: parseInt(e.target.value, 10) })}
         />
       </label>
-      <label>
+      <label htmlFor="reviewTextArea">
         Revisión:
         <textarea
           value={newReview.review}
           onChange={(e) => setNewReview({ ...newReview, review: e.target.value })}
         />
       </label>
-      <button onClick={handleCreateReview}>Crear Revisión</button>
+      <button type="button" onClick={handleCreateReview}>Crear Revisión</button>
     </div>
   </div>
 );
