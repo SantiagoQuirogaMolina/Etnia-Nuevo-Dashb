@@ -29,6 +29,7 @@ import {
   REGISTER_USER,
   UPDATE_PRODUCT,
   REMOVE_FROM_CART,
+  CLEAR_CART,
   UPDATE_CART_ITEM_QUANTITY,
   DELETE_USER,
   FINISH_PURCHASE,
@@ -50,6 +51,8 @@ import {
   CREATE_REVIEW,
   UPDATE_REVIEW,
   GET_REVIEW_BY_ID,
+  SAVE_CART,
+  LOAD_CART
 
 } from "./actions";
 
@@ -65,6 +68,7 @@ const initialState = {
   allUsers: [],
   FavoritesPersist: [],
   cart: [],
+  cartLocalStorage: [],
   allFavoritesBack:[],
   allCartBack:[],
   errors: {},
@@ -80,12 +84,47 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
 
 
-
     case FINISH_PURCHASE:
       return {
         ...state,
         cartPersist: action.payload
       };
+
+    case CLEAR_CART:
+      return {
+        ...state,
+        cart: []
+      }
+    
+    case SAVE_CART:
+      const { cart, user } = action.payload;
+  console.log(cart, user);
+
+  // Verificar si ya existe un objeto con la misma clave en cartLocalStorage
+  const existingCartIndex = state.cartLocalStorage.findIndex(item => Object.keys(item)[0] === user);
+
+  if (existingCartIndex !== -1) {
+    // Si ya existe, actualiza el objeto existente
+    const updatedCartLocalStorage = [...state.cartLocalStorage];
+    updatedCartLocalStorage[existingCartIndex] = { [user]: cart };
+
+    return {
+      ...state,
+      cartLocalStorage: updatedCartLocalStorage,
+    };
+  } 
+    // Si no existe, agrega un nuevo objeto al array
+    return {
+      ...state,
+      cartLocalStorage: [...state.cartLocalStorage, { [user]: cart }],
+    };
+  
+
+    case LOAD_CART:
+      return {
+        ...state,
+        cart: action.payload
+      }
 
       case GET_ALL_REVIEWS:
         return{
