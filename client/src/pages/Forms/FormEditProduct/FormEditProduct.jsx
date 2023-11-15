@@ -136,7 +136,28 @@ if (input.size) {
     setErrorSubmit('');
   };
 
- 
+  const handleChangeImage = (event) => {
+  
+    const file = event.target.files[0];
+    if(file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function charge () {
+        setInput({
+          ...input,
+          [event.target.name]:reader.result,
+        }) 
+      }     
+      setErrors(
+        Validation({
+          ...input,
+          [event.target.name]: event.target.value,
+        })
+      );
+      setErrorSubmit('');  
+      
+    }
+  }
 
  // let isSubmitDisabled = Object.keys(errors).length > 0;
 
@@ -425,11 +446,11 @@ if (input.size) {
             </label>
             <input
               className="input3"
-              type="url"
+              type="input"
               id="image"
               name="image"
-              value={input.img}
-              onChange={handleChange}
+              value={input.image}
+              onChange={handleChangeImage}
             />
             <p className="errores" style={{ visibility: errors.image ? 'visible' : 'hidden' }}>
               {errors.image}

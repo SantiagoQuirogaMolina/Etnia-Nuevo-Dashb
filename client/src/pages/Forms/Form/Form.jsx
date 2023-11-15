@@ -65,7 +65,6 @@ const Form = () => {
       [event.target.name]: event.target.value,
     });
 
-    console.log(input)
     setErrors(
       Validation({
         ...input,
@@ -83,16 +82,20 @@ const Form = () => {
     const file = event.target.files[0];
     if(file) {
       const reader = new FileReader();
+      reader.readAsDataURL(file);
       reader.onload = function charge () {
         setInput({
           ...input,
-          [event.target.name]:event.target.result,
+          [event.target.name]:reader.result,
         }) 
       }     
-      reader.readAsDataURL(event.target.files[0])
-      console.log(file);
-      console.log(reader);
-      
+      setErrors(
+        Validation({
+          ...input,
+          [event.target.name]: event.target.value,
+        })
+      );
+      setErrorSubmit('');  
       
     }
   }

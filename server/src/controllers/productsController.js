@@ -143,7 +143,7 @@ const createProducts = async (productData) => {
     const img = cloudinaryUpload.secure_url;
 
     const model = await Products.findAll();
-    const nextID = (model.length) + 2;
+    const nextID = (model.length) + 1;
     id = nextID
     console.log(id)
 
