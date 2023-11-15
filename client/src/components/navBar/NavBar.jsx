@@ -10,9 +10,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './NavBar.module.css';
 import Home from '../../assets/png/Home.png';
-import {userLogout} from "../../redux/actions";
 import Carrito from '../../assets/png/Carrito.png';
 import Usuario from '../../assets/png/Usuario.png';
+import {userLogout, getUserByID} from "../../redux/actions";
 import Configuraciones from '../../assets/png/Configuraciones.png';
 import web_analysis_icon from '../../assets/png/web_analysis_icon.png';
 
@@ -25,13 +25,15 @@ function NavBar(props) {
 
   const handleUserClick = () => {
     if (isAuthenticated) {
-      navigate(`/users/${user.sub}`); // User is logged in through Auth0, redirect to Auth0 user details page.
+      navigate(`/users/${userLogeado.userId}`);
+      dispatch(getUserByID(userLogeado.userId));
     } else if (userLogeado) {
-      navigate(`/users/:id`); // User is logged in through your own authentication, redirect to your user details page.
+      navigate(`/users/${userLogeado.userId}`);
+      dispatch(getUserByID(userLogeado.userId));
     } else {
-      navigate('/user'); // User is not logged in, redirect to login page.
+      navigate('/user');
     }
-  };
+  }
   const handleLoginClick = () => {
     navigate('/user');
   };
@@ -40,7 +42,7 @@ function NavBar(props) {
     localStorage.setItem('initialFilters', {});
     navigate("/");
   }
-  
+  const UserId = userLogeado?.userId;
   return (
     <div className={styles.navbar}>
       {userLogeado?.userEmail ? (
@@ -62,9 +64,11 @@ function NavBar(props) {
         <Link to="/carrito"><img className={styles.Carrito} src={Carrito} alt="Carrito" /></Link>
       </button>
       
-      <button>
       
-      {console.log('Usuario:', user)}
+      <button onClick={handleUserClick}>
+  <img className={styles.Usuario} src={Usuario} alt="Usuario" />
+</button>
+      <button>
   {user && (
     <Link to={`/users/${user.id}`}>Detalles del usuario
       <img className={styles.Configuraciones} src={Configuraciones} alt="Configuraciones" />

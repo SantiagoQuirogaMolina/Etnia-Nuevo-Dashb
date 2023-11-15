@@ -1,9 +1,8 @@
 /* eslint-disable perfectionist/sort-imports */
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useDispatch } from 'react-redux';
-import { updateUser } from '../../redux/actions'; // Asegúrate de importar la acción correcta
+import { updateUser, getUserByID  } from '../../redux/actions'; // Asegúrate de importar la acción correcta
 
 
 export default function UserDetail(props) {
@@ -18,8 +17,8 @@ export default function UserDetail(props) {
     const fetchUser = async () => {
       try {
         console.log('ID del usuario:', id); // Imprime el valor de id
-        const response = await axios.get(`/users/${id}`);
-        dispatch(updateUser(response.data)); // Envía la acción al store de Redux
+        dispatch(getUserByID(id)); // Envía la acción al store de Redux
+        console.log('Usuario:', id); // Imprime el valor de user
       } catch (error) {
         console.error("Error al obtener los datos del usuario:", error);
       }
@@ -33,7 +32,7 @@ export default function UserDetail(props) {
       {user ? (
         <div>
           <p>{user.email}</p>
-          <p>{user.name}</p>
+          <p>{user.address}</p>
         </div>
       ) : (
         <div>Inicie sesion </div>

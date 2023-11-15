@@ -31,6 +31,7 @@ export const GET_ALL_CARTS = 'GET_ALL_CARTS';
 export const GET_PURCHASE_DETAIL = 'GET_PURCHASE_DETAIL';
 export const GET_ALL_PURCHASES = 'GET_ALL_PURCHASES';
 export const GET_USER_PURCHASES = 'GET_USER_PURCHASES';
+export const GET_USER_BY_ID = "GET_USER_BY_ID";
 // routes Delete
 export const DELETE_COMMENT = "DELETE_COMMENT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
@@ -619,15 +620,18 @@ export function getUsersByName(name) {
     });
   };
 }
-export function getUserDetails(id) {
-  return async (dispatch) => {
-    try {
-      const response = (await axios.get(`${URL}/users/${id}`)).data;
-      
-      dispatch({ type: 'GET_USER_DETAILS', payload: response, });
-    } catch (error) {
-      console.error('Error obteniendo los detalles del usuario:', error);
-    }
+export function getUserByID(id) {
+  return async function (dispatch) {
+    try{
+      const { data } = await axios.get(`${URL}/users/${id}`);
+      console.log(data)
+      dispatch({
+      type: GET_USER_BY_ID,
+      payload: data,
+    });
+    }catch(error){
+      throw error
+    }  
   };
 }
 export function getAllUsers() {
