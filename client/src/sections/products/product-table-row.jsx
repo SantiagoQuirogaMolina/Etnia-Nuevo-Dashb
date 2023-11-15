@@ -53,7 +53,7 @@ export default function ProductTableRow({
 
   const handleEditClick = () => {
     console.log('Editar', id);
-    navigate('/editproduct');
+    navigate(`/editproduct/${id}`);
     handleCloseMenu();
   };
 

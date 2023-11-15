@@ -48,8 +48,7 @@ export default function PedidosPage() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = product
-    .map((n) => n.name);
+      const newSelecteds = product.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -89,8 +88,7 @@ export default function PedidosPage() {
   };
 
   const dataFiltered = applyFilter({
-    inputData: product
-  ,
+    inputData: product,
     comparator: getComparator(order, orderBy),
     filterName,
   });
@@ -120,16 +118,18 @@ export default function PedidosPage() {
               <UserTableHead
                 order={order}
                 orderBy={orderBy}
-                rowCount={product
-                .length}
+                rowCount={product.length}
                 numSelected={selected.length}
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
-                  { id: 'name', label: 'Nombre' },
-                  { id: 'color', label: 'color' },
-               
-                  { id: 'cantidad', label: 'cantidad', align: 'center' },
+                  { id: 'prenda', label: 'Prenda' },
+                  { id: 'usuario', label: 'usuario' },
+
+                  { id: 'fecha', label: 'Fecha', align: 'center' },
+                  { id: 'metodo', label: 'Mdo Pago', align: 'center' },
+                  { id: 'cantidad', label: 'cantidad' },
+                  { id: 'estado', label: 'estado' },
                   { id: 'precio', label: 'precio' },
                   { id: '' },
                 ]}
@@ -140,10 +140,12 @@ export default function PedidosPage() {
                   .map((row) => (
                     <UserTableRow
                       key={row.id}
-                      name={row.name}
-                      role={row.role}
-                      status={row.status}
-                      avatarUrl={row.avatarUrl}
+                      prenda={row.prenda}
+                      usuario={row.usuario}
+                      fecha={row.fecha}
+                      metodo={row.metodo}
+                      estado={row.estado}
+                      precio={row.precio}
                       cantidad={row.cantidad}
                       selected={selected.indexOf(row.name) !== -1}
                       handleClick={(event) => handleClick(event, row.name)}
@@ -152,8 +154,7 @@ export default function PedidosPage() {
 
                 <TableEmptyRows
                   height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, product
-                  .length)}
+                  emptyRows={emptyRows(page, rowsPerPage, product.length)}
                 />
 
                 {notFound && <TableNoData query={filterName} />}
@@ -165,8 +166,7 @@ export default function PedidosPage() {
         <TablePagination
           page={page}
           component="div"
-          count={product
-          .length}
+          count={product.length}
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           rowsPerPageOptions={[5, 10, 25]}
