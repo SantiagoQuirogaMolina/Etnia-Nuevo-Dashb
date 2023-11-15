@@ -71,7 +71,7 @@ function NavBar(props) {
       {userLogeado?.userEmail ? (
         <section className={styles.section}>
         <button onClick={()=>handleLogOut()} >🔓</button>
-        <button onClick={handleLoginClick}>{userLogeado.userEmail}</button>
+        <button >{userLogeado.userEmail}</button>
         </section>
     ) : (
       <button onClick={handleLoginClick}>
