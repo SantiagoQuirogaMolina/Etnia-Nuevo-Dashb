@@ -195,6 +195,7 @@ export function finishPurchase(objectPago) {
       console.error('Error in finishPurchase:', error);
     }
   };
+}
 
 export function getAllPurchases() {
   return async function (dispatch) {
