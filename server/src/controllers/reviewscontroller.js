@@ -1,4 +1,4 @@
-const { Reviews } = require('../db'); 
+const { Reviews, User, Products, Purchases } = require('../db'); 
 
 // para obtener todas las revisiones
 const getAllReviews = async (req, res) => {
@@ -13,17 +13,33 @@ const getAllReviews = async (req, res) => {
 
 //  para crear una nueva revisión
 const createReview = async (req, res) => {
-  const { review, calification} = req.body;
-
   try {
-    const newReview = await Reviews.create({ review, calification });
+    
+    const { userId, productId, purchaseId, review, calification } = req.body;
+
+   
+    const userInstance = await User.findOne({ where: { id: userId } });
+    const productInstance = await Products.findOne({ where: { id: productId } });
+    const purchaseInstance = await Purchases.findOne({ where: { id: purchaseId } });
+   
+    if (!userInstance || !productInstance || !purchaseInstance) {
+      return res.status(404).json({ error: 'User, product, or purchase not found.' });
+    }
+
+    const newReview = await Reviews.create({
+      review,
+      calification,
+      userId,
+      productId,
+      purchaseId,
+    });
+
     res.status(201).json(newReview);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al crear la revisión.' });
+    res.status(500).json({ error: 'Error creating the review.' });
   }
 };
-
 // para obtener una revisión por su ID
 const getReviewById = async (req, res) => {
   const { id } = req.params;

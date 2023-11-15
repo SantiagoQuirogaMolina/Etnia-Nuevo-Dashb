@@ -178,23 +178,23 @@ export function deleteReview(id) {
 }
 
 export function finishPurchase(objectPago) {
-
-  console.log(objectPago)
+  console.log(objectPago);
   
-  async function compra() {
+  return async function compra(dispatch) {
+    console.log("entre a la compra")
     try {
-      const purchase = await axios.post(`${URL}/purchase/order`, objectPago);
-      console.log(purchase);
-      return ({
+      const response = await axios.post(`${URL}/purchase/order`, objectPago);    
+      window.location.href= response.data.init_point;
+
+      dispatch({
         type: FINISH_PURCHASE,
-        payload: purchase.data,
-      };
+
+        payload: response.data,
+      });
     } catch (error) {
       console.error('Error in finishPurchase:', error);
     }
-  }
-  compra();
-}
+  };
 
 export function getAllPurchases() {
   return async function (dispatch) {
@@ -339,11 +339,17 @@ export function getLogistica() {
 
 export function createLogistica(newLogistica) {
   return async function (dispatch) {
-    const info = await axios.post(`${URL}/logistica`, newLogistica);
-    dispatch({
-      type: CREATE_LOGISTICA,
-      payload: info.data,
-    });
+    try{
+      console.log ('logistica')
+      const info = await axios.post(`${URL}/tables/postlogistica`, newLogistica);
+      dispatch({
+        type: CREATE_LOGISTICA,
+        payload: info.data,
+      });
+    }catch(error){
+      throw error
+    }
+    
   };
 }
 
@@ -454,21 +460,33 @@ export function updateCuentas(payload) {
 
 export function updateMediopago(payload) {
   return async function (dispatch) {
-    const info = await axios.put(`${URL}/${payload.id}`, payload);
-    dispatch({
-      type: UPDATE_MEDIOPAGO,
-      payload: info.data,
-    });
+    try{
+      const info = await axios.put(`${URL}/${payload.id}`, payload);
+      dispatch({
+        type: UPDATE_MEDIOPAGO,
+        payload: info.data,
+      });
+
+    }catch(error) {
+      throw error
+    }
+    
   };
 }
 
 export function updateLogistica(payload) {
   return async function (dispatch) {
-    const info = await axios.put(`${URL}/${payload.id}`, payload);
-    dispatch({
-      type: UPDATE_LOGISTICA,
-      payload: info.data,
-    });
+    try {
+      const info = await axios.put(`${URL}/tables/putlogistica/${payload.id}`, payload);
+      dispatch({
+        type: UPDATE_LOGISTICA,
+        payload: info.data,
+      });
+
+    }catch (error){
+      throw error
+    }
+   
   };
 }
 
@@ -717,7 +735,8 @@ export function deleteUser(id) {
 
 export function updateUser(payload) {
   return async function (dispatch) {
-    const info = await axios.put(`${URL}/${payload.id}`, payload);
+    
+    const info = await axios.put(`${URL}/users/put/${payload.id}`, payload);
     dispatch({
       type: UPDATE_USER,
       payload: info.data,

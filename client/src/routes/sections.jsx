@@ -20,11 +20,13 @@ import Form from '../pages/Forms/Form/Form';
 import FormEmpresa from '../pages/Forms/FormEmpresa/CreateEmpresa';
 import FormMedioPago from '../pages/Forms/FormMedioPago/CreateMedioPago';
 import FormTransportadora from '../pages/Forms/FormTransport/CreateTransport';
+import EditTransport from '../pages/Forms/FormEditTransport/EditTransport';
 import FormCtaBanco from '../pages/Forms/FormCuentaBanco/CreateCtaBanco';
 import ConfirmTokenForm from '../pages/logIn/ConfirmTokenForm';
 import RegisterForm from '../pages/logIn/registerForm';
 import UpdateProducto from '../pages/Forms/FormEditProduct/FormEditProduct'
 import CrearUser from '../pages/Forms/FormCreateUsers/CreateUsers'
+import EditUser from '../pages/Forms/FormEditUsers/EditUsers'
 
 
 const IndexPage = lazy(() => import('../pages/app'));
@@ -63,9 +65,11 @@ function Router() {
       <Route exact path="/Form" element={<PublicForm />} />
       <Route exact path="/editproduct/:id" element={<AdminFormUdateProducto />} />
       <Route exact path="/crearuser" element={<AdminFormCrearUser />} />
+      <Route exact path="/edituser/:id" element={<AdminFormEditUser />} />
       <Route exact path="/crearempresa" element={<PublicFormEmpresa />} />
       <Route exact path="/mediopago" element={<PublicFormMedioPago />} />
       <Route exact path="/transporte" element={<PublicFormTransportadora />} />
+      <Route exact path="/edittransporte/:id" element={<AdminEditTransportadora />} />
       <Route exact path="/cuentabanco" element={<PublicFormCtaBanco />} />
       <Route exact path="/RegisterForm" element={<PublicRegisterForm />} />
       <Route exact path="/ConfirmTokenForm" element={<PublicConfirmTokenForm />} />
@@ -198,11 +202,22 @@ function PublicFormCtaBanco() {
     </Suspense>
   );
 }
+
 function PublicFormTransportadora() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route exact path="/" element={<FormTransportadora />} />
+      </Routes>
+    </Suspense>
+  );
+}
+
+function AdminEditTransportadora() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<EditTransport />} />
       </Routes>
     </Suspense>
   );
@@ -258,6 +273,19 @@ function AdminFormCrearUser() {
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route exact path="/" element={<CrearUser />} />
+        </Routes>
+      </Suspense>
+    </DashboardLayout>
+  );
+}
+
+
+function AdminFormEditUser() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route exact path="/" element={<EditUser />} />
         </Routes>
       </Suspense>
     </DashboardLayout>

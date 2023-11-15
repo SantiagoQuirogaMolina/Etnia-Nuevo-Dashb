@@ -63,6 +63,7 @@ const getIdHandler = async (req, res) => {
 
 const createUsersHandler = async (req, res) => {
   try {
+    
     const user = await createusers(req.body);
     return res.status(201).json(user);
   } catch (error) {
@@ -81,6 +82,7 @@ const deleteUserHandler = async (req, res) => {
 const updateUserHandler = async (req, res) => {
   const id = req.params.id;
   try {
+    console.log('handler')
     const user = await updateUserById(id, req.body);
     res.status(201).json(user);
   } catch (error) {

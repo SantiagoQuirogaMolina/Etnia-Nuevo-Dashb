@@ -1,26 +1,30 @@
-/* eslint-disable prefer-const */
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable react/button-has-type */
-/* eslint-disable perfectionist/sort-imports */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import axios from 'axios'
 import Swal from 'sweetalert2';
-import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { createLogistica } from "../../../redux/actions";
-import validate from "./validate"
-import './formTransport.css'
+import { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
+
+import './formedittransport.css'
+import validate from "./validate";
+import { updateLogistica} from '../../../redux/actions';
 import primeraMayuscula from "../../../functions/primeraMayuscula";
 
 
    
-const CreateTransport = () => {
+const EditTransport = () => {
     
     const dispatch = useDispatch();
-    
+    const {id} = useParams();
+
     const [errorSubmit,setErrorSubmit] = useState("");
     
     const [input, setInput] = useState({
         name: '',
-        location: '',
+        location: 'default',
         email: '',
         phone: '',
         shippingPrice: 0
@@ -37,17 +41,28 @@ const CreateTransport = () => {
     })
     
       useEffect(() => {
-       
-      }, [dispatch])
+        async function getByID() {
+            const { data } = await axios.get(`http://localhost:3001/tables/logistica/${id}`);
+            setInput(data)
+        }
+        getByID()
+      }, [id,dispatch])
 
       const mostrarAlertaExitosa = () => {
         Swal.fire({
           icon: 'success',
           title: '',
-          text: 'La transportadora ha sido creada',
+          text: 'La transportadora ha sido actualizada',
         });
       };
     
+      const isAllEmptyStrings = (array) => {
+        for (let i; i <array.lenth-1; i++) {
+            if(array[i].length !== 0) return false;
+        }
+        return true;
+      }
+      
       const handleChange = (evento) => {
         setInput({
           ...input,
@@ -66,14 +81,15 @@ const CreateTransport = () => {
         evento.preventDefault();
         try {
           console.log(input)
-          let long = Object.values(errors);
-          if (long.length === 0) {
+          console.log(errors)
+          const long = Object.values(errors);
+          if (long.length === 0 || isAllEmptyStrings(long)) {
           input.name = primeraMayuscula(input.name)
-          await dispatch(createLogistica(input))
+          await dispatch(updateLogistica(input))
           mostrarAlertaExitosa ()
-          setInput({name:'', location: 'default', email:'', phone: '', shippingPrice: 0})
+          // setInput({name:'', location: 'default', email:'', phone: '', shippingPrice: 0})
           setErrors({name:'', location: '', email:'', phone: '', shippingPrice: 0})
-          
+          setErrorSubmit('')
           }else {
             setErrorSubmit("Debe llenar todos los campos sin errores");
            
@@ -87,7 +103,7 @@ const CreateTransport = () => {
     
       return <div className="Formtransport-container">
       <form  onSubmit={handleSubmit} name ='form'>
-      <h3 className="transportTitle"> Crear Transportadora</h3>
+      <h3 className="transportTitle"> Editar Transportadora</h3>
         <div className="formtransport">
            
         
@@ -99,7 +115,7 @@ const CreateTransport = () => {
             </div>
 
             <div>
-                <label >Email:</label>
+                <label htmlFor="email">Email:</label>
                 <input type="text" name="email" id = "email" value={input.email} onChange = {handleChange}
                 className = {errors.birthDay && 'warning'}/>
                 {errors.email && <p className ='danger'>{errors.email}</p>}
@@ -127,11 +143,11 @@ const CreateTransport = () => {
             
             
         </div>
-        <button className = 'button' id="submit">Crear Transportadora</button>
+        <button className ='button' id="submit">Editar Transportadora</button>
               
       </form>
       </div>
     }
 
 
-export default CreateTransport
+export default EditTransport
