@@ -14,7 +14,6 @@ import styles from './NavBar.module.css';
 import Home from '../../assets/png/Home.png';
 import Carrito from '../../assets/png/Carrito.png';
 import Usuario from '../../assets/png/Usuario.png';
-import Configuraciones from '../../assets/png/Configuraciones.png';
 import web_analysis_icon from '../../assets/png/web_analysis_icon.png';
 import {
   saveCart,
@@ -122,14 +121,6 @@ function NavBar(props) {
         <Link to="/carrito">
           <img className={styles.Carrito} src={Carrito} alt="Carrito" />
         </Link>
-      </button>
-
-      <button>
-        {user && (
-          <Link to={`/users/${user.id}`}>
-            <img className={styles.Configuraciones} src={Configuraciones} alt="Configuraciones" />
-          </Link>
-        )}
       </button>
 
       <button>
