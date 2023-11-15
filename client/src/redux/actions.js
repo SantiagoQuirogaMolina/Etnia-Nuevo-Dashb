@@ -30,6 +30,7 @@ export const GET_ALL_CARTS = "GET_ALL_CARTS";
 export const GET_PURCHASE_DETAIL = "GET_PURCHASE_DETAIL";
 export const GET_ALL_PURCHASES = "GET_ALL_PURCHASES";
 export const GET_USER_PURCHASES = "GET_USER_PURCHASES";
+export const GET_USER_BY_ID = "GET_USER_BY_ID";
 // routes Delete
 export const DELETE_COMMENT = "DELETE_COMMENT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
@@ -355,10 +356,13 @@ export function createMediopago(newMediopago) {
 }
 
 export function createProduct(newproduct) {
+  console.log(newproduct)
   return async function (dispatch) {
     try {
-      console.log(newproduct)
+      
       const {data}= await axios.post(`${URL}/products`, newproduct);
+      console.log(data)
+      
       dispatch({
         type: CREATE_PRODUCT,
         payload: data,
@@ -617,6 +621,22 @@ export function getByID(id) {
       type: GET_BY_ID,
       payload: data,
     });
+  };
+}
+
+
+export function getUserByID(id) {
+  return async function (dispatch) {
+    try{
+      const { data } = await axios.get(`${URL}/users/${id}`);
+      console.log(data)
+      dispatch({
+      type: GET_USER_BY_ID,
+      payload: data,
+    });
+    }catch(error){
+      throw error
+    }  
   };
 }
 
