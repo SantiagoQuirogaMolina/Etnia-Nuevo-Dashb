@@ -8,11 +8,12 @@ import { createReview, updateReview, deleteReview, getAllReviews } from '../../r
 
 const Reviews = () => {
   const dispatch = useDispatch();
-  const reviews = useSelector((state) => state.reviews.reviews);
+  const reviews = useSelector((state) => state.reviews);
 
   const [newReview, setNewReview] = useState({
     calification: 1,
-    review: '', 
+    review: '',
+
   });
 
   useEffect(() => {
@@ -49,7 +50,7 @@ const Reviews = () => {
     <div className={styles.container}>
     <h1>Lista de Revisiones</h1>
     <ul>
-      {reviews.map((review) => (
+      {reviews?.map((review) => (
         <li key={review.id}>
           Calificación: {review.calification}, Revisión: {review.review}{' '}
           <button type="button" onClick={() => handleUpdateReview(review.id)}>Actualizar</button>{' '}
