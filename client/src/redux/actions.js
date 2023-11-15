@@ -13,7 +13,6 @@ import getFindSelects from '../functions/getFindSelects';
 // import ProductDetail from "src/pages/productDetail/ProductDetail";
 
 // Routes Get
-
 export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 export const GET_ALL_SELECTS = 'GET_ALL_SELECTS';
@@ -32,7 +31,7 @@ export const GET_ALL_FAVS = 'GET_ALL_FAVS';
 export const GET_ALL_CARTS = 'GET_ALL_CARTS';
 export const GET_PURCHASE_DETAIL = 'GET_PURCHASE_DETAIL';
 export const GET_ALL_PURCHASES = 'GET_ALL_PURCHASES';
-export const GET_USER_PURCHASES = 'GET_USER_PURCHASES';
+export const GET_USER_PURCHASES = 'GET_USER_PUR
 // routes Delete
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';

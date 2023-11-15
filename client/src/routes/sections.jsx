@@ -345,7 +345,7 @@ function PublicUserDetail() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
-        <Route exact path="/" element={<UserDetail />} />
+        <Route exact path="/users/:id" element={<UserDetail />} />
       </Routes>
     </Suspense>
   );

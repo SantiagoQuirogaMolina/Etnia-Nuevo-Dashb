@@ -14,17 +14,31 @@ import styles from './NavBar.module.css';
 import Home from '../../assets/png/Home.png';
 import Carrito from '../../assets/png/Carrito.png';
 import Usuario from '../../assets/png/Usuario.png';
-import { isLoggedIn } from '../../functions/isLoggedIn';
-import {userLogout, registroTerceros} from "../../redux/actions";
+import {userLogout, getUserByID, registroTerceros} from "../../redux/actions";
+import Configuraciones from '../../assets/png/Configuraciones.png';
+import {userLogout, } from "../../redux/actions";
 import web_analysis_icon from '../../assets/png/web_analysis_icon.png';
 
 function NavBar(props) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { isAuthenticated, user } = useAuth0();
+  const userLogeado = useSelector((state)=> state.user);
+  const dispatch = useDispatch();
   const tokenTerceros = user?.sub;
   const emailTerceros = user?.email;
 
+
+  const handleUserClick = () => {
+    if (isAuthenticated) {
+      navigate(`/users/${userLogeado.userId}`);
+      dispatch(getUserByID(userLogeado.userId));
+    } else if (userLogeado) {
+      navigate(`/users/${userLogeado.userId}`);
+      dispatch(getUserByID(userLogeado.userId));
+    } else {
+      navigate('/user');
+    }
+  }
 
   const tokenObject = { sub: tokenTerceros, email: emailTerceros };
 
@@ -40,18 +54,7 @@ function NavBar(props) {
   }, [dispatch, isAuthenticated, tokenTerceros, tokenTerceros, user]);
 
   const userLogeado = useSelector((state)=> state.user);
-  
 
-  // const handleUserClick = () => {
-  //   if (isAuthenticated) {
-  //     navigate(`/users/${user.sub}`); // User is logged in through Auth0, redirect to Auth0 user details page.
-  //   } else if (isUserLoggedIn) {
-  //     navigate(`/users/:id`); // User is logged in through your own authentication, redirect to your user details page.
-  //   } else {
-  //     navigate('/user'); // User is not logged in, redirect to login page.
-  //   }
-  // };
-  
   const handleLoginClick = () => {
     navigate('/user');
   };
@@ -61,7 +64,8 @@ function NavBar(props) {
     localStorage.setItem('initialFilters', {});
     navigate("/");
   }
- 
+  
+  const UserId = userLogeado?.userId;
   return (
     <div className={styles.navbar}>
 
@@ -88,15 +92,20 @@ function NavBar(props) {
         </Link>
       </button>
 
-      {/* <button>
-        {isAuthenticated ? (
-          <Link to={`/users/${user.sub}`}>
-            <img className={styles.Configuraciones} src={Configuraciones} alt="Configuraciones" />
-          </Link>
-        ) : (
-          <UserDetail />
-        )}
-      </button> */}
+      
+      
+      <button onClick={handleUserClick}>
+  <img className={styles.Usuario} src={Usuario} alt="Usuario" />
+</button>
+      <button>
+  {user && (
+    <Link to={`/users/${user.id}`}>
+      <img className={styles.Configuraciones} src={Configuraciones} alt="Configuraciones" />
+    </Link>
+  )}
+  
+      </button>
+
 
       <button>
         <Link to="/admin">
