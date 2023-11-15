@@ -86,7 +86,7 @@ const paginateAllProducts = async (req, res, next) => {
 module.exports = paginateAllProducts;
 
 const getAllProducts = async () => {
-  console.log("hola desde geAllProducts");
+  
   const productsDB = await Products.findAll({
     limit: 100, // Limita los resultados a 100 productos
   });
@@ -117,7 +117,7 @@ const createProducts = async (productData) => {
   console.log (productData)
   try {
     const {
-      
+
       name,
       brand,
       gender,
@@ -138,12 +138,16 @@ const createProducts = async (productData) => {
     if(productCreated) {
       throw new Error ('Un producto ya existe con esas caracteristicas')
     }
+    
+      console.log('entro a imagen')
+      const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
+      const img = cloudinaryUpload.secure_url;
+      console.log(img)
+    
 
-    const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
-    const img = cloudinaryUpload.secure_url;
 
     const model = await Products.findAll();
-    const nextID = (model.length) + 2;
+    const nextID = (model.length) + 1;
     id = nextID
     console.log(id)
 
@@ -164,6 +168,7 @@ const createProducts = async (productData) => {
     
     return newProduct;
   } catch (error) {
+    console.log(error)
     throw error;
   }
 };

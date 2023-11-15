@@ -18,15 +18,17 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { getByID, addToCart  } from "../../redux/actions";
 import NavBar from '../../components/navBar/NavBar'
-import ReactImageMagnify from 'react-image-magnify';
+import ReactImageZoom from 'react-image-zoom';
 import Swal from 'sweetalert2';
 import styles from './ProductDetail.module.css';
+
 
 export default function ProductDetail({handleChange}) {
   
     const dispatch = useDispatch();
     const Product = useSelector((state) => state.productDetail);
     const { id } = useParams();
+    const [isHovered, setIsHovered] = useState(false);
     const [productAdded, setProductAdded] = useState(false);
     const [inputCantidad, setInputCantidad] = useState('');
     const [productUp, setProductUp] = useState(Product);
@@ -71,21 +73,20 @@ export default function ProductDetail({handleChange}) {
       })
     }
 
-    const [isHovered, setIsHovered] = useState(false);
 
-    const handleMouseEnter = () => {
-     if(inputCantidad === '') {
-       return setIsHovered(true);
-     }
-     return
-    }
+  //   const handleMouseEnter = () => {   
+  //     if(inputCantidad === '') {
+  //      return setIsHovered(true);
+  //    }
+  //    return
+  //   }
 
-   const handleMouseLeave = () => {
-    if(inputCantidad === '') {
-      setIsHovered(false);
-    }
-    return
-   }
+  //  const handleMouseLeave = () => {   
+  //    if(inputCantidad === '') {
+  //     setIsHovered(false);
+  //   }
+  //   return
+  //  }
 
    const mostrarAlerta = () => {
       Swal.fire({
@@ -97,40 +98,27 @@ export default function ProductDetail({handleChange}) {
         timer: 1500
       })
     }
-  
+    const props = {width: 400, height: 492, img: `${Product.img}`, zoomPosition: 'original'};
 
     return (
       <div className={styles.centrardiv}>
         
         <NavBar/>
         <div className={styles.space}>
-        </div>
-
+        </div> 
           <div className={styles.productdetail}>
-            <div className={styles.productdeta} style={{ width: '50vh'}}>
-            <ReactImageMagnify 
-             {...{
-               smallImage: {
-                 alt: 'product etnia',
-                 isFluidWidth: true,
-                 src: `${Product.img}` ,
-                   },
-                   largeImage: {
-                     src: `${Product.img}`,
-                     width: 1426,
-                     height: 2200
-                    },
-                 }}
-            />
+            <div>
+            <ReactImageZoom  {...props} />
             </div>
-  
             <div>
               {Product && (
                 <div className={styles.productinfo}>
                   <h2 className={styles.productname}>{Product.name}</h2>
-                  <p>${`${Product.price?.toLocaleString()} COP`} | {Product.sale}% OFF</p>
-                  <p>Descripcion: {Product.description}</p>
-                  <p className={isHovered ? styles.error : null }>Select talla:</p> 
+                  <b>${`${Product.price?.toLocaleString()} COP`} | {Product.sale}% OFF</b>
+                  <section className={styles.section}>
+                  <p> <b>Descripción: </b>{Product.description}</p>
+                  </section>
+                  <p className={inputCantidad === '' ? styles.error : null }>Select talla:</p> 
                   <div className={styles.contentLabel}>
                        {Product.size?.map(siz => (
                          <label key={Object.keys(siz)} className={styles.label}>
@@ -140,12 +128,11 @@ export default function ProductDetail({handleChange}) {
                         ))}  
                   </div>
               <button 
-              disabled={isHovered===true ? true: false}
-              onMouseEnter={()=>handleMouseEnter()}
-              onMouseLeave={()=>handleMouseLeave()}              
+              disabled={isHovered===true ? true: false || inputCantidad === ''}
+              // onMouseEnter={(event)=>handleMouseEnter(event)}
+              // onMouseLeave={(event)=>handleMouseLeave(event)}    
               onClick={handleAddToCart} className={styles.addToCartButton}>
-                Agregar al carrito
-                  
+                {inputCantidad === '' ? 'Selecciona una talla' : 'Agregar al carrito'}
               </button>
               <p>      </p>
                   <p>Marca: {Product.brand} | Categoria: {Product.category}</p>

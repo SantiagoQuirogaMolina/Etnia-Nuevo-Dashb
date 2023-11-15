@@ -13,6 +13,7 @@ const {
     updateMedioPagoById,
     getTransportadora,
     createTransportadora,
+    getTransportById,
     deleteTransportadoraById,
     updateTransportadoraById
   } = require("../controllers/tablesController");
@@ -176,8 +177,18 @@ const {
   const updateTransportHandler = async (req, res) => {
     const id = req.params.id;
     try {
-      const empresa = await updateEmpresaById(id, req.body);
+      const empresa = await updateTransportadoraById(id, req.body);
       res.status(201).json(empresa);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  };
+
+  const getTranByIdHandler = async (req, res) => {
+    const id = req.params.id;
+    try {
+      const response = await getTransportById(id);
+      res.status(200).send(response);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
@@ -187,6 +198,6 @@ const {
   module.exports = {
         getEmpresaHandler,createEmpresaHandler, updateEmpresaHandler, deleteEmpresaHandler,   
         getCuentasHandler, createCuentasHandler, updateCuentasHandler, deleteCuentasHandler,
-        getMedioHandler, createMedioHandler, updateMedioHandler, deleteMedioHandler,
+        getMedioHandler, createMedioHandler, updateMedioHandler, deleteMedioHandler,getTranByIdHandler,
         getTransportHandler, createTransportHandler, updateTransportHandler, deleteTransportHandler
   };

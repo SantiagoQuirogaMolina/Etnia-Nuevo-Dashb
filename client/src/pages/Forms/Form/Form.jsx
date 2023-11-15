@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable radix */
 /* eslint-disable perfectionist/sort-named-imports */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -65,7 +67,7 @@ const Form = () => {
       [event.target.name]: event.target.value,
     });
 
-    console.log(input)
+    // console.log(input)
     setErrors(
       Validation({
         ...input,
@@ -77,28 +79,27 @@ const Form = () => {
 
 
   const handleChangeImage = (event) => {
-    console.log(event.target.files[0])
-    console.log(event.target.value);
-
-    const file = event.target.files[0];
+   const file = event.target.files[0];
     if(file) {
       const reader = new FileReader();
+      reader.readAsDataURL(file);
       reader.onload = function charge () {
+        console.log(reader.result)
         setInput({
           ...input,
-          [event.target.name]:event.target.result,
+          [event.target.name]:reader.result,
         }) 
       }     
-      reader.readAsDataURL(event.target.files[0])
-      console.log(file);
-      console.log(reader);
-      
-      
+      setErrors(
+        Validation({
+          ...input,
+          [event.target.name]: event.target.value,
+        })
+      );
+      setErrorSubmit(''); 
+     
     }
   }
-
-  console.log(input)
-
 
   let isSubmitDisabled = Object.keys(errors).length > 0;
 
@@ -156,14 +157,18 @@ const Form = () => {
       input.brand = input.brand.toUpperCase();
       input.category = primeraMayuscula(input.category);
       input.color = primeraMayuscula(input.color);
-
+      //input.sale = parseInt(input.sale);
+      //input.price= parseInt (input.price);
       console.log(input);
+
+     
 
       if (input.quantity === 0) {
         setErrorSubmit('Debe escoger una talla y una cantidad');
         console.log(errorSubmit);
       }
       else {
+                
         await dispatch(createProduct(input));
 
         setInput({
@@ -179,7 +184,7 @@ const Form = () => {
           image: '',
           quantity: 0,
         });
-        console.log(input);
+        
         // desmarca todo los checkbox
         for (let i = 0; i < document.f1.elements.length; i++) {
           if (document.f1.elements[i].type == 'checkbox') {
@@ -381,6 +386,7 @@ return (
             <input
               className="input2"
               type="number"
+              min="0"
               id="price"
               name="price"
               value={input.price}
@@ -397,7 +403,7 @@ return (
             </label>
             <input
               className="input2"
-              type="number"
+              type="number" min="0"
               id="sale"
               name="sale"
               value={input.sale}
