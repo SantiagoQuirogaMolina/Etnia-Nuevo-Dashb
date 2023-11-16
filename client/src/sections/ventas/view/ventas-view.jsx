@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable unused-imports/no-unused-imports */
 /* eslint-disable perfectionist/sort-named-imports */
 /* eslint-disable perfectionist/sort-imports */
 /* eslint-disable import/no-unresolved */
@@ -29,6 +31,9 @@ import UserTableToolbar from '../user-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
 
 import { getAllUsers } from '../../../redux/actions';
+
+import ConstructionSvg from './ajustando.svg';
+import taladro from './trabajando.svg';
 
 // ----------------------------------------------------------------------
 
@@ -110,7 +115,7 @@ export default function VentasPage() {
 
   const notFound = !dataFiltered.length && !!filterName;
   const handleRedireccion = () => {
-    navigate('/crearuser'); // Utiliza navigate para redirigir
+   // navigate('/crearuser'); // Utiliza navigate para redirigir
   };
   return (
     <Container>
@@ -122,7 +127,20 @@ export default function VentasPage() {
         </Button>
       </Stack>
 
-      <Card>
+      <Typography variant="h2" style={{ textAlign: 'center', flex: '1', marginTop: '10rem' }}>
+        <img
+          src={ConstructionSvg}
+          alt="Construction Icon"
+          style={{ width: '50px', height: '50px', marginBottom: '0.5rem' }}
+        />
+        En construcción...
+        <img
+          src={taladro}
+          alt="Construction Icon"
+          style={{ width: '50px', height: '50px', marginBottom: '0.5rem' }}
+        />
+      </Typography>
+      {/* <Card>
         <UserTableToolbar
           numSelected={selected.length}
           filterName={filterName}
@@ -183,7 +201,7 @@ export default function VentasPage() {
           rowsPerPageOptions={[5, 10, 25]}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-      </Card>
+      </Card> */}
     </Container>
   );
 }

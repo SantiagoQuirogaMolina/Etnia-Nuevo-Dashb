@@ -28,9 +28,9 @@ const placeOrder = async (req, res) => {
         back_urls: {
           failure: "http://localhost:3030",
           pending: "http://localhost:3001/purchase/pending",
-          success: "http://localhost:3030", //cambie para que redirija a home
+          success: "http://etnia.vercel.app",
         },
-        auto_return: "approved", //vuelve automatico despues de 5seg
+        auto_return: "approved",
       },
     };
     const response = await payment.create(preference);
@@ -43,26 +43,6 @@ const placeOrder = async (req, res) => {
 
 const succesfulPurchase = async (req, res) => {
   try {
-    const { payment_id } = req.query;
-    const { userId, productId } = req.body;
-
-    const user = await User.findByPk(userId);
-    const product = await Product.findByPk(productId);
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    if (!product) {
-      return res.status(404).json({ error: "Product not found" });
-    }
-    
-    const purchase = await Purchase.create({
-      payment_id: payment_id,
-      userId: user.id,
-      productId: product.id,
-    });
-
     res.status(200).send("Compra realizada con exito");
   } catch (error) {
     res.status(400).json({ error: error.message });

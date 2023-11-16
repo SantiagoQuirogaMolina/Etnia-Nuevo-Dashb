@@ -1,33 +1,37 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/order */
 /* eslint-disable unused-imports/no-unused-imports */
 /* eslint-disable perfectionist/sort-named-imports */
 /* eslint-disable perfectionist/sort-imports */
 /* eslint-disable import/no-unresolved */
 
-import Card from '@mui/material/Card';
+// import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Table from '@mui/material/Table';
+// import Table from '@mui/material/Table';
 
 import Container from '@mui/material/Container';
-import TableBody from '@mui/material/TableBody';
+// import TableBody from '@mui/material/TableBody';
 import Typography from '@mui/material/Typography';
-import TableContainer from '@mui/material/TableContainer';
-import TablePagination from '@mui/material/TablePagination';
+// import TableContainer from '@mui/material/TableContainer';
+// import TablePagination from '@mui/material/TablePagination';
 
+import ConstructionSvg from './ajustando.svg';
+import taladro from './trabajando.svg';
 
 
 import { users } from 'src/_mock/user';
 
 
-import Scrollbar from 'src/components/scrollbar';
+// import Scrollbar from 'src/components/scrollbar';
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import TableNoData from '../table-no-data';
-import UserTableRow from '../user-table-row';
-import UserTableHead from '../user-table-head';
-import TableEmptyRows from '../table-empty-rows';
-import UserTableToolbar from '../user-table-toolbar';
-import { emptyRows, applyFilter, getComparator } from '../utils';
+// import TableNoData from '../table-no-data';
+// import UserTableRow from '../user-table-row';
+// import UserTableHead from '../user-table-head';
+// import TableEmptyRows from '../table-empty-rows';
+// import UserTableToolbar from '../user-table-toolbar';
+// import { emptyRows, applyFilter, getComparator } from '../utils';
 
 import { getAllUsers } from '../../../redux/actions';
 
@@ -44,7 +48,7 @@ export default function PqrsPage() {
   }, [dispatch]);
 
 
-  const [page, setPage] = useState(0);
+  // const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
 
@@ -62,54 +66,54 @@ export default function PqrsPage() {
   if (!usersss) {
     dispatch(getAllUsers());
   }
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = users.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
+  // const handleSelectAllClick = (event) => {
+  //   if (event.target.checked) {
+  //     const newSelecteds = users.map((n) => n.name);
+  //     setSelected(newSelecteds);
+  //     return;
+  //   }
+  //   setSelected([]);
+  // };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-    setSelected(newSelected);
-  };
+  // const handleClick = (event, name) => {
+  //   const selectedIndex = selected.indexOf(name);
+  //   let newSelected = [];
+  //   if (selectedIndex === -1) {
+  //     newSelected = newSelected.concat(selected, name);
+  //   } else if (selectedIndex === 0) {
+  //     newSelected = newSelected.concat(selected.slice(1));
+  //   } else if (selectedIndex === selected.length - 1) {
+  //     newSelected = newSelected.concat(selected.slice(0, -1));
+  //   } else if (selectedIndex > 0) {
+  //     newSelected = newSelected.concat(
+  //       selected.slice(0, selectedIndex),
+  //       selected.slice(selectedIndex + 1)
+  //     );
+  //   }
+  //   setSelected(newSelected);
+  // };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  // const handleChangePage = (event, newPage) => {
+  //   setPage(newPage);
+  // };
 
-  const handleChangeRowsPerPage = (event) => {
-    setPage(0);
-    setRowsPerPage(parseInt(event.target.value, 10));
-  };
+  // const handleChangeRowsPerPage = (event) => {
+  //   setPage(0);
+  //   setRowsPerPage(parseInt(event.target.value, 10));
+  // };
 
-  const handleFilterByName = (event) => {
-    setPage(0);
-    setFilterName(event.target.value);
-  };
+  // const handleFilterByName = (event) => {
+  //   setPage(0);
+  //   setFilterName(event.target.value);
+  // };
 
-  const dataFiltered = applyFilter({
-    inputData: users,
-    comparator: getComparator(order, orderBy),
-    filterName,
-  });
+  // const dataFiltered = applyFilter({
+  //   inputData: users,
+  //   comparator: getComparator(order, orderBy),
+  //   filterName,
+  // });
 
-  const notFound = !dataFiltered.length && !!filterName;
+  // const notFound = !dataFiltered.length && !!filterName;
 
   return (
     <Container>
@@ -118,7 +122,20 @@ export default function PqrsPage() {
 
       </Stack>
 
-      <Card>
+      <Typography variant="h2" style={{ textAlign: 'center', flex: '1', marginTop: '10rem' }}>
+        <img
+          src={ConstructionSvg}
+          alt="Construction Icon"
+          style={{ width: '50px', height: '50px', marginBottom: '0.5rem' }}
+        />
+        En construcción...
+        <img
+          src={taladro}
+          alt="Construction Icon"
+          style={{ width: '50px', height: '50px', marginBottom: '0.5rem' }}
+        />
+      </Typography>
+      {/* <Card>
         <UserTableToolbar
           numSelected={selected.length}
           filterName={filterName}
@@ -179,7 +196,7 @@ export default function PqrsPage() {
           rowsPerPageOptions={[5, 10, 25]}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-      </Card>
+      </Card> */}
     </Container>
   );
 }

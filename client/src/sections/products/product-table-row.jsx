@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable import/no-duplicates */
 import React from 'react';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Stack from '@mui/material/Stack';
@@ -20,7 +21,7 @@ import Label from 'src/components/label';
 // eslint-disable-next-line import/no-unresolved
 import Iconify from 'src/components/iconify';
 
-import { deleteProduct } from '../../redux/actions';
+import { deleteProduct, restoreProduct } from '../../redux/actions';
 
 export default function ProductTableRow({
   id,
@@ -33,12 +34,12 @@ export default function ProductTableRow({
   sale,
   category,
   color,
+  deletedAt,
   handleClick,
 }) {
- 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   useEffect(() => {}, [dispatch]);
 
   const [open, setOpen] = React.useState(null);
@@ -62,7 +63,12 @@ export default function ProductTableRow({
     console.log('Eliminar', id);
     handleCloseMenu();
   };
-
+  const handleRestoreClick = () => {
+    window.location.reload();
+    dispatch(restoreProduct(id));
+    console.log('restaurrrr', id);
+    handleCloseMenu();
+  };
 
   return (
     <>
@@ -117,10 +123,17 @@ export default function ProductTableRow({
           Edit
         </MenuItem>
 
-        <MenuItem onClick={handleDeleteClick}>
-          <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
-          Delete
-        </MenuItem>
+        {deletedAt ? ( // Verifica si el producto ha sido eliminado
+          <MenuItem onClick={handleRestoreClick}>
+            <Iconify icon="eva:refresh-outline" sx={{ mr: 2 }} />
+            Restore
+          </MenuItem>
+        ) : (
+          <MenuItem onClick={handleDeleteClick}>
+            <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
+            Delete
+          </MenuItem>
+        )}
       </Popover>
     </>
   );

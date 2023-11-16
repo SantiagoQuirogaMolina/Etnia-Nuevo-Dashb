@@ -59,7 +59,7 @@ function ConfirmTokenForm() {
 
   return (
     <div className={styles["login-container"]}>
-      <h2>Confirmar Token</h2>
+      <h2>Compra exitosa</h2>
       <img src={LogoEtniablanco} alt="Etnia Logo" />
       <form className={styles["login-form"]} onSubmit={handleConfirmToken}>
         <div className={styles["form-group"]}>

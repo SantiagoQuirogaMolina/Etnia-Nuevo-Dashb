@@ -3,8 +3,9 @@
 /* eslint-disable perfectionist/sort-imports */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
-import React, { lazy, Suspense } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import React, { lazy, Suspense, useEffect } from 'react';
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import DashboardLayout from 'src/layouts/dashboard';
 
@@ -27,6 +28,8 @@ import RegisterForm from '../pages/logIn/registerForm';
 import UpdateProducto from '../pages/Forms/FormEditProduct/FormEditProduct'
 import CrearUser from '../pages/Forms/FormCreateUsers/CreateUsers'
 import EditUser from '../pages/Forms/FormEditUsers/EditUsers'
+import ConfirmPurchase from '../pages/Reviews/confirmPurchase'
+
 
 
 const IndexPage = lazy(() => import('../pages/app'));
@@ -73,11 +76,25 @@ function Router() {
       <Route exact path="/cuentabanco" element={<PublicFormCtaBanco />} />
       <Route exact path="/RegisterForm" element={<PublicRegisterForm />} />
       <Route exact path="/ConfirmTokenForm" element={<PublicConfirmTokenForm />} />
+      <Route exact path="/confirmPurchase" element={<PublicConfirmPurchase />} />
       <Route exact path="*" element={<PublicRoutes />} />
     </Routes>
   );
 }
 function AdminRoutes() {
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(!user?.idAdmin){
+      if(!user){
+        navigate("/user")
+      }
+      navigate("/")
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
   return (
     <DashboardLayout>
       <Suspense fallback={<div>Loading...</div>}>
@@ -175,6 +192,16 @@ function PublicRoutes() {
     </Routes>
   );
 }
+function PublicConfirmPurchase() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<ConfirmPurchase />} />
+      </Routes>
+    </Suspense>
+  );
+}
+
 function PublicConfirmTokenForm() {
   return (
     <Suspense fallback={<div>Loading...</div>}>

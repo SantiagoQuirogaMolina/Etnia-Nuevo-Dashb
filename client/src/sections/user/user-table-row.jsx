@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable import/extensions */
 /* eslint-disable no-unused-vars */
 /* eslint-disable perfectionist/sort-named-imports */
@@ -22,7 +23,7 @@ import IconButton from '@mui/material/IconButton';
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 
-import { deleteUser } from '../../redux/actions';
+import { deleteUser,restoreUser } from '../../redux/actions';
 
 export default function UserTableRow({
   id,
@@ -33,6 +34,7 @@ export default function UserTableRow({
   employe,
   isVerified,
   status,
+  deletedAt,
   handleClick,
 }) {
   const navigate = useNavigate();
@@ -58,6 +60,14 @@ export default function UserTableRow({
 
   const handleDeleteClick = () => {
     dispatch(deleteUser(id));
+    console.log('Eliminar', id);
+    window.location.reload();
+    handleCloseMenu();
+  };
+  const handleRestoreClick = () => {
+    window.location.reload();
+    dispatch(restoreUser(id));
+    console.log('restaurrrr', id);
     handleCloseMenu();
   };
 
@@ -107,10 +117,17 @@ export default function UserTableRow({
           Edit
         </MenuItem>
 
-        <MenuItem onClick={handleDeleteClick}>
-          <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
-          Delete
-        </MenuItem>
+        {deletedAt ? ( // Verifica si el producto ha sido eliminado
+          <MenuItem onClick={handleRestoreClick}>
+            <Iconify icon="eva:refresh-outline" sx={{ mr: 2 }} />
+            Restore
+          </MenuItem>
+        ) : (
+          <MenuItem onClick={handleDeleteClick}>
+            <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
+            Delete
+          </MenuItem>
+        )}
       </Popover>
     </>
   );

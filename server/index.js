@@ -64,7 +64,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 3001;
 
 conn
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     prendas();
 

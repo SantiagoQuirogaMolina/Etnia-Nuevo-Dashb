@@ -117,7 +117,6 @@ const createProducts = async (productData) => {
   console.log (productData)
   try {
     const {
-
       name,
       brand,
       gender,
@@ -139,20 +138,17 @@ const createProducts = async (productData) => {
       throw new Error ('Un producto ya existe con esas caracteristicas')
     }
     
-      console.log('entro a imagen')
+     
       const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
       const img = cloudinaryUpload.secure_url;
       console.log(img)
     
-
-
-    const model = await Products.findAll();
-    const nextID = (model.length) + 1;
-    id = nextID
-    console.log(id)
+    // const model = await Products.findAll();
+    // const nextID = (model.length) + 1;
+    // id = nextID
+    // console.log(id)
 
     const newProduct = await Products.create({
-      id,
       name,
       brand,
       gender,
@@ -196,15 +192,49 @@ const restoreProductById = async (id) => {
   }
 };
 const updateProductById = async (id, newData) => {
+  
   try {
+    const {
+      name,
+      brand,
+      gender,
+      size,
+      color,
+      sale,
+      category,
+      image, 
+      description,
+      price,
+      quantity,
+    } = newData;
     const productToUpdate = await Products.findByPk(id);
-
+    
     if (!productToUpdate) {
       throw new Error(`Producto con ID ${id} no encontrado.`);
     }
-
+    
+    console.log(image)
+    const cloudinaryUpload = await cloudinary.uploader.upload(`${image}`);
+    const img = cloudinaryUpload.secure_url;
+    
+    
+    
     // Actualiza los campos del producto con los nuevos datos
-    await productToUpdate.update(newData);
+
+    await productToUpdate.update({
+      id,
+      name,
+      brand,
+      gender,
+      size,
+      color,
+      sale,
+      category,
+      img,
+      description,
+      price,
+      quantity,
+    });
 
     return productToUpdate;
   } catch (error) {

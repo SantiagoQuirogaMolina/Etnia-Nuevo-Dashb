@@ -2,18 +2,18 @@ const validate = (state) => {
     const errors = {};
     
     const patronEmail = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
-    const patronCharact = /^[a-zA-Z0-9\s]+$/;
+    const patronCharact = /^[A-Za-zÑñáéíóúü]+[- ]{0,1}[A-Za-zÑñáéíóúü]+$/;
     const patronNumerico = /^[0-9]+$/;
    // const patronPassword = /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/;
     
     
     if (!state.name) errors.name = 'Este campo es requerido'
-    if (!patronCharact.test((state.name))) errors.name = 'Caracteres especiales no son permitidos'
+    if (!patronCharact.test((state.name))) errors.name = 'Hasta dos nombres son permitidos'
     if (state.name.length > 250){
       errors.name = 'Debe ser menor a 250 caracteres';
     }
 
-    if (!state.last_name) errors.last_name = 'Este campo es requerido'
+    if (!state.last_name) errors.last_name = 'Hasta dos apellidos son requeridos'
     if (!patronCharact.test((state.last_name))) errors.last_name = 'Caracteres especiales no son permitidos'
     if (state.last_name.length > 250){
       errors.last_name = 'Debe ser menor a 250 caracteres';

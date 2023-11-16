@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 // const URL = "https://etnia.vercel.app";
-const URL = "http://localhost:3031";
+const URL = "http://localhost:3030";
 
 
 const uuid = require("uuid");
@@ -243,6 +243,7 @@ const loginUser = async (req, res) => {
     }
     const userId = user.id;
     const userEmail = user.email;
+    const idAdmin = user.admin;
     
     const passwordMatch = await bcrypt.compare(
       password,
@@ -252,7 +253,7 @@ const loginUser = async (req, res) => {
     if (passwordMatch) {
       // La contraseña proporcionada coincide con la contraseña almacenada en la base de datos
       const token = jwt.sign({ userId: user.dataValues.id }, "your_jwt_secret"); // Reemplaza 'your_jwt_secret' por tu clave JWT real
-      res.json({ token, userId, userEmail });
+      res.json({ token, userId, userEmail, idAdmin });
     } else {
       // Las contraseñas no coinciden
       return res
@@ -262,6 +263,14 @@ const loginUser = async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+const restoreUserById = async (id) => {
+  try {
+    const restoredUser = await User.restore({ where: { id } });
+    return restoredUser; 
+  } catch (error) {
+    throw error; 
   }
 };
 module.exports = {
@@ -274,5 +283,6 @@ module.exports = {
   updateUserById,
   loginUser,
   confirmEmailControll,
-  postRegsiterTercerosController
+  postRegsiterTercerosController,
+  restoreUserById
 };

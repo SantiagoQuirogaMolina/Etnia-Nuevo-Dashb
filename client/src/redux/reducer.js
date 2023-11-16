@@ -42,7 +42,8 @@ import {
   GET_ALL_PURCHASES,
   GET_PURCHASE_DETAIL,
   PERSIST_USER,
-
+  GET_DELETED_ELEMENTS,
+  GET_DELETED_USERS,
 
   REGISTRO_TERCEROS,
 
@@ -77,6 +78,10 @@ const initialState = {
   localstorage: [],
   user: null,
   review:[],
+  reviewId:[],
+  deletedElements:[],
+  deletedUsers:[]
+
 };
 
 
@@ -140,11 +145,15 @@ const reducer = (state = initialState, action) => {
             };
             case DELETE_REVIEW:
               return action.payload
-              case GET_REVIEW_BY_ID:
+
+              case GET_REVIEW_BY_ID: { 
+                console.log("estoy en el reducer")
+                
                 return{
                   ...state,
-                  review:action.payload
-                }
+                  reviewId:action.payload                  
+                } 
+              }
 
 
     case GET_ALL_FAVS:
@@ -340,8 +349,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: action.payload
       }
-
-
+    case GET_DELETED_ELEMENTS:
+        return{
+          ...state,
+          deletedElements:action.payload
+        }
+    case GET_DELETED_USERS:
+        return{
+        ...state,
+        deletedUsers:action.payload
+        }    
     default:
       return { ...state };
   }
