@@ -1,10 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import styles from './reviews.module.css';
 import { createReview, updateReview, deleteReview, getAllReviews } from '../../redux/actions';
 
+// Componente para una estrella individual
+const Star = ({ selected, onSelect }) => (
+  <button
+    type="button"
+    onClick={onSelect}
+    onKeyDown={(e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        onSelect();
+      }
+    }}
+  >
+    {selected ? '⭐' : '✩'}
+  </button>
+);
 
+
+
+Star.PropTypes = {
+  selected: PropTypes.bool.isRequired,
+  onSelect: PropTypes.func.isRequired,
+};
 
 const Reviews = () => {
   const dispatch = useDispatch();
@@ -13,7 +33,6 @@ const Reviews = () => {
   const [newReview, setNewReview] = useState({
     calification: 1,
     review: '',
-
   });
 
   useEffect(() => {
@@ -21,16 +40,11 @@ const Reviews = () => {
   }, [dispatch]);
 
   const handleCreateReview = () => {
-    // Verificar que la calificación esté entre 1 y 5
-    if (newReview.calification >= 1 && newReview.calification <= 5) {
-      dispatch(createReview(newReview));
-      setNewReview({
-        calification: 1,
-        review: '',
-      });
-    } else {
-      alert('La calificación debe estar entre 1 y 5');
-    }
+    dispatch(createReview(newReview));
+    setNewReview({
+      calification: 1,
+      review: '',
+    });
   };
 
   const handleUpdateReview = (id) => {
@@ -41,48 +55,56 @@ const Reviews = () => {
     };
     dispatch(updateReview(updatedReview));
   };
-
+  
   const handleDeleteReview = (id) => {
     dispatch(deleteReview(id));
   };
 
+  const handleStarClick = (selectedStar) => {
+    setNewReview({ ...newReview, calification: selectedStar });
+  };
+
   return (
     <div className={styles.container}>
-    <h1>Lista de Revisiones</h1>
-    <ul>
-      {reviews?.map((review) => (
-        <li key={review.id}>
-          Calificación: {review.calification}, Revisión: {review.review}{' '}
-          <button type="button" onClick={() => handleUpdateReview(review.id)}>Actualizar</button>{' '}
-          <button type="button" onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
-        </li>
-      ))}
-    </ul>
+      <p>Reseñas del producto</p>
+      <ul>
+        {reviews?.map((review) => (
+          <li key={review.id}>
+            Calificación: {review.calification}, Revisión: {review.review}{' '}
+            <button type="button" onClick={() => handleUpdateReview(review.id)}>
+              Actualizar
+            </button>{' '}
+            <button type="button" onClick={() => handleDeleteReview(review.id)}>
+              Eliminar
+            </button>
+          </li>
+        ))}
+      </ul>
 
-    <h2>Crear Nueva Revisión</h2>
-    <div className={styles.formContainer}>
-      <label htmlFor="calificationInput">
-        Calificación:
-        <input
-          type="number"
-          min="1"
-          max="5"
-          value={newReview.calification}
-          onChange={(e) => setNewReview({ ...newReview, calification: parseInt(e.target.value, 10) })}
-        />
-      </label>
-      <label htmlFor="reviewTextArea">
-        Revisión:
-        <textarea
-          value={newReview.review}
-          onChange={(e) => setNewReview({ ...newReview, review: e.target.value })}
-        />
-      </label>
-      <button type="button" onClick={handleCreateReview}>Crear Revisión</button>
+      <p>Crear Nueva reseña</p>
+      <div className={styles.formContainer}>
+        <div className={styles.starContainer}>
+          {[1, 2, 3, 4, 5].map((star) => (
+            <Star
+              key={star}
+              selected={star <= newReview.calification}
+              onSelect={() => handleStarClick(star)}
+            />
+          ))}
+        </div>
+        <label htmlFor="reviewTextArea">
+          Reseña:
+          <textarea
+            value={newReview.review}
+            onChange={(e) => setNewReview({ ...newReview, review: e.target.value })}
+          />
+        </label>
+        <button type="button" onClick={handleCreateReview}>
+          Crear Revisión
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default Reviews;
-
