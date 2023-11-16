@@ -6,6 +6,7 @@ import styles from './reviews.module.css';
 import { createReview, updateReview, deleteReview, getAllReviews } from '../../redux/actions';
 
 // Componente para una estrella individual
+// eslint-disable-next-line react/prop-types
 const Star = ({ selected, onSelect }) => (
   <button
     type="button"
@@ -22,6 +23,7 @@ const Star = ({ selected, onSelect }) => (
 
 
 
+// eslint-disable-next-line react/no-typos
 Star.PropTypes = {
   selected: PropTypes.bool.isRequired,
   onSelect: PropTypes.func.isRequired,

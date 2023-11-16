@@ -83,7 +83,6 @@ function LogIn(props) {
     dispatch(userLogin(email, password))
       .then((response) => {
         dispatch(userLogeado(response));
-        // Aquí puedes continuar con el código después de iniciar sesión con éxito
         localStorage.setItem('initialFilters', {});
         cargarCarrito(email);
         navigate("/");
