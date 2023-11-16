@@ -2,9 +2,9 @@
 /* eslint-disable react/jsx-curly-brace-presence */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-unused-vars */
+import { Link } from 'react-router-dom';
 /* eslint-disable unused-imports/no-unused-imports */
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import NavBar from '../navBar/NavBar';
