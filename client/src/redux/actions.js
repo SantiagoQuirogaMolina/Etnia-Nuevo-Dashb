@@ -32,6 +32,7 @@ export const GET_ALL_CARTS = 'GET_ALL_CARTS';
 export const GET_PURCHASE_DETAIL = 'GET_PURCHASE_DETAIL';
 export const GET_ALL_PURCHASES = 'GET_ALL_PURCHASES';
 export const GET_USER_PURCHASES = 'GET_USER_PURCHASES';
+export const GET_DELETED_ELEMENTS = 'GET_DELETED_ELEMENTS';
 // routes Delete
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
@@ -900,3 +901,14 @@ export function userLogeado(user) {
     }
   };
 }
+
+export function getDeletedElements() {
+    return async function (dispatch) {
+      const deletedElements = await axios.get(`${URL}/deletedElements`);
+      dispatch({
+        type: GET_DELETED_ELEMENTS,
+        payload: deletedElements.data,
+      });
+    };
+  }
+  
