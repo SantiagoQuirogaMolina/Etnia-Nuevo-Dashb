@@ -148,7 +148,8 @@ export default function ProductDetail({handleChange}) {
             </div>
          </div>
          <div>
-          <Reviews/>
+          <Reviews
+          productId = {id}/>
          </div>
       </div>
       

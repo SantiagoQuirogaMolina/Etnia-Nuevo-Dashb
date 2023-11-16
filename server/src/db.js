@@ -92,8 +92,8 @@ PaymentMethod.belongsToMany(User, { through: "user_paymentMethod" });
 User.hasMany(Reviews, { foreignKey: "userId", sourceKey: "id" });
 Reviews.belongsTo(User, { foreignKey: "userId", targetKey: "id" });
 
-Products.hasMany(Reviews, { foreignKey: "productId", sourceKey: "id" });
-Reviews.belongsTo(Products, { foreignKey: "productId", targetKey: "id" });
+Products.hasMany(Reviews, { foreignKey: "productsId", sourceKey: "id" });
+Reviews.belongsTo(Products, { foreignKey: "productsId", targetKey: "id" });
 
 Logistics.hasMany(Shipments, { foreignKey: "logisticsId", sourceKey: "id" });
 Shipments.belongsTo(Logistics, { foreignKey: "logisticsId", targetKey: "id" });

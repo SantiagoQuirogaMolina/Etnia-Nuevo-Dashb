@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './reviews.module.css';
-import { createReview, updateReview, deleteReview, getAllReviews } from '../../redux/actions';
+import { createReview, deleteReview, getReviewById } from '../../redux/actions';
 
 // Componente para una estrella individual
 // eslint-disable-next-line react/prop-types
@@ -29,18 +29,21 @@ Star.PropTypes = {
   onSelect: PropTypes.func.isRequired,
 };
 
-const Reviews = () => {
+// eslint-disable-next-line react/prop-types
+const Reviews = ({productId}) => {
   const dispatch = useDispatch();
-  const reviews = useSelector((state) => state.reviews);
-
+  const reviewId = useSelector((state) => state.reviewId);
+  // const reviewsById = useSelector((state) => state.reviews);
   const [newReview, setNewReview] = useState({
     calification: 1,
     review: '',
   });
-
+console.log(productId);
   useEffect(() => {
-    dispatch(getAllReviews());
-  }, [dispatch]);
+    dispatch(getReviewById(productId));
+  }, [productId , dispatch]);
+  console.log("aqui toy resenando");
+  console.log(reviewId);
 
   const handleCreateReview = () => {
     dispatch(createReview(newReview));
@@ -48,15 +51,6 @@ const Reviews = () => {
       calification: 1,
       review: '',
     });
-  };
-
-  const handleUpdateReview = (id) => {
-    const updatedReview = {
-      id,
-      calification: 3, // se puede obtener el valor del input o usar otro método para obtener la nueva calificación
-      review: 'Nuevo texto de revisión', // se puede obtener el valor del input o usar otro método para obtener la nueva revisión
-    };
-    dispatch(updateReview(updatedReview));
   };
   
   const handleDeleteReview = (id) => {
@@ -71,12 +65,9 @@ const Reviews = () => {
     <div className={styles.container}>
       <p>Reseñas del producto</p>
       <ul>
-        {reviews?.map((review) => (
+        {reviewId?.map((review) => (
           <li key={review.id}>
             Calificación: {review.calification}, Revisión: {review.review}{' '}
-            <button type="button" onClick={() => handleUpdateReview(review.id)}>
-              Actualizar
-            </button>{' '}
             <button type="button" onClick={() => handleDeleteReview(review.id)}>
               Eliminar
             </button>

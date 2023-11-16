@@ -43,20 +43,20 @@ const createReview = async (req, res) => {
 // para obtener una revisión por su ID
 const getReviewById = async (req, res) => {
   const { id } = req.params;
-
+console.log("entre a buscar el productillo")
   try {
-    const review = await Reviews.findByPk(id);
-    if (review) {
-      res.json(review);
+    const reviews = await Reviews.findAll({ where: { productsId: id } });
+
+    if (reviews.length > 0) {
+      res.json(reviews);
     } else {
-      res.status(404).json({ error: 'Revisión no encontrada.' });
+      res.status(404).json({ error: 'Reviews not found.' });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al obtener la revisión.' });
+    res.status(500).json({ error: 'Error fetching reviews.' });
   }
 };
-
 // actualizar una revisión por su ID
 const updateReviewById = async (req, res) => {
   const { id } = req.params;

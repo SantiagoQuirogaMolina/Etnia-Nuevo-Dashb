@@ -123,7 +123,7 @@ function NavBar(props) {
         </Link>
       </button>
 
-      {user?.idAdmin && <button> <Link to="/admin"><img src={web_analysis_icon} alt="web_analysis_icon" /></Link> </button>}
+      {userLogeado?.idAdmin && <button> <Link to="/admin"><img src={web_analysis_icon} alt="web_analysis_icon" /></Link> </button>}
 
       <button>
         <Link to="/favorites">

@@ -174,8 +174,10 @@ export function createReview(newReview) {
   };
 }
 export function getReviewById(id) {
+  console.log(id)
   return async function (dispatch) {
     const reviewsInfo = await axios.get(`${URL}/reviews/${id}`);
+    console.log(reviewsInfo.data);
     dispatch({
       type: GET_REVIEW_BY_ID,
       payload: reviewsInfo.data,

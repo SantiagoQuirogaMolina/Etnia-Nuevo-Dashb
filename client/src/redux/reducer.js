@@ -78,6 +78,7 @@ const initialState = {
   localstorage: [],
   user: null,
   review:[],
+  reviewId:[],
   deletedElements:[],
   deletedUsers:[]
 
@@ -144,11 +145,15 @@ const reducer = (state = initialState, action) => {
             };
             case DELETE_REVIEW:
               return action.payload
-              case GET_REVIEW_BY_ID:
+
+              case GET_REVIEW_BY_ID: { 
+                console.log("estoy en el reducer")
+                
                 return{
                   ...state,
-                  review:action.payload
-                }
+                  reviewId:action.payload                  
+                } 
+              }
 
 
     case GET_ALL_FAVS:
