@@ -41,7 +41,7 @@ export default function Favorites(props) {
       <NavBar />
       {favorites?.length > 0 ? (
         <>
-          <h2>Tus favoritos</h2>
+          <h2>Favoritos de {user?.userEmail}</h2>
           <div className={stylesContainer['card-container']}>
             {favorites.map((fav) => (
               <div key={fav.id} className={styles.card}>
