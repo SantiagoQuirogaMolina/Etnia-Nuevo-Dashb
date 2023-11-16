@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 // const URL = "https://etnia.vercel.app";
-const URL = "http://localhost:3031";
+const URL = "http://localhost:3030";
 
 
 const uuid = require("uuid");

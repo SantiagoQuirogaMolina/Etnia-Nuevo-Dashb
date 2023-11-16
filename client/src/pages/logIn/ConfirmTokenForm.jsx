@@ -46,7 +46,7 @@ function ConfirmTokenForm() {
         console.log("formulario dispatch");
         console.log(response.success);
         if (response.success) {
-          navigate("/");
+          navigate("/user");
           // Aquí puedes continuar con el código después de confirmar el token con éxito
         }
       })

@@ -77,7 +77,7 @@ function RegisterForm(props) {
             "Registro exitoso: Revisa tu correo para confirmar tu contraseña",
             response.message
           );
-          navigate("/user");
+        //  navigate("/");
           // Aquí puedes continuar con el código después de registrar al usuario con éxito
         } else {
           console.error("Error durante el registro:", response.message);

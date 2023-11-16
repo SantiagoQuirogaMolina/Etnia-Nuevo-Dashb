@@ -1,16 +1,32 @@
-
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
+import {getAllUsers } from '../../../redux/actions';
 import AppWebsiteVisits from '../app-website-visits';
 import AppWidgetSummary from '../app-widget-summary';
-
-
+// getAllUsers
 // ----------------------------------------------------------------------
 
 export default function AppView() {
+  const allUsers = useSelector((state)=> state.allUsers);
+  const dispatch = useDispatch();
+  
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]); 
+
+
+  useEffect(() => {
+    console.log(allUsers.length);
+  }, [allUsers]);
+
+  console.log(allUsers);
+
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
@@ -30,7 +46,7 @@ export default function AppView() {
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="Nuevos Usuarios"
-            total={1352831}
+            total={allUsers.length}
             color="info"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
           />
