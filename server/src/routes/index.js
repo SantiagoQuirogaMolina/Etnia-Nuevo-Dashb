@@ -8,6 +8,7 @@ const cartRouter = require("./cartRouter");
 const mercadoRouter = require("./mercadoRoute");
 const tablesRouter = require("./tablesRouter");
 const reviewsRouter = require("./reviewsRouter");
+const deletedRouter = require("./deletedRouter")
 
 
 indexRouter.use("/products", productsRouter);
@@ -18,6 +19,6 @@ indexRouter.use("/cart", cartRouter);
 indexRouter.use("/purchase", mercadoRouter);
 indexRouter.use("/tables", tablesRouter);
 indexRouter.use("/reviews", reviewsRouter);
-
+indexRouter.use("/deletedElements", deletedRouter);
 
 module.exports = indexRouter;
