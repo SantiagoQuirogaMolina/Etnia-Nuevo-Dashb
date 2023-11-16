@@ -26,13 +26,13 @@ const placeOrder = async (req, res) => {
       body: {
         items: items,
         back_urls: {
-          failure: "www.google.com",
+          failure: "http://localhost:3030",
           pending: "http://localhost:3001/purchase/pending",
-          success: "http://localhost:3001/purchase/success",
+          success: "http://localhost:3030", //cambie para que redirija a home
         },
+        auto_return: "approved", //vuelve automatico despues de 5seg
       },
     };
-
     const response = await payment.create(preference);
     res.status(200).send(response);
     console.log(response);

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { useAuth0 } from "@auth0/auth0-react";
 
-import {userLogout} from "../../redux/actions";
+import {clearCart, userLogout} from "../../redux/actions";
 
 const LogoutButton = () => {
   const dispatch = useDispatch();
@@ -15,6 +15,7 @@ const LogoutButton = () => {
   const handleLogOut = ()=>{
     dispatch(userLogout());
     localStorage.setItem('initialFilters', {});
+    dispatch(clearCart());
     navigate("/");
   }
 

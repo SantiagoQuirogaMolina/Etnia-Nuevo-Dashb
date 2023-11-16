@@ -21,6 +21,7 @@ import NavBar from '../../components/navBar/NavBar'
 import ReactImageZoom from 'react-image-zoom';
 import Swal from 'sweetalert2';
 import styles from './ProductDetail.module.css';
+ import Reviews from '../Reviews/reviews';
 
 
 export default function ProductDetail({handleChange}) {
@@ -141,6 +142,10 @@ export default function ProductDetail({handleChange}) {
               )}
             </div>
          </div>
+         <div>
+          <Reviews/>
+         </div>
       </div>
+      
     );
   }

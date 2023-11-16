@@ -14,18 +14,23 @@ import styles from './NavBar.module.css';
 import Home from '../../assets/png/Home.png';
 import Carrito from '../../assets/png/Carrito.png';
 import Usuario from '../../assets/png/Usuario.png';
-import Configuraciones from '../../assets/png/Configuraciones.png';
 import web_analysis_icon from '../../assets/png/web_analysis_icon.png';
-import {userLogout, getUserByID, registroTerceros} from "../../redux/actions";
+import {
+  saveCart,
+  clearCart,
+  userLogout,
+  getUserByID,
+  registroTerceros,
+} from '../../redux/actions';
 
 function NavBar(props) {
   const navigate = useNavigate();
-  const { isAuthenticated, user } = useAuth0();
-  const userLogeado = useSelector((state)=> state.user);
+  const { isAuthenticated, user, logout } = useAuth0();
+  const userLogeado = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const tokenTerceros = user?.sub;
   const emailTerceros = user?.email;
-
+  const cart = useSelector((state) => state.cart);
 
   const handleUserClick = () => {
     if (isAuthenticated) {
@@ -37,7 +42,7 @@ function NavBar(props) {
     } else {
       navigate('/user');
     }
-  }
+  };
 
   const tokenObject = { sub: tokenTerceros, email: emailTerceros };
 
@@ -45,39 +50,66 @@ function NavBar(props) {
     console.log('holaaaa desde la navbar');
     console.log(user);
     console.log(tokenObject);
-  
 
     if (tokenTerceros && tokenTerceros.length > 0 && tokenObject) {
       dispatch(registroTerceros(tokenObject));
     }
   }, [dispatch, isAuthenticated, tokenTerceros, tokenTerceros, user]);
 
-
-
   const handleLoginClick = () => {
     navigate('/user');
   };
 
-  const handleLogOut = ()=>{
+  const handleLogOutTerceros = () => {
+    logout();
+    localStorage.setItem('initialFilters', {});
+    navigate('/');
+  };
+
+  const UserEmail = userLogeado?.userEmail;
+  const save = () => {
+    const objectPayload = {
+      cart,
+      user: userLogeado?.userEmail,
+    };
+    if (userLogeado.userEmail) {
+      dispatch(saveCart(objectPayload));
+    }
+  };
+
+  const handleLogOut = () => {
     dispatch(userLogout());
     localStorage.setItem('initialFilters', {});
-    navigate("/");
-  }
-  
+    save();
+    dispatch(clearCart());
+    navigate('/');
+  };
+
   const UserId = userLogeado?.userId;
+
   return (
     <div className={styles.navbar}>
-
-      {userLogeado?.userEmail ? (
+      {isAuthenticated || userLogeado ? (
         <section className={styles.section}>
-        <button onClick={()=>handleLogOut()} >🔓</button>
-        <button onClick={handleLoginClick}>{userLogeado.userEmail}</button>
+          {userLogeado && userLogeado.userEmail && (
+            <>
+              <button onClick={() => handleLogOut()}>🔓</button>
+              <button>{userLogeado.userEmail}</button>
+            </>
+          )}
+          {isAuthenticated && emailTerceros && (
+            <>
+              <button onClick={() => handleLogOutTerceros()}>🔓</button>
+              <button>{emailTerceros}</button>
+            </>
+          )}
+    
         </section>
-    ) : (
-      <button onClick={handleLoginClick}>
-        <img className={styles.Usuario} src={Usuario} alt="Usuario" />
-      </button>
-    )}
+      ) : (
+        <button onClick={handleLoginClick}>
+          <img className={styles.Usuario} src={Usuario} alt="Usuario" />
+        </button>
+      )}
 
       <button>
         <Link to="/">
@@ -91,27 +123,11 @@ function NavBar(props) {
         </Link>
       </button>
 
-      
-      
-      <button onClick={handleUserClick}>
-  <img className={styles.Usuario} src={Usuario} alt="Usuario" />
-</button>
-      <button>
-  {user && (
-    <Link to={`/users/${user.id}`}>
-      <img className={styles.Configuraciones} src={Configuraciones} alt="Configuraciones" />
-    </Link>
-  )}
-  
-      </button>
-
-
       <button>
         <Link to="/admin">
           <img src={web_analysis_icon} alt="web_analysis_icon" />
         </Link>
       </button>
-
 
       <button>
         <Link to="/favorites">

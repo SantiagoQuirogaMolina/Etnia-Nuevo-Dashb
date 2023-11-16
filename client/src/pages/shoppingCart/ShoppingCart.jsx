@@ -7,10 +7,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './ShoppingCart.module.css';
 import NavBar from '../../components/navBar/NavBar';
-import { removeFromCart , finishPurchase} from '../../redux/actions';
+import { removeFromCart, finishPurchase} from '../../redux/actions';
 
 function ShoppingCart() {
-
+  const cartLocalStorage = useSelector((state)=> state.cartLocalStorage);
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state)=> state.user);
   const dispatch = useDispatch();
@@ -21,6 +21,12 @@ function ShoppingCart() {
   const [error, setError] = useState({});
   const [disabledButton, setDisabledButton] = useState(false);
   const [objectPago, setObjectPago] = useState([]);
+
+
+  useEffect(()=>{
+    console.log(cartLocalStorage, cart)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   useEffect(() => {
     const newTotalPrice = cart.reduce((total, product) => {
@@ -62,7 +68,7 @@ function ShoppingCart() {
             description: index.description,
             quantity: newValue,
             unit_price: index.price,
-            currency_id: 'ARG',
+            currency_id: 'COL',
             image: index.img,
             userId: user?.userId,
             productId: index.productId
@@ -138,9 +144,9 @@ function ShoppingCart() {
                     <buttom className={styles.numberLeft} onClick={() => handleQuantityChange(JSON.stringify(carts.size), { target: { value: quantities[JSON.stringify(carts.size)] - 1 } }, Object.values(carts.size))}/>
                         <input
                          type='number'
-                         className={styles.numberQuantity}
                          name={carts.price}
-                         value={quantities[JSON.stringify(carts.size)] }
+                         className={styles.numberQuantity}
+                         value={quantities[JSON.stringify(carts.size)]}
                          onChange={(e) => handleQuantityChange(JSON.stringify(carts.size), e, Object.values(carts.size))}
                          />
                     <buttom className={styles.numberRight}  onClick={() => handleQuantityChange(JSON.stringify(carts.size), { target: { value: quantities[JSON.stringify(carts.size)] + 1 } }, Object.values(carts.size))} />
