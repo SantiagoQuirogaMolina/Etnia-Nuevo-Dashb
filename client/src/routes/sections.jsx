@@ -3,8 +3,9 @@
 /* eslint-disable perfectionist/sort-imports */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
-import React, { lazy, Suspense } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import React, { lazy, Suspense, useEffect } from 'react';
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import DashboardLayout from 'src/layouts/dashboard';
 
@@ -27,6 +28,7 @@ import RegisterForm from '../pages/logIn/registerForm';
 import UpdateProducto from '../pages/Forms/FormEditProduct/FormEditProduct'
 import CrearUser from '../pages/Forms/FormCreateUsers/CreateUsers'
 import EditUser from '../pages/Forms/FormEditUsers/EditUsers'
+
 
 
 const IndexPage = lazy(() => import('../pages/app'));
@@ -78,6 +80,19 @@ function Router() {
   );
 }
 function AdminRoutes() {
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(!user?.idAdmin){
+      if(!user){
+        navigate("/user")
+      }
+      navigate("/")
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
   return (
     <DashboardLayout>
       <Suspense fallback={<div>Loading...</div>}>

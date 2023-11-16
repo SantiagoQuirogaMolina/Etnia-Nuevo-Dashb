@@ -243,6 +243,7 @@ const loginUser = async (req, res) => {
     }
     const userId = user.id;
     const userEmail = user.email;
+    const idAdmin = user.admin;
     
     const passwordMatch = await bcrypt.compare(
       password,
@@ -252,7 +253,7 @@ const loginUser = async (req, res) => {
     if (passwordMatch) {
       // La contraseña proporcionada coincide con la contraseña almacenada en la base de datos
       const token = jwt.sign({ userId: user.dataValues.id }, "your_jwt_secret"); // Reemplaza 'your_jwt_secret' por tu clave JWT real
-      res.json({ token, userId, userEmail });
+      res.json({ token, userId, userEmail, idAdmin });
     } else {
       // Las contraseñas no coinciden
       return res
