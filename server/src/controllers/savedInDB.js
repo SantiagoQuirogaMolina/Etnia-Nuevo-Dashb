@@ -6,7 +6,7 @@ module.exports = async(req,res) =>{
         console.log('running')
             const prenda = prendas.map(prenda => (
                 {
-                 id: prenda.id,
+                 
                  name: prenda.name,
                  brand: prenda.brand,
                  gender: prenda.gender,

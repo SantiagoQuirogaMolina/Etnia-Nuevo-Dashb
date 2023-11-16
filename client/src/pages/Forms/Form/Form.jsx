@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable radix */
 /* eslint-disable perfectionist/sort-named-imports */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -36,17 +34,17 @@ const Form = () => {
     description: '',
     brand: '',
     sale: 0,
-    category: '',
+    category: 'default',
     size: [],
-    color: '',
+    color: 'default',
     price: 0,
-    gender: '',
+    gender: 'default',
     image: '',
     quantity: 0,
   });
 
-
-
+  const category_select = ["Camisetas", "Blusas", "Ciclismo", "Licras", "Pantalonetas", "Vestidos"]
+  const color_select = ["Negro", "Blanco", "Verde", "Amarillo", "Azul", "Cafe", "Gris Oscuro", "Gris Claro","Violeta", "Palo de Rosa", "Beige", "Naranja"]
 
   useEffect(() => {
 
@@ -67,7 +65,6 @@ const Form = () => {
       [event.target.name]: event.target.value,
     });
 
-    // console.log(input)
     setErrors(
       Validation({
         ...input,
@@ -79,12 +76,12 @@ const Form = () => {
 
 
   const handleChangeImage = (event) => {
-   const file = event.target.files[0];
+  
+    const file = event.target.files[0];
     if(file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function charge () {
-        console.log(reader.result)
         setInput({
           ...input,
           [event.target.name]:reader.result,
@@ -96,10 +93,13 @@ const Form = () => {
           [event.target.name]: event.target.value,
         })
       );
-      setErrorSubmit(''); 
-     
+      setErrorSubmit('');  
+      
     }
   }
+
+  console.log(input)
+
 
   let isSubmitDisabled = Object.keys(errors).length > 0;
 
@@ -157,18 +157,14 @@ const Form = () => {
       input.brand = input.brand.toUpperCase();
       input.category = primeraMayuscula(input.category);
       input.color = primeraMayuscula(input.color);
-      //input.sale = parseInt(input.sale);
-      //input.price= parseInt (input.price);
-      console.log(input);
 
-     
+      console.log(input);
 
       if (input.quantity === 0) {
         setErrorSubmit('Debe escoger una talla y una cantidad');
         console.log(errorSubmit);
       }
       else {
-                
         await dispatch(createProduct(input));
 
         setInput({
@@ -176,15 +172,15 @@ const Form = () => {
           description: '',
           brand: '',
           sale: 0,
-          category: '',
+          category: 'default',
           size: [],
-          color: '',
+          color: 'default',
           price: 0,
           gender: 'default',
           image: '',
           quantity: 0,
         });
-        
+        console.log(input);
         // desmarca todo los checkbox
         for (let i = 0; i < document.f1.elements.length; i++) {
           if (document.f1.elements[i].type == 'checkbox') {
@@ -326,17 +322,12 @@ return (
           </div>
 
           <div className="form-group">
-            <label className="label-form" htmlFor="category">
-              Categoria
-            </label>
-            <input
-              className="input1"
-              type="text"
-              id="category"
-              name="category"
-              value={input.category}
-              onChange={handleChange}
-            />
+            <label className="label-form" htmlFor="category">Categoria</label>
+            <select  name="category" onChange={handleChange} value={input.category}>
+              <option value="default">Seleccione categoria</option>
+                {category_select?.map((option, index) => (
+              <option key={index} value={option}>{option}</option>))}
+            </select>
             <p className="errores" style={{ visibility: errors.category ? 'visible' : 'hidden' }}>
               {errors.category}
             </p>
@@ -364,17 +355,12 @@ return (
 
         <div className="form-precio-descuento">
           <div className="form-group">
-            <label className="label-form" htmlFor="color">
-              Color
-            </label>
-            <input
-              className="input1"
-              type="text"
-              id="color"
-              name="color"
-              value={input.color}
-              onChange={handleChange}
-            />
+            <label className="label-form" htmlFor="color">Color</label>
+            <select  name="color" onChange={handleChange} value={input.color} >
+            <option  value="default">Seleccione color</option>
+              {color_select?.map((option, index) => (
+              <option key={index} value={option}>{option}</option>))}
+            </select>
             <p className="errores" style={{ visibility: errors.color ? 'visible' : 'hidden' }}>
               {errors.color}
             </p>
@@ -386,7 +372,6 @@ return (
             <input
               className="input2"
               type="number"
-              min="0"
               id="price"
               name="price"
               value={input.price}
@@ -403,7 +388,7 @@ return (
             </label>
             <input
               className="input2"
-              type="number" min="0"
+              type="number"
               id="sale"
               name="sale"
               value={input.sale}

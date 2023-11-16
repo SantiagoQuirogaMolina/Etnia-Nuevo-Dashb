@@ -18,6 +18,7 @@ if(!input.color){errors.color="Este campo es obligatorio"};
 if (!input.brand.trim()) {errors.brand = 'Este campo es obligatorio';}
 // Price
 if(!input.price){errors.price="Seleccione un precio"};
+if(input.price<0){errors.price="El precio no puede ser negativo"}
 
 // Category
 if (!input.category.trim()) {  errors.category = 'Este campo es obligatorio'};
@@ -26,7 +27,7 @@ if (!input.category.trim()) {  errors.category = 'Este campo es obligatorio'};
 if (input.gender != "female" && input.gender != "male") {  errors.gender = 'Seleccione un género'};
 
 // Imagen
-if(!input.img) {errors.image="Seleccione una imagen para su producto"}
+// if(!input.image) {errors.image="Seleccione una imagen para su producto"}
 
 
 
