@@ -70,9 +70,14 @@ export default function ProductDetail({handleChange}) {
       setInputCantidad(event.target.value)
       setProductUp({
         ...productUp,
-        size : siz
+        size : siz,
+        name: Product.name,
+        description: Product.description,
+        img: Product.img,
+        color: Product.color,
+        price: Product.price 
       })
-    }
+   }
 
 
   //   const handleMouseEnter = () => {   

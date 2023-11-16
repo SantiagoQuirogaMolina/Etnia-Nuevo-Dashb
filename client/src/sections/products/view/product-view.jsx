@@ -29,7 +29,7 @@ import UserTableHead from '../product-table-head';
 import UserTableToolbar from '../product-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
 
-import { getAllProducts } from '../../../redux/actions';
+import { getAllProducts,getDeletedElements } from '../../../redux/actions';
 
 import React, { useEffect } from 'react';
 
@@ -38,6 +38,8 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function ProductsPage() {
   const navigate = useNavigate();
   const productoss = useSelector((state) => state.allProducts);
+  const productossEliminados = useSelector((state) => state.deletedElements);
+
 
   const dispatch = useDispatch();
  
@@ -45,6 +47,14 @@ export default function ProductsPage() {
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getDeletedElements());
+  }, [dispatch]);
+
+  console.log("va a imprimir los estados")
+  console.log(productoss);
+  console.log(productossEliminados);
 
   const [page, setPage] = useState(0);
 
