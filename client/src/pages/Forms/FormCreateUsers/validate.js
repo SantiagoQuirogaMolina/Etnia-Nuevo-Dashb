@@ -2,19 +2,19 @@ const validate = (state) => {
     const errors = {};
     
     const patronEmail = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
-    const patronCharact = /^[a-zA-Z0-9\s]+$/;
+    const patronCharact = /^[A-Za-zÑñáéíóúü]+[- ]{0,1}[A-Za-zÑñáéíóúü]+$/;
     const patronNumerico = /^[0-9]+$/;
-    const patronPassword = /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/;
+    const patronPassword = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,10}$/;
     
     
     if (!state.name) errors.name = 'Este campo es requerido'
-    if (!patronCharact.test((state.name))) errors.name = 'Caracteres especiales no son permitidos'
+    if (!patronCharact.test((state.name))) errors.name = 'Introduzca su nombre'
     if (state.name.length > 250){
       errors.name = 'Debe ser menor a 250 caracteres';
     }
 
     if (!state.last_name) errors.last_name = 'Este campo es requerido'
-    if (!patronCharact.test((state.last_name))) errors.last_name = 'Caracteres especiales no son permitidos'
+    if (!patronCharact.test((state.last_name))) errors.last_name = 'Introduzca apellidos'
     if (state.last_name.length > 250){
       errors.last_name = 'Debe ser menor a 250 caracteres';
     }
@@ -32,7 +32,7 @@ const validate = (state) => {
     }
 
     if(!state.password) errors.password = 'Este campo es requerido' 
-    if (!patronPassword.test(state.password)) errors.password = 'La contraseña debe tener entre 8 y 16 caracteres, al menos un dígito, una minúscula, una mayúscula y un caracter no alfanumérico'
+    if (!patronPassword.test(state.password)) errors.password = 'La contraseña debe tener entre 6 y 10 caracteres, al menos un dígito, una minúscula y una mayúscula'
     
     if(state.password !== state.password1) errors.password1 = 'La contraseña no coincide' 
     
