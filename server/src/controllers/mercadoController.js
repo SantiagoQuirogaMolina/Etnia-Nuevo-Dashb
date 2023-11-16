@@ -28,7 +28,7 @@ const placeOrder = async (req, res) => {
         back_urls: {
           failure: "http://localhost:3030",
           pending: "http://localhost:3001/purchase/pending",
-          success: "http://localhost:3030/purchase/success",
+          success: "http://localhost:3030/confirmPurchase",
         },
         auto_return: "approved",
       },

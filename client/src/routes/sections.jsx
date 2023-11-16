@@ -28,6 +28,7 @@ import RegisterForm from '../pages/logIn/registerForm';
 import UpdateProducto from '../pages/Forms/FormEditProduct/FormEditProduct'
 import CrearUser from '../pages/Forms/FormCreateUsers/CreateUsers'
 import EditUser from '../pages/Forms/FormEditUsers/EditUsers'
+import ConfirmPurchase from '../pages/Reviews/confirmPurchase'
 
 
 
@@ -75,6 +76,7 @@ function Router() {
       <Route exact path="/cuentabanco" element={<PublicFormCtaBanco />} />
       <Route exact path="/RegisterForm" element={<PublicRegisterForm />} />
       <Route exact path="/ConfirmTokenForm" element={<PublicConfirmTokenForm />} />
+      <Route exact path="/confirmPurchase" element={<PublicConfirmPurchase />} />
       <Route exact path="*" element={<PublicRoutes />} />
     </Routes>
   );
@@ -190,6 +192,16 @@ function PublicRoutes() {
     </Routes>
   );
 }
+function PublicConfirmPurchase() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route exact path="/" element={<ConfirmPurchase />} />
+      </Routes>
+    </Suspense>
+  );
+}
+
 function PublicConfirmTokenForm() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
