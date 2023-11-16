@@ -264,6 +264,14 @@ const loginUser = async (req, res) => {
     return res.status(500).json({ error: "Error interno del servidor" });
   }
 };
+const restoreUserById = async (id) => {
+  try {
+    const restoredUser = await User.restore({ where: { id } });
+    return restoredUser; 
+  } catch (error) {
+    throw error; 
+  }
+};
 module.exports = {
   registerUser,
   getAllUser,
@@ -274,5 +282,6 @@ module.exports = {
   updateUserById,
   loginUser,
   confirmEmailControll,
-  postRegsiterTercerosController
+  postRegsiterTercerosController,
+  restoreUserById
 };

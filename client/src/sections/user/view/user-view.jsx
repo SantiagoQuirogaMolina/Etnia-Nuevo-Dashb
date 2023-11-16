@@ -28,13 +28,19 @@ import TableEmptyRows from '../table-empty-rows';
 import UserTableToolbar from '../user-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
 
-import { getAllUsers } from '../../../redux/actions';
+import { getDeletedUsers,getAllUsers } from '../../../redux/actions';
 
 // ----------------------------------------------------------------------
 
 export default function UserPage() {
   const usersss = useSelector((state) => state.allUsers);
+  const usersssEliminados = useSelector((state) => state.deletedUsers);
   const navigate = useNavigate();
+
+
+  const [currentList, setCurrentList] = useState(usersss);
+  const [deletedList, setdeletedList] = useState(null);
+
 
   const dispatch = useDispatch();
   // Utiliza useEffect para llamar automáticamente la función cuando el componente se monta
@@ -42,6 +48,9 @@ export default function UserPage() {
     dispatch(getAllUsers());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getDeletedUsers());
+  }, [dispatch]);
 
   const [page, setPage] = useState(0);
 
@@ -109,16 +118,43 @@ export default function UserPage() {
   });
 
   const notFound = !dataFiltered.length && !!filterName;
+
   const handleRedireccion = () => {
     navigate('/crearuser'); // Utiliza navigate para redirigir
+  };
+  const handleDeletedList = () => {
+    setdeletedList(true);
+    setCurrentList(usersssEliminados);
+  };
+
+  const handleActualList = () => {
+    setdeletedList(false);
+    setCurrentList(usersss);
   };
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4">Users</Typography>
 
-        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}  onClick={handleRedireccion}>
-          New User
+        <Button variant="contained" color="inherit" onClick={handleActualList}>
+          Actuales
+        </Button>
+        <Button
+          variant="contained"
+          color="inherit"
+          startIcon={<Iconify icon="eva:plus-fill" />}
+          onClick={handleRedireccion}
+          style={{ backgroundColor: 'green', color: 'white' }}
+        >
+          Nuevo
+        </Button>
+        <Button
+          variant="contained"
+          color="inherit"
+          onClick={handleDeletedList}
+          style={{ backgroundColor: 'red', color: 'white' }}
+        >
+          Eliminados
         </Button>
       </Stack>
 
@@ -149,7 +185,7 @@ export default function UserPage() {
                 ]}
               />
               <TableBody>
-                {usersss.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                {currentList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                   <UserTableRow
                     id={row.id}
                     key={row.id}
@@ -158,6 +194,7 @@ export default function UserPage() {
                     status={row.status}
                     avatarUrl={row.avatarUrl}
                     isVerified={row.isVerify}
+                    deletedAt={deletedList}
                     selected={selected.indexOf(row.id) !== -1}
                     handleClick={(event) => handleClick(event, row.id)}
                   />

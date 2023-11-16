@@ -9,6 +9,7 @@ const {
   loginUser,
   confirmEmailControll,
   userEmail,
+  restoreUserById,
   postRegsiterTercerosController
 } = require("../controllers/userControllers");
 
@@ -109,7 +110,19 @@ const postRegsiterTercerosHandler = async (req, res) => {
 };
 // /:id = params si modifica
 // query === ? name&raza, no modifica la ruta
-
+const restoreUserHandler = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const product = await restoreUserById(id);
+    if (product) {
+      res.status(200).json(product);
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 module.exports = {
   getUsersHandler: getUsersHandler,
   getIdHandler: getIdHandler,
@@ -120,5 +133,6 @@ module.exports = {
   loginUserHandler: loginUserHandler,
   postUsersRegsiter: postUsersRegsiter,
   confirmEmail: confirmEmail,
+  restoreUserHandler:restoreUserHandler,
   postRegsiterTercerosHandler: postRegsiterTercerosHandler,
 };

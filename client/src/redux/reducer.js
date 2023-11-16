@@ -43,6 +43,7 @@ import {
   GET_PURCHASE_DETAIL,
   PERSIST_USER,
   GET_DELETED_ELEMENTS,
+  GET_DELETED_USERS,
 
   REGISTRO_TERCEROS,
 
@@ -77,7 +78,9 @@ const initialState = {
   localstorage: [],
   user: null,
   review:[],
-  deletedElements:[]
+  deletedElements:[],
+  deletedUsers:[]
+
 };
 
 
@@ -346,6 +349,11 @@ const reducer = (state = initialState, action) => {
           ...state,
           deletedElements:action.payload
         }
+    case GET_DELETED_USERS:
+        return{
+        ...state,
+        deletedUsers:action.payload
+        }    
     default:
       return { ...state };
   }

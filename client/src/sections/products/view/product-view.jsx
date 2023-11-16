@@ -29,7 +29,7 @@ import UserTableHead from '../product-table-head';
 import UserTableToolbar from '../product-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
 
-import { getAllProducts,getDeletedElements } from '../../../redux/actions';
+import { getAllProducts, getDeletedElements } from '../../../redux/actions';
 
 import React, { useEffect } from 'react';
 
@@ -40,9 +40,10 @@ export default function ProductsPage() {
   const productoss = useSelector((state) => state.allProducts);
   const productossEliminados = useSelector((state) => state.deletedElements);
 
+  const [currentList, setCurrentList] = useState(productoss);
+  const [deletedList, setdeletedList] = useState(null);
 
   const dispatch = useDispatch();
- 
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -50,9 +51,10 @@ export default function ProductsPage() {
 
   useEffect(() => {
     dispatch(getDeletedElements());
-  }, [dispatch]);
+    setCurrentList(productoss);
+  }, [dispatch, productoss]);
 
-  console.log("va a imprimir los estados")
+  console.log('va a imprimir los estados');
   console.log(productoss);
   console.log(productossEliminados);
 
@@ -130,19 +132,39 @@ export default function ProductsPage() {
   const handleRedireccion = () => {
     navigate('/Form'); // Utiliza navigate para redirigir
   };
+  const handleDeletedList = () => {
+    setdeletedList(true);
+    setCurrentList(productossEliminados);
+  };
+
+  const handleActualList = () => {
+    setdeletedList(false);
+    setCurrentList(productoss);
+  };
 
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4">Products</Typography>
-
+        <Button variant="contained" color="inherit" onClick={handleActualList}>
+          Actuales
+        </Button>
         <Button
           variant="contained"
           color="inherit"
           startIcon={<Iconify icon="eva:plus-fill" />}
           onClick={handleRedireccion}
+          style={{ backgroundColor: 'green', color: 'white' }}
         >
-          New Product
+          Nuevo
+        </Button>
+        <Button
+          variant="contained"
+          color="inherit"
+          onClick={handleDeletedList}
+          style={{ backgroundColor: 'red', color: 'white' }}
+        >
+          Eliminados
         </Button>
       </Stack>
 
@@ -176,9 +198,9 @@ export default function ProductsPage() {
                   { id: '' },
                 ]}
               />
-              {productoss && (
+              {currentList && (
                 <TableBody>
-                  {productoss
+                  {currentList
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
                       <UserTableRow
@@ -193,13 +215,14 @@ export default function ProductsPage() {
                         cantidad={row.quantity}
                         precio={row.price}
                         sale={row.sale}
+                        deletedAt={deletedList}
                         selected={selected.indexOf(row.name) !== -1}
                         handleClick={(event) => handleClick(event, row.name)}
                       />
                     ))}
                   <TableEmptyRows
                     height={77}
-                    emptyRows={emptyRows(page, rowsPerPage, productoss.length)}
+                    emptyRows={emptyRows(page, rowsPerPage, currentList.length)}
                   />
                   {notFound && <TableNoData query={filterName} />}
                 </TableBody>
