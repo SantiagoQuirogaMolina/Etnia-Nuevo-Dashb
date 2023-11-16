@@ -12,7 +12,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LogoEtniablanco from "../../assets/png/LogoEtniablanco.png";
-import Google from "../../assets/png/Google.png";
 import styles from "./LogIn.module.css";
 import LoginButton from "./logInButton.jsx";
 import LogoutButton from "./logOutButton.jsx";
@@ -135,10 +134,10 @@ function LogIn(props) {
       <nav className={styles.enlacesDiv} >
           <ul className={styles.enlacesUl}>
             <li >
-              <Link className={styles.enlaces}  to="/RegisterForm">¿Aún no tienes una cuenta? obtener una</Link>
+              <p>¿Aún no tienes una cuenta? <Link className={styles.enlaces}  to="/RegisterForm">Registrate</Link></p>
             </li>
             <li>
-              <Link className={styles.enlaces} to="/recuperar-contrasena">¿Olvidaste tu Password?</Link>
+              <p>¿Olvidaste tu Password? <Link className={styles.enlaces} to="/recuperar-contrasena">Recuperala</Link></p>
             </li>
           </ul>
         </nav>
