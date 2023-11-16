@@ -41,16 +41,22 @@ function RegisterForm(props) {
       setError("Por favor, ingresa un correo electrónico válido.");
       return;
     }
-
+    
     if (!password) {
       setError("El campo de contraseña no puede estar vacío.");
       return;
     }
 
-    if (password.length < 8) {
-      setError("La contraseña debe tener al menos 8 caracteres.");
+    const passRegex = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,10}$/
+    if (!passRegex.test(password)){
+      setError("La contraseña debe tener entre 6 y 10 caracteres, al menos un dígito, una minúscula y una mayúscula");
       return;
     }
+
+    // if (password.length < 8) {
+    //   setError("La contraseña debe tener al menos 8 caracteres.");
+    //   return;
+    // }
     if (!confirmPassword) {
       setError("Por favor, confirma tu contraseña.");
       return;

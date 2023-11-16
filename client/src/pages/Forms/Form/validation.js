@@ -13,14 +13,14 @@ if(input.name.length > 100){errors.name = "El nombre debe estar por debajo de 10
 if(input.description.length > 250){errors.description = "Hasta 250 caracteres"};
 
 // Color
-if(!input.color){errors.color="Este campo es obligatorio"};
+if(input.color === "default"){errors.color="Seleccione un color"};
 // Brand
-if (!input.brand.trim()) {errors.brand = 'Este campo es obligatorio';}
+if (!input.brand.trim()) {errors.brand = 'Este campo es obligatorio'};
 // Price
 if(!input.price){errors.price="Seleccione un precio"};
-
+if(input.price<0){errors.price="El precio no puede ser negativo"};
 // Category
-if (!input.category.trim()) {  errors.category = 'Este campo es obligatorio'};
+if (input.category === "default") {  errors.category = 'Seleccione una categoria'};
 
 // Genero
 if (input.gender != "female" && input.gender != "male") {  errors.gender = 'Seleccione un género'};

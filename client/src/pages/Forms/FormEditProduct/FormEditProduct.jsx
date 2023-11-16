@@ -54,6 +54,9 @@ const FormEditProduct = () => {
     quantityXXL: 0,
   });
   
+  const category_select = ["Camisetas", "Blusas", "Ciclismo", "Licras", "Pantalonetas", "Vestidos"]
+  const color_select = ["Negro", "Blanco", "Verde", "Amarillo", "Azul", "Cafe", "Gris Oscuro", "Gris Claro","Violeta", "Palo de Rosa", "Beige", "Naranja"]
+
   useEffect (() => {
     async function getByID() {
     const { data } = await axios.get(`http://localhost:3001/products/${id}`);
@@ -73,7 +76,7 @@ if (input.size) {
       document.querySelector('#quantityXS').value = option.XS
       document.querySelector('#quantityXS').disabled = false
       document.getElementById('XS').checked = true
-      input.quantityXS = option.XS
+     
    };
 
    if (Object.keys(option).includes("S")) {
@@ -136,6 +139,28 @@ if (input.size) {
     setErrorSubmit('');
   };
 
+  const handleChangeImage = (event) => {
+  
+    const file = event.target.files[0];
+    if(file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function charge () {
+        setInput({
+          ...input,
+          [event.target.name]:reader.result,
+        }) 
+      }     
+      setErrors(
+        Validation({
+          ...input,
+          [event.target.name]: event.target.value,
+        })
+      );
+      setErrorSubmit('');  
+      
+    }
+  }
  
 
  // let isSubmitDisabled = Object.keys(errors).length > 0;
@@ -193,19 +218,19 @@ if (input.size) {
     input.category = primeraMayuscula(input.category);
     input.color = primeraMayuscula(input.color);
 
-    console.log(input);
+    if (input.image ===undefined) input.image = input.img
 
-    if (input.quantity === 0) {
-      setErrorSubmit('Debe escoger una talla y una cantidad');
-      console.log (errorSubmit);
-    }
-    else {
+    // if (input.quantity === 0) {
+    //   setErrorSubmit('Debe escoger una talla y una cantidad');
+    //   console.log (errorSubmit);
+    // }
+    
       console.log(input);
       dispatch(updateProduct(input));
      
       mostrarAlertaExitosa();
       dispatch(clearErrors());
-    }
+    
   };
 
   const habilitar = (event) => {
@@ -316,17 +341,12 @@ if (input.size) {
             </div>
 
             <div className="formedit-group">
-              <label className="label-form" htmlFor="category">
-                Categoria
-              </label>
-              <input
-                className="input1"
-                type="text"
-                id="category"
-                name="category"
-                value={input.category}
-                onChange={handleChange}
-              />
+              <label className="label-form" htmlFor="category">Categoria</label>
+              <select  name="category" onChange={handleChange} value={input.category}>
+              <option value="default">Seleccione categoria</option>
+                {category_select?.map((option, index) => (
+              <option key={index} value={option}>{option}</option>))}
+            </select>
               <p className="errores" style={{ visibility: errors.category ? 'visible' : 'hidden' }}>
                 {errors.category}
               </p>
@@ -355,17 +375,14 @@ if (input.size) {
 
           <div className="formedit-precio-descuento">
             <div className="formedit-group">
-              <label className="label-form" htmlFor="color">
-                Color
-              </label>
-              <input
-                className="input1"
-                type="text"
-                id="color"
-                name="color"
-                value={input.color}
-                onChange={handleChange}
-              />
+              <label className="label-form" htmlFor="color">Color</label>
+              <select  name="color" onChange={handleChange} value={input.color} >
+              <option  value="default">Seleccione color</option>
+              {color_select?.map((option, index) => (
+              <option key={index} value={option}>{option}</option>))}
+            </select>
+
+              
               <p className="errores" style={{ visibility: errors.color ? 'visible' : 'hidden' }}>
                 {errors.color}
               </p>
@@ -425,11 +442,11 @@ if (input.size) {
             </label>
             <input
               className="input3"
-              type="url"
+              type="file"
               id="image"
               name="image"
-              value={input.img}
-              onChange={handleChange}
+              
+              onChange={handleChangeImage}
             />
             <p className="errores" style={{ visibility: errors.image ? 'visible' : 'hidden' }}>
               {errors.image}
@@ -440,7 +457,7 @@ if (input.size) {
           <div className="previewImage">
             <h5>Imagen Previa:</h5>
             <div className="img-container">
-              <img className="img" src={input.img} alt="" />
+              <img className="img" src={input.image ===undefined ? input.img: input.image} alt="" />
             </div>
             <p className="errorsubmit">{errorSubmit}</p>
           </div>
