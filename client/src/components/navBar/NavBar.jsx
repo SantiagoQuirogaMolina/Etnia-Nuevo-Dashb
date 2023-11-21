@@ -44,6 +44,8 @@ function NavBar(props) {
     }
   };
 
+  console.log("aaa")
+
   const tokenObject = { sub: tokenTerceros, email: emailTerceros };
 
   useEffect(() => {
